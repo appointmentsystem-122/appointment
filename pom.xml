@@ -239,6 +239,9 @@
                     <reuseForks>false</reuseForks>
                     <!-- Tests + Flyway: classpath mode so migration SQL from main/resources is visible to Flyway -->
                     <useModulePath>false</useModulePath>
+                    <!-- Prevent CI from waiting forever on a stuck forked test JVM -->
+                    <forkedProcessTimeoutInSeconds>900</forkedProcessTimeoutInSeconds>
+                    <forkedProcessExitTimeoutInSeconds>60</forkedProcessExitTimeoutInSeconds>
                 </configuration>
             </plugin>
 
