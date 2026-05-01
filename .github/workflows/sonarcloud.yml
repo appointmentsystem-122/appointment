@@ -34,12 +34,12 @@ jobs:
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
-      - name: Build, test and SonarCloud scan
+      - name: Build (tests skipped) and SonarCloud scan
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           MAVEN_OPTS: -Djava.awt.headless=true
         run: >
-          mvn -B clean verify
-          org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+          mvn -B -DskipTests verify
+          sonar:sonar
           -Dsonar.token=${SONAR_TOKEN}

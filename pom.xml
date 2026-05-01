@@ -255,6 +255,33 @@
 
     <!-- Run: mvn verify -Pcoverage-80 to enforce line + branch coverage >= 80% on included code. -->
     <profiles>
+        <!--
+          Optional CI profile to run non-UI tests only.
+          Use: mvn -Pci-no-ui-tests verify
+        -->
+        <profile>
+            <id>ci-no-ui-tests</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/com/appointmentscheduler/presentation/**</exclude>
+                                <exclude>**/com/generic/appointments/ui/**</exclude>
+                                <exclude>**/com/appointmentscheduler/testsupport/PresentationFxHarness*</exclude>
+                                <exclude>**/*Fx*Test.java</exclude>
+                                <exclude>**/*Ui*Test.java</exclude>
+                                <exclude>**/*MainApp*Test.java</exclude>
+                                <exclude>**/*Controller*Test.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
         <profile>
             <id>coverage-80</id>
             <build>
