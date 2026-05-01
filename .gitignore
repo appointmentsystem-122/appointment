@@ -1,6 +1,9 @@
 target/
 .scannerwork/
 .sonar/
+logs/
+apache-maven-3.9.9/
+out.log
 .idea/
 *.iml
 # Local secrets (email, etc.) — create this file next to application.properties
