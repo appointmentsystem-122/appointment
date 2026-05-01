@@ -1,0 +1,2 @@
+Error: Could not find or load main class org.codehaus.plexus.classworlds.launcher.Launcher
+Caused by: java.lang.ClassNotFoundException: org.codehaus.plexus.classworlds.launcher.Launcher

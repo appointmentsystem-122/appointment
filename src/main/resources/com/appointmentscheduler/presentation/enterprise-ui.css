@@ -1,0 +1,243 @@
+/*
+ * Enterprise UI - Corporate layout and components
+ * Complements application.css (Navy & Teal theme)
+ */
+
+/* App bar (Book / Modify screens) */
+.app-bar {
+    -fx-background-color: #1e3a5f;
+    -fx-padding: 16 24;
+}
+
+.app-bar .button-export,
+.app-bar .button-danger {
+    -fx-cursor: hand;
+}
+
+/* Content area */
+.content-area {
+    -fx-background-color: #f1f5f9;
+}
+
+.dark-mode .content-area {
+    -fx-background-color: #0b1221;
+}
+
+/* Breadcrumbs */
+.breadcrumbs {
+    -fx-spacing: 8px;
+    -fx-padding: 0 0 20 0;
+}
+
+.breadcrumb-text {
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #64748b;
+}
+
+.breadcrumb-arrow {
+    -fx-text-fill: #94a3b8;
+    -fx-font-size: 13px;
+}
+
+.breadcrumb-active {
+    -fx-text-fill: #0d9488;
+    -fx-font-weight: 700;
+}
+
+.dark-mode .breadcrumb-active {
+    -fx-text-fill: #5eead4;
+}
+
+/* Sidebar refinements (dark navy) */
+.sidebar .button-export {
+    -fx-text-fill: #94a3b8;
+    -fx-border-color: #475569;
+}
+
+.sidebar .button-export:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.06);
+    -fx-text-fill: #e2e8f0;
+}
+
+.sidebar .button-danger {
+    -fx-text-fill: white;
+    -fx-background-color: linear-gradient(to right bottom, #dc2626, #b91c1c);
+}
+
+.sidebar .button-danger:hover {
+    -fx-background-color: #b91c1c;
+}
+
+/* Table view */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+}
+
+.table-view .column-header {
+    -fx-background-color: #f8fafc;
+    -fx-text-fill: #334155;
+    -fx-font-weight: 700;
+    -fx-font-size: 12px;
+    -fx-padding: 16 20px;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 0 1px 1px 0;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #f8fafc;
+}
+
+.table-row-cell:even {
+    -fx-background-color: #ffffff;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: rgba(13, 148, 136, 0.1);
+}
+
+.dark-mode .table-view {
+    -fx-border-color: #334155;
+}
+
+.dark-mode .table-view .column-header {
+    -fx-background-color: #1e293b;
+    -fx-text-fill: #e2e8f0;
+    -fx-border-color: #334155;
+}
+
+.dark-mode .table-row-cell:odd {
+    -fx-background-color: #1e293b;
+}
+
+.dark-mode .table-row-cell:even {
+    -fx-background-color: #0f172a;
+}
+
+.dark-mode .table-row-cell:selected {
+    -fx-background-color: rgba(94, 234, 212, 0.15);
+}
+
+/* Login screen - premium auth */
+.login-card .label-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #1e293b;
+}
+
+.dark-mode .login-card {
+    -fx-background-color: #1e293b;
+    -fx-border-color: #334155;
+}
+
+.dark-mode .login-card .label-title {
+    -fx-text-fill: #f8fafc;
+}
+
+/* Empty state */
+.empty-state-container {
+    -fx-alignment: center;
+    -fx-padding: 60 40;
+}
+
+.empty-state-icon {
+    -fx-fill: #cbd5e1;
+}
+
+.dark-mode .empty-state-icon {
+    -fx-fill: #475569;
+}
+
+.empty-state-label {
+    -fx-text-fill: #64748b;
+    -fx-font-size: 15px;
+    -fx-font-weight: 600;
+}
+
+.dark-mode .empty-state-label {
+    -fx-text-fill: #94a3b8;
+}
+
+/* Primary button - teal CTA */
+.button-primary {
+    -fx-background-color: linear-gradient(to bottom right, #0d9488, #0f766e);
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-weight: 700;
+    -fx-padding: 14 28px;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(13, 148, 136, 0.35), 10, 0, 0, 4);
+}
+
+.button-primary:hover {
+    -fx-background-color: #0f766e;
+    -fx-effect: dropshadow(three-pass-box, rgba(13, 148, 136, 0.4), 14, 0, 0, 6);
+}
+
+/* Dark mode - sidebar & cards */
+.dark-mode .sidebar {
+    -fx-background-color: #0f172a;
+}
+
+.dark-mode .card,
+.dark-mode .stat-card {
+    -fx-background-color: #1e293b;
+    -fx-border-color: #334155;
+}
+
+.dark-mode .label-header,
+.dark-mode .label-title {
+    -fx-text-fill: #f8fafc;
+}
+
+.dark-mode .stat-value,
+.dark-mode .section-header {
+    -fx-text-fill: #f8fafc;
+}
+
+.dark-mode .stat-label {
+    -fx-text-fill: #94a3b8;
+}
+
+/* High contrast (accessibility) */
+.high-contrast .root {
+    -fx-background-color: #000000;
+}
+
+.high-contrast .card,
+.high-contrast .stat-card {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #000000;
+    -fx-border-width: 2px;
+}
+
+.high-contrast .label-header,
+.high-contrast .stat-value,
+.high-contrast .section-header {
+    -fx-text-fill: #000000;
+}
+
+.high-contrast .stat-label,
+.high-contrast .breadcrumb-text {
+    -fx-text-fill: #000000;
+}
+
+.high-contrast .sidebar {
+    -fx-background-color: #000000;
+}
+
+.high-contrast .sidebar-title,
+.high-contrast .sidebar .sidebar-btn {
+    -fx-text-fill: #ffffff;
+}
+
+.high-contrast .button-primary {
+    -fx-background-color: #000000;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #000000;
+}

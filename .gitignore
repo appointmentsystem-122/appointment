@@ -1,0 +1,7 @@
+target/
+.scannerwork/
+.sonar/
+.idea/
+*.iml
+# Local secrets (email, etc.) — create this file next to application.properties
+src/main/resources/application-local.properties

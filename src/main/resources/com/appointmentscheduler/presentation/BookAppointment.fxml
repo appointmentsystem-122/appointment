@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="800.0" prefWidth="1280.0" styleClass="root, login-bg" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.appointmentscheduler.presentation.BookAppointmentController">
+    <top>
+        <HBox alignment="CENTER_LEFT" styleClass="app-bar">
+            <Label text="Appointment booking" style="-fx-text-fill: #e2e8f0; -fx-font-size: 16px; -fx-font-weight: 700;"/>
+            <Region HBox.hgrow="ALWAYS" />
+            <Button mnemonicParsing="false" onAction="#handleBack" styleClass="button-export" text="رجوع / Back" />
+            <Button mnemonicParsing="false" onAction="#handleLogout" styleClass="button-danger" text="تسجيل الخروج / Logout" />
+        </HBox>
+    </top>
+    <center>
+        <StackPane>
+            <ScrollPane fitToWidth="true" styleClass="booking-scroll-pane" maxWidth="720">
+                <VBox alignment="TOP_CENTER" spacing="24.0" styleClass="login-card book-standalone-card">
+                    <padding><Insets top="28" right="32" bottom="36" left="32" /></padding>
+                    <VBox alignment="CENTER" spacing="8">
+                        <Label styleClass="label-title" text="Book Appointment" />
+                        <Label text="اختر الخدمة والوقت والتفضيلات · Service, time, and optional preferences" style="-fx-text-fill: #64748b; -fx-font-size: 13px; -fx-font-weight: 600;" wrapText="true" />
+                    </VBox>
+                    <VBox spacing="20.0" maxWidth="620">
+                        <Label text="Select Date" styleClass="stat-label"/>
+                        <DatePicker fx:id="datePicker" maxWidth="1.7976931348623157E308" onAction="#handleDateSelection" styleClass="date-picker"/>
+                        <Label text="Available Time Slots" styleClass="stat-label">
+                            <VBox.margin><Insets top="8" /></VBox.margin>
+                        </Label>
+                        <ComboBox fx:id="timeSlotCombo" maxWidth="1.7976931348623157E308" promptText="Choose a time slot" styleClass="combo-box"/>
+                        <Label text="نوع الخدمة والتنسيق / Service type &amp; format" styleClass="stat-label">
+                            <VBox.margin><Insets top="8" /></VBox.margin>
+                        </Label>
+                        <ComboBox fx:id="typeCombo" maxWidth="1.7976931348623157E308" promptText="اختر من القائمة · Select from list" styleClass="combo-box"/>
+
+                        <Label text="Notes / ملاحظات (optional)" styleClass="stat-label">
+                            <VBox.margin><Insets top="12" /></VBox.margin>
+                        </Label>
+                        <TextArea fx:id="notesField" prefRowCount="2" wrapText="true" maxWidth="1.7976931348623157E308" styleClass="text-area form-notes" promptText="Requests or context for staff…"/>
+
+                        <HBox spacing="12" alignment="CENTER_LEFT">
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Label text="Day-of phone / هاتف التواصل" styleClass="stat-label"/>
+                                <TextField fx:id="contactPhoneField" maxWidth="1.7976931348623157E308" styleClass="text-field" promptText="Optional"/>
+                            </VBox>
+                            <VBox spacing="6" prefWidth="120">
+                                <Label text="Party size" styleClass="stat-label"/>
+                                <Spinner fx:id="partySizeSpinner" editable="true" styleClass="spinner"/>
+                            </VBox>
+                        </HBox>
+                        <HBox spacing="12" alignment="CENTER_LEFT">
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Label text="Reminder / تذكير" styleClass="stat-label"/>
+                                <ComboBox fx:id="reminderCombo" maxWidth="1.7976931348623157E308" styleClass="combo-box"/>
+                            </VBox>
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Label text="Language / لغة" styleClass="stat-label"/>
+                                <ComboBox fx:id="languageCombo" maxWidth="1.7976931348623157E308" styleClass="combo-box"/>
+                            </VBox>
+                        </HBox>
+                        <VBox spacing="6">
+                            <Label text="Accessibility / إمكانية الوصول" styleClass="stat-label"/>
+                            <TextField fx:id="accessibilityField" maxWidth="1.7976931348623157E308" styleClass="text-field" promptText="Optional"/>
+                        </VBox>
+                    </VBox>
+                    <VBox alignment="CENTER" spacing="16" maxWidth="620">
+                        <HBox alignment="CENTER_RIGHT" spacing="12">
+                            <Button mnemonicParsing="false" onAction="#handleBack" styleClass="button-export" text="Cancel" />
+                            <Button fx:id="btnConfirmBooking" mnemonicParsing="false" onAction="#handleConfirmBooking" styleClass="button-primary" text="حجز الموعد / Confirm Booking" disable="true" />
+                        </HBox>
+                        <Label fx:id="messageLabel" styleClass="error-label"/>
+                    </VBox>
+                </VBox>
+            </ScrollPane>
+        </StackPane>
+    </center>
+</BorderPane>

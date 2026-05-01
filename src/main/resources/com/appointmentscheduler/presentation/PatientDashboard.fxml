@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.Pagination?>
+
+<BorderPane prefHeight="800.0" prefWidth="1280.0" styleClass="root" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.appointmentscheduler.presentation.PatientDashboardController">
+    <!-- LEFT SIDEBAR -->
+    <left>
+        <VBox prefWidth="280.0" spacing="12.0" styleClass="sidebar" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="30.0" />
+            </padding>
+            <VBox spacing="6" >
+                <VBox.margin><Insets bottom="24.0" /></VBox.margin>
+                <Label styleClass="sidebar-title" text="Customer portal / بوابة العميل" />
+                <Label styleClass="sidebar-subtitle" text="Bookings &amp; scheduling / الحجوزات والجدولة" />
+            </VBox>
+            
+            <Button fx:id="btnNavAppointments" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNavAppointments" styleClass="sidebar-btn, sidebar-btn-active" text="My Appointments">
+                <graphic><SVGPath content="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z" styleClass="icon" scaleX="1.1" scaleY="1.1"/></graphic>
+            </Button>
+            <Button fx:id="btnNavBook" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNavBook" styleClass="sidebar-btn" text="Book New Appointment">
+                <graphic><SVGPath content="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zm-7-9h-2v3H7v2h3v3h2v-3h3v-2h-3v-3z" styleClass="icon" scaleX="1.1" scaleY="1.1"/></graphic>
+            </Button>
+            <Button fx:id="btnNavProfile" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNavProfile" styleClass="sidebar-btn" text="My Profile Settings">
+                <graphic><SVGPath content="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" styleClass="icon" scaleX="1.1" scaleY="1.1"/></graphic>
+            </Button>
+            <Button fx:id="btnNavMessages" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNavMessages" styleClass="sidebar-btn" text="Messages / الرسائل">
+                <graphic><SVGPath content="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" styleClass="icon" scaleX="1.1" scaleY="1.1"/></graphic>
+            </Button>
+            
+            <VBox alignment="BOTTOM_CENTER" VBox.vgrow="ALWAYS" spacing="10">
+                <Label fx:id="patientSessionLabel" styleClass="sidebar-session-info" text="" />
+                <Label fx:id="footerVersionLabel" styleClass="sidebar-footer-version" />
+                <Label styleClass="sidebar-footer-shortcuts" text="F5 Refresh · Ctrl+Enter Confirm" />
+                <Label styleClass="sidebar-footer-help" text="Help · Support" />
+                <Button fx:id="btnThemeToggle" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleToggleTheme" styleClass="button-export" text="Switch Theme" />
+                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleLogout" styleClass="button-danger" text="Logout" />
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- MAIN CONTENT AREA (SPA) -->
+    <center>
+        <VBox styleClass="patient-dashboard-main" alignment="TOP_CENTER" BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS">
+            <HBox styleClass="patient-topbar" alignment="CENTER_LEFT" spacing="12">
+                <StackPane fx:id="userAvatarPane" styleClass="user-avatar">
+                    <Label fx:id="userInitialsLabel" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;" />
+                </StackPane>
+                <Region HBox.hgrow="ALWAYS" />
+                <HBox fx:id="notificationBarPlaceholder" alignment="CENTER_RIGHT" spacing="8" />
+                <Button fx:id="btnShortcuts" mnemonicParsing="false" onAction="#handleShowShortcuts" styleClass="header-icon-btn shortcut-btn-icon" minWidth="44" minHeight="44" maxWidth="44" maxHeight="44">
+                    <tooltip><Tooltip text="Keyboard shortcuts (?)" /></tooltip>
+                    <graphic>
+                        <SVGPath content="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-.01 6c0 .55-.45 1-1 1s-1-.45-1-1 .45-1 1-1 1 .45 1 1z" styleClass="icon" scaleX="1.1" scaleY="1.1"/>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnRefreshClient" mnemonicParsing="false" onAction="#handleRefreshClient" styleClass="button-export" text="Refresh">
+                    <tooltip><Tooltip text="Reload data (F5)" /></tooltip>
+                    <graphic><SVGPath content="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" styleClass="icon" scaleX="1.0" scaleY="1.0"/></graphic>
+                </Button>
+                <Button mnemonicParsing="false" onAction="#handleLogout" styleClass="button-danger" text="تسجيل الخروج / Logout" />
+            </HBox>
+        <ScrollPane fx:id="patientScrollPane" styleClass="patient-dashboard-scroll" fitToWidth="true" VBox.vgrow="ALWAYS">
+            <StackPane fx:id="contentArea" styleClass="content-area patient-content-inner">
+                <padding>
+                    <Insets bottom="48.0" left="40.0" right="40.0" top="32.0" />
+                </padding>
+
+            <!-- VIEW 1: MY APPOINTMENTS (Redesigned) -->
+            <VBox fx:id="appointmentsView" spacing="24" styleClass="appointments-page">
+                <!-- Page header: breadcrumbs -->
+                <HBox styleClass="breadcrumbs" alignment="CENTER_LEFT">
+                    <Label text="Customer portal / بوابة العميل" styleClass="breadcrumb-text"/>
+                    <Label text=" / " styleClass="breadcrumb-arrow"/>
+                    <Label text="My Appointments" styleClass="breadcrumb-text, breadcrumb-active"/>
+                </HBox>
+
+                <!-- Greeting row: welcome (left) | meta + CTA (right) -->
+                <HBox styleClass="page-header-row" alignment="CENTER_LEFT" spacing="20">
+                    <VBox spacing="4">
+                        <Label fx:id="welcomeLabel" styleClass="page-title" text="Welcome," />
+                        <Label fx:id="appointmentsCountLabel" styleClass="page-subtitle" text="Showing 0 item(s)" />
+                    </VBox>
+                    <Region HBox.hgrow="ALWAYS" />
+                    <HBox alignment="CENTER_RIGHT" spacing="10">
+                        <Label fx:id="lastUpdatedLabel" styleClass="meta-label" text="Last updated: --:--" />
+                    </HBox>
+                </HBox>
+
+                <!-- Quick stats strip -->
+                <HBox styleClass="stats-strip" alignment="CENTER_LEFT" spacing="12">
+                    <HBox styleClass="stat-pill" alignment="CENTER_LEFT" spacing="6">
+                        <SVGPath content="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z" styleClass="stat-pill-icon" scaleX="0.9" scaleY="0.9"/>
+                        <Label fx:id="statUpcomingLabel" styleClass="stat-pill-text" text="Upcoming: 0" />
+                    </HBox>
+                </HBox>
+
+                <!-- Enterprise: Quick stats cards (Next, Completed, Cancelled) -->
+                <HBox styleClass="patient-quick-stats" alignment="CENTER_LEFT" spacing="14">
+                    <VBox styleClass="patient-stat-card patient-stat-next" alignment="CENTER_LEFT" spacing="4">
+                        <Label fx:id="statNextInDaysLabel" styleClass="patient-stat-value" text="—" />
+                        <Label styleClass="patient-stat-label" text="Next in / القادم خلال" />
+                    </VBox>
+                    <VBox styleClass="patient-stat-card patient-stat-done" alignment="CENTER_LEFT" spacing="4">
+                        <Label fx:id="statCompletedLabel" styleClass="patient-stat-value" text="0" />
+                        <Label styleClass="patient-stat-label" text="Completed / مكتمل" />
+                    </VBox>
+                    <VBox styleClass="patient-stat-card patient-stat-cancelled" alignment="CENTER_LEFT" spacing="4">
+                        <Label fx:id="statCancelledLabel" styleClass="patient-stat-value" text="0" />
+                        <Label styleClass="patient-stat-label" text="Cancelled / ملغي" />
+                    </VBox>
+                </HBox>
+
+                <!-- Before your visit / Policy (expandable) -->
+                <VBox fx:id="policyCard" styleClass="card patient-policy-card" spacing="8">
+                    <HBox alignment="CENTER_LEFT" spacing="8" styleClass="patient-policy-header">
+                        <Label styleClass="card-title" text="Before your visit / قبل زيارتك" />
+                        <Button fx:id="btnTogglePolicy" styleClass="button-export patient-policy-toggle" text="Show / إظهار" onAction="#handleTogglePolicy" />
+                    </HBox>
+                    <VBox fx:id="policyContent" styleClass="patient-policy-content" visible="false" managed="false" spacing="6">
+                        <Label styleClass="patient-policy-text" wrapText="true" text="• Arrive a few minutes before your scheduled time.&#10;• Cancel or reschedule at least 24 hours in advance when possible.&#10;• Bring anything the service provider asked for.&#10;• Contact support for last-minute changes." />
+                        <Label styleClass="patient-policy-text-ar" wrapText="true" text="• الحضور قبل الموعد بعدة دقائق.&#10;• الإلغاء أو تغيير الوقت قبل 24 ساعة إن أمكن.&#10;• إحضار ما يطلبه مقدم الخدمة.&#10;• التواصل مع الدعم للتغييرات في اللحظة الأخيرة." />
+                    </VBox>
+                </VBox>
+
+                <!-- Notifications / Reminders -->
+                <VBox fx:id="notificationsPanel" styleClass="card patient-notifications-card" spacing="8" visible="true">
+                    <Label styleClass="card-title" text="Reminders / تذكيرات" />
+                    <Label fx:id="reminderLabel" styleClass="patient-reminder-text" text="Reminder: Appointment tomorrow at 10:00 AM" wrapText="true" visible="false" />
+                    <Label fx:id="noRemindersLabel" styleClass="patient-reminder-empty" text="No upcoming reminders." visible="true" />
+                </VBox>
+
+                <!-- Quick tip (enterprise UX) -->
+                <HBox styleClass="patient-tip-bar" alignment="CENTER_LEFT" spacing="8">
+                    <Label styleClass="patient-tip-label" text="Tip:" />
+                    <Label fx:id="keyboardTipLabel" styleClass="patient-tip-text" text="F5 to refresh · Ctrl+Enter to confirm booking" wrapText="true" />
+                </HBox>
+
+                <!-- Search: By Date, Type, Location -->
+                <VBox styleClass="patient-search-section" spacing="10">
+                    <Label styleClass="section-header" text="Search Appointments / البحث عن المواعيد" />
+                    <HBox alignment="CENTER_LEFT" spacing="12">
+                        <Label text="By Date" styleClass="stat-label"/>
+                        <DatePicker fx:id="searchDatePicker" styleClass="date-picker" />
+                        <Label text="By Type" styleClass="stat-label"/>
+                        <ComboBox fx:id="searchTypeCombo" promptText="All types" prefWidth="160" styleClass="combo-box" />
+                        <Label text="By Location" styleClass="stat-label"/>
+                        <ComboBox fx:id="searchBranchCombo" promptText="All locations" prefWidth="180" styleClass="combo-box" />
+                        <Button fx:id="btnClearSearch" styleClass="button-export" text="Clear" onAction="#handleClearSearch" />
+                    </HBox>
+                </VBox>
+
+                <!-- Card: Upcoming Appointments -->
+                <VBox styleClass="card card-main" spacing="0" VBox.vgrow="ALWAYS">
+                    <HBox styleClass="card-header-row" alignment="CENTER_LEFT" spacing="12">
+                        <Label styleClass="card-title" text="Upcoming Appointments / المواعيد القادمة" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button fx:id="btnPrintAppointments" mnemonicParsing="false" onAction="#handlePrintAppointments" styleClass="button-export card-action-btn" text="Print">
+                            <tooltip><Tooltip text="Print your upcoming appointments" /></tooltip>
+                        </Button>
+                        <Button fx:id="btnExportMyAppointments" mnemonicParsing="false" onAction="#handleExportMyAppointments" styleClass="button-export card-action-btn" text="Export CSV">
+                            <tooltip><Tooltip text="Download your appointments as CSV" /></tooltip>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#handleNavBook" styleClass="button-primary card-action-btn" text="Book New Appointment">
+                            <graphic><SVGPath content="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zm-7-9h-2v3H7v2h3v3h2v-3h3v-2h-3v-3z" styleClass="icon" scaleX="1.0" scaleY="1.0"/></graphic>
+                        </Button>
+                    </HBox>
+                    <VBox styleClass="card-body" VBox.vgrow="ALWAYS" spacing="12">
+                        <TableView fx:id="appointmentsTable" styleClass="table-view table-compact" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="colDate" text="Scheduled For" prefWidth="280.0" />
+                                <TableColumn fx:id="colType" text="Category" prefWidth="200.0" />
+                                <TableColumn fx:id="colStatus" text="Status" prefWidth="140.0" />
+                                <TableColumn fx:id="colActions" text="Actions" prefWidth="200.0" sortable="false" />
+                            </columns>
+                            <placeholder>
+                                <VBox styleClass="empty-state-box" spacing="20" alignment="CENTER">
+                                    <VBox styleClass="empty-state-icon-wrap" alignment="CENTER">
+                                        <SVGPath content="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V8h14v12zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z" styleClass="empty-state-icon" scaleX="2.5" scaleY="2.5" />
+                                    </VBox>
+                                    <Label text="No upcoming bookings" styleClass="empty-state-title" />
+                                    <Label text="Schedule your first appointment to get started." styleClass="empty-state-desc" />
+                                    <Button mnemonicParsing="false" onAction="#handleNavBook" styleClass="button-primary empty-state-cta" text="Schedule Your First Booking">
+                                        <graphic><SVGPath content="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zm-7-9h-2v3H7v2h3v3h2v-3h3v-2h-3v-3z" styleClass="icon" scaleX="0.95" scaleY="0.95"/></graphic>
+                                    </Button>
+                                </VBox>
+                            </placeholder>
+                        </TableView>
+                        <HBox alignment="CENTER_RIGHT" styleClass="pagination-wrap">
+                            <Pagination fx:id="appointmentsPagination" maxPageIndicatorCount="5" pageCount="1" />
+                        </HBox>
+                    </VBox>
+                </VBox>
+
+                <!-- Past Appointments (History) -->
+                <VBox styleClass="card card-secondary" spacing="12">
+                    <Label styleClass="card-title" text="Past Appointments / سجل المواعيد" />
+                    <TableView fx:id="pastAppointmentsTable" styleClass="table-view table-compact" prefHeight="180">
+                        <columns>
+                            <TableColumn fx:id="pastColDate" text="Date" prefWidth="200"/>
+                            <TableColumn fx:id="pastColType" text="Type" prefWidth="160"/>
+                            <TableColumn fx:id="pastColStatus" text="Status" prefWidth="120"/>
+                            <TableColumn fx:id="pastColRate" text="تقييم / Rate" prefWidth="180" sortable="false"/>
+                        </columns>
+                        <placeholder>
+                            <Label text="No past appointments." styleClass="empty-state-label" />
+                        </placeholder>
+                    </TableView>
+                </VBox>
+
+                <!-- Card: Weekly Schedule -->
+                <VBox styleClass="card card-secondary" spacing="16" VBox.vgrow="ALWAYS">
+                    <HBox styleClass="card-header-row" alignment="CENTER_LEFT">
+                        <Label styleClass="card-title" text="My Weekly Schedule" />
+                    </HBox>
+                    <VBox fx:id="calendarContainer" styleClass="card-body" VBox.vgrow="ALWAYS"/>
+                </VBox>
+            </VBox>
+
+            <!-- VIEW 2: BOOK NEW APPOINTMENT (Enterprise-style + Scroll) -->
+            <VBox fx:id="bookView" styleClass="booking-page" visible="false" VBox.vgrow="ALWAYS">
+                <ScrollPane fx:id="bookingScrollPane" styleClass="booking-scroll-pane" fitToWidth="true" VBox.vgrow="ALWAYS">
+                    <VBox styleClass="booking-page-content" spacing="20">
+                        <HBox styleClass="breadcrumbs" alignment="CENTER_LEFT">
+                            <Label text="Customer portal / بوابة العميل" styleClass="breadcrumb-text"/>
+                            <Label text=" / " styleClass="breadcrumb-arrow"/>
+                            <Label text="New Appointment" styleClass="breadcrumb-text, breadcrumb-active"/>
+                        </HBox>
+
+                        <VBox spacing="4" styleClass="booking-page-header">
+                            <Label styleClass="booking-page-title" text="Schedule New Appointment" />
+                            <Label styleClass="booking-page-subtitle" text="Pick date, time, and service format (remote or in person). Notes are optional." />
+                        </VBox>
+
+                        <!-- Step indicator (enterprise wizard-style) -->
+                        <HBox styleClass="booking-steps" alignment="CENTER_LEFT" spacing="4">
+                            <HBox styleClass="step-pill step-pill-active" alignment="CENTER" spacing="6">
+                                <Label styleClass="step-num" text="1"/>
+                                <Label styleClass="step-text" text="Date &amp; Time"/>
+                            </HBox>
+                            <Label styleClass="step-connector" text="→"/>
+                            <HBox styleClass="step-pill" alignment="CENTER" spacing="6">
+                                <Label styleClass="step-num" text="2"/>
+                                <Label styleClass="step-text" text="Details"/>
+                            </HBox>
+                            <Label styleClass="step-connector" text="→"/>
+                            <HBox styleClass="step-pill" alignment="CENTER" spacing="6">
+                                <Label styleClass="step-num" text="3"/>
+                                <Label styleClass="step-text" text="Review"/>
+                            </HBox>
+                        </HBox>
+
+                        <VBox fx:id="openBookingBarrierPanel" styleClass="booking-policy-banner" spacing="8" visible="false" managed="false">
+                            <Label fx:id="openBookingBarrierTitle" styleClass="booking-policy-banner-title" wrapText="true" />
+                            <Label fx:id="openBookingBarrierDetail" styleClass="booking-policy-banner-detail" wrapText="true" />
+                        </VBox>
+
+                        <HBox spacing="24" styleClass="booking-main-row">
+                    <VBox HBox.hgrow="ALWAYS" spacing="20" maxWidth="620">
+                        <!-- Section: Date & Time -->
+                        <VBox styleClass="card form-card" spacing="16">
+                            <HBox alignment="CENTER_LEFT" spacing="8">
+                                <SVGPath content="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z" styleClass="form-section-icon" scaleX="0.85" scaleY="0.85"/>
+                                <Label styleClass="form-section-title" text="Date &amp; Time" />
+                            </HBox>
+                            <Label fx:id="businessHoursHint" styleClass="form-hint" text="Business hours: 8:00–18:00. Past dates and times are disabled.">
+                                <tooltip><Tooltip text="Slots outside these hours cannot be booked. Contact support for exceptions." /></tooltip>
+                            </Label>
+                            <HBox styleClass="quick-date-row" spacing="8" alignment="CENTER_LEFT">
+                                <Button fx:id="quickTodayBtn" mnemonicParsing="false" onAction="#handleQuickToday" styleClass="quick-date-chip" text="Today">
+                                    <tooltip><Tooltip text="Select today's date" /></tooltip>
+                                </Button>
+                                <Button fx:id="quickTomorrowBtn" mnemonicParsing="false" onAction="#handleQuickTomorrow" styleClass="quick-date-chip" text="Tomorrow">
+                                    <tooltip><Tooltip text="Select tomorrow's date" /></tooltip>
+                                </Button>
+                            </HBox>
+                            <VBox spacing="8" styleClass="form-group">
+                                <Label text="Date *" styleClass="form-label"/>
+                                <DatePicker fx:id="datePicker" maxWidth="1.7976931348623157E308" styleClass="date-picker"/>
+                                <Label fx:id="dateErrorLabel" styleClass="form-error" text="" visible="false" managed="false"/>
+                            </VBox>
+                            <VBox spacing="8" styleClass="form-group">
+                                <Label text="Time (Hour : Minute) *" styleClass="form-label"/>
+                                <HBox spacing="10" alignment="CENTER_LEFT">
+                                    <ComboBox fx:id="hourCombo" prefWidth="100" promptText="HH" styleClass="combo-box form-combo"/>
+                                    <Label text=":" styleClass="time-separator"/>
+                                    <ComboBox fx:id="minuteCombo" prefWidth="100" promptText="MM" styleClass="combo-box form-combo"/>
+                                </HBox>
+                                <Label fx:id="timeErrorLabel" styleClass="form-error" text="" visible="false" managed="false"/>
+                            </VBox>
+                            <VBox styleClass="available-times-box" spacing="10">
+                                <Label text="Available times" styleClass="available-times-title"/>
+                                <Label fx:id="availableSlotsPlaceholder" styleClass="available-slots-placeholder-text" text="Select a date above to see available slots" wrapText="true" visible="true"/>
+                                <FlowPane fx:id="availableSlotsPane" styleClass="available-slots-pane" minHeight="80" hgap="8" vgap="8"/>
+                            </VBox>
+                        </VBox>
+
+                        <!-- Section: Details -->
+                        <VBox styleClass="card form-card" spacing="16">
+                            <HBox alignment="CENTER_LEFT" spacing="8">
+                                <SVGPath content="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" styleClass="form-section-icon" scaleX="0.85" scaleY="0.85"/>
+                                <Label styleClass="form-section-title" text="Appointment Details" />
+                            </HBox>
+                            <VBox spacing="8" styleClass="form-group">
+                                <Label text="نوع الخدمة والتنسيق * / Service type &amp; format *" styleClass="form-label"/>
+                                <ComboBox fx:id="typeCombo" maxWidth="1.7976931348623157E308" promptText="اختر من القائمة · Select from list" styleClass="combo-box">
+                                    <tooltip><Tooltip text="Each row = service + remote or in person + duration. Admins configure names in Settings." wrapText="true" /></tooltip>
+                                </ComboBox>
+                                <Label fx:id="typeErrorLabel" styleClass="form-error" text="" visible="false" managed="false"/>
+                            </VBox>
+                            <VBox spacing="8" styleClass="form-group">
+                                <Label text="Notes &amp; requests / ملاحظات وطلبات (اختياري)" styleClass="form-label"/>
+                                <TextArea fx:id="notesField" prefRowCount="3" wrapText="true" maxWidth="1.7976931348623157E308" styleClass="text-area form-notes" promptText="Special requests, context, or instructions for staff..."/>
+                                <HBox alignment="CENTER_RIGHT">
+                                    <Label fx:id="notesCountLabel" styleClass="notes-count" text="0 / 1000" />
+                                </HBox>
+                            </VBox>
+                        </VBox>
+
+                        <!-- Contact & preferences (enterprise options) -->
+                        <VBox styleClass="card form-card booking-extras-card" spacing="16">
+                            <HBox alignment="CENTER_LEFT" spacing="8">
+                                <SVGPath content="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.44-5.15-3.75-6.59-6.59l1.97-1.57c.28-.27.36-.66.25-1.01C8.82 6.41 8.62 5.22 8.62 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z" styleClass="form-section-icon" scaleX="0.85" scaleY="0.85"/>
+                                <Label styleClass="form-section-title" text="Contact &amp; preferences / التواصل والتفضيلات" />
+                            </HBox>
+                            <Label styleClass="form-hint" text="Helps your provider prepare and reach you if plans change. All optional except where marked." wrapText="true"/>
+                            <HBox spacing="16" alignment="TOP_LEFT">
+                                <VBox spacing="8" styleClass="form-group" HBox.hgrow="ALWAYS">
+                                    <Label text="Day-of phone / هاتف يوم الموعد" styleClass="form-label"/>
+                                    <TextField fx:id="bookingContactPhoneField" styleClass="text-field" promptText="+966… or local number"/>
+                                </VBox>
+                                <VBox spacing="8" styleClass="form-group" prefWidth="200">
+                                    <Label text="Party size / عدد الحضور" styleClass="form-label"/>
+                                    <Spinner fx:id="bookingPartySizeSpinner" styleClass="spinner form-spinner" editable="true"/>
+                                </VBox>
+                            </HBox>
+                            <HBox spacing="16" alignment="TOP_LEFT">
+                                <VBox spacing="8" styleClass="form-group" HBox.hgrow="ALWAYS">
+                                    <Label text="Reminder channel / قناة التذكير" styleClass="form-label"/>
+                                    <ComboBox fx:id="bookingReminderCombo" maxWidth="1.7976931348623157E308" styleClass="combo-box" promptText="Select"/>
+                                </VBox>
+                                <VBox spacing="8" styleClass="form-group" HBox.hgrow="ALWAYS">
+                                    <Label text="Preferred language / لغة الخدمة" styleClass="form-label"/>
+                                    <ComboBox fx:id="bookingLanguageCombo" maxWidth="1.7976931348623157E308" styleClass="combo-box" promptText="Select"/>
+                                </VBox>
+                            </HBox>
+                            <VBox spacing="8" styleClass="form-group">
+                                <Label text="Accessibility &amp; assistance / إمكانية الوصول والمساعدة" styleClass="form-label"/>
+                                <TextField fx:id="bookingAccessibilityField" maxWidth="1.7976931348623157E308" styleClass="text-field" promptText="e.g. wheelchair access, interpreter, quiet room…"/>
+                            </VBox>
+                        </VBox>
+
+                    </VBox>
+
+                    <!-- Summary card (right column) -->
+                    <VBox styleClass="booking-summary-card" minWidth="280" maxWidth="320">
+                        <Label styleClass="summary-card-title" text="Booking Summary" />
+                        <Label styleClass="summary-subtitle" text="Review your selection before booking" />
+                        <VBox styleClass="summary-rows" spacing="10">
+                            <HBox styleClass="summary-row" spacing="8">
+                                <Label styleClass="summary-label" text="Date:" />
+                                <Label fx:id="summaryDateLabel" styleClass="summary-value" text="—" />
+                            </HBox>
+                            <HBox styleClass="summary-row" spacing="8">
+                                <Label styleClass="summary-label" text="Time:" />
+                                <Label fx:id="summaryTimeLabel" styleClass="summary-value" text="—" />
+                            </HBox>
+                            <HBox styleClass="summary-row" spacing="8">
+                                <Label styleClass="summary-label" text="Type:" />
+                                <Label fx:id="summaryTypeLabel" styleClass="summary-value" text="—" />
+                            </HBox>
+                            <HBox styleClass="summary-row" spacing="8">
+                                <Label styleClass="summary-label" text="Duration:" />
+                                <Label fx:id="summaryDurationLabel" styleClass="summary-value" text="30 min" />
+                            </HBox>
+                            <HBox styleClass="summary-row" spacing="8">
+                                <Label styleClass="summary-label" text="Party:" />
+                                <Label fx:id="summaryPartyLabel" styleClass="summary-value" text="1" />
+                            </HBox>
+                            <HBox styleClass="summary-row" spacing="8">
+                                <Label styleClass="summary-label" text="Reminder:" />
+                                <Label fx:id="summaryReminderLabel" styleClass="summary-value" text="—" />
+                            </HBox>
+                            <HBox styleClass="summary-row" spacing="8">
+                                <Label styleClass="summary-label" text="Language:" />
+                                <Label fx:id="summaryLanguageLabel" styleClass="summary-value" text="—" />
+                            </HBox>
+                        </VBox>
+                        <Label styleClass="summary-policy" text="By booking you agree to our cancellation policy (e.g. cancel at least 24h in advance)." wrapText="true" />
+                        <Region VBox.vgrow="ALWAYS" />
+                        <Button fx:id="btnSummaryConfirm" mnemonicParsing="false"
+                                onAction="#handleConfirmBooking"
+                                maxWidth="1.7976931348623157E308"
+                                styleClass="button-primary"
+                                disable="true"
+                                text="Confirm &amp; Book / تأكيد الحجز">
+                            <tooltip><Tooltip text="Complete date, time and type to enable" /></tooltip>
+                            <graphic><SVGPath content="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" styleClass="icon" scaleX="0.9" scaleY="0.9"/></graphic>
+                        </Button>
+                        <Label styleClass="summary-hint" text="Summary updates live. Use تأكيد الحجز or Ctrl+Enter to confirm." />
+                    </VBox>
+                        </HBox>
+                    </VBox>
+                </ScrollPane>
+            </VBox>
+
+            <!-- VIEW 3: MY PROFILE -->
+            <VBox fx:id="profileView" spacing="20.0" visible="false">
+                <HBox styleClass="breadcrumbs" alignment="CENTER_LEFT">
+                    <Label text="Customer portal / بوابة العميل" styleClass="breadcrumb-text"/>
+                    <Label text=" > " styleClass="breadcrumb-arrow"/>
+                    <Label text="Profile Settings" styleClass="breadcrumb-text, breadcrumb-active"/>
+                </HBox>
+                <HBox alignment="CENTER_LEFT">
+                    <Label styleClass="label-header" text="My Profile / الملف الشخصي" />
+                </HBox>
+                
+                <VBox spacing="20.0" styleClass="card" maxWidth="600.0">
+                    <Label styleClass="section-header" text="Personal Information" />
+                    
+                    <HBox spacing="20.0" alignment="CENTER_LEFT">
+                        <Label text="Full Name:" prefWidth="120" styleClass="stat-label"/>
+                        <TextField fx:id="profileNameField" styleClass="text-field" HBox.hgrow="ALWAYS"/>
+                    </HBox>
+                    
+                    <HBox spacing="20.0" alignment="CENTER_LEFT">
+                        <Label text="Email:" prefWidth="120" styleClass="stat-label"/>
+                        <TextField fx:id="profileEmailField" styleClass="text-field" HBox.hgrow="ALWAYS"/>
+                    </HBox>
+
+                    <HBox spacing="20.0" alignment="CENTER_LEFT">
+                        <Label text="Phone:" prefWidth="120" styleClass="stat-label"/>
+                        <TextField fx:id="profilePhoneField" styleClass="text-field" promptText="Optional" HBox.hgrow="ALWAYS"/>
+                    </HBox>
+
+                    <HBox spacing="20.0" alignment="CENTER_LEFT">
+                        <Button fx:id="btnChangePassword" styleClass="button-export" text="Change Password" onAction="#handleChangePassword" />
+                    </HBox>
+
+                    <Label styleClass="section-header" text="Select Branch / اختيار الفرع" />
+                    <HBox spacing="20.0" alignment="CENTER_LEFT">
+                        <Label text="Branch:" prefWidth="120" styleClass="stat-label"/>
+                        <ComboBox fx:id="profileBranchCombo" promptText="Select branch" prefWidth="280" styleClass="combo-box" HBox.hgrow="ALWAYS"/>
+                    </HBox>
+
+                    <HBox spacing="12.0" alignment="CENTER_LEFT">
+                        <Button fx:id="btnSaveProfile" styleClass="button-primary" text="Save Profile" onAction="#handleSaveProfile" />
+                    </HBox>
+
+                    <Label styleClass="section-header" text="Preferences" />
+                    <HBox spacing="20.0" alignment="CENTER_LEFT">
+                        <Label text="Notification Channel:" prefWidth="140" styleClass="stat-label"/>
+                        <ComboBox fx:id="patientNotificationChannelCombo" prefWidth="220.0" />
+                    </HBox>
+                    <HBox spacing="20.0" alignment="CENTER_LEFT">
+                        <Label text="Reminder Lead Time:" prefWidth="140" styleClass="stat-label"/>
+                        <ComboBox fx:id="patientReminderLeadCombo" prefWidth="220.0" />
+                    </HBox>
+                    <HBox spacing="20.0" alignment="CENTER_LEFT">
+                        <Label text="Time Format:" prefWidth="140" styleClass="stat-label"/>
+                        <ComboBox fx:id="patientTimeFormatCombo" prefWidth="220.0" />
+                    </HBox>
+                    <HBox spacing="20.0" alignment="CENTER_LEFT">
+                        <Label text="Language:" prefWidth="140" styleClass="stat-label"/>
+                        <ComboBox fx:id="patientLanguageCombo" prefWidth="220.0" />
+                    </HBox>
+                </VBox>
+            </VBox>
+
+            <!-- VIEW: MESSAGES (in-app inbox + contact staff) -->
+            <VBox fx:id="messagesView" spacing="24.0" visible="false" styleClass="appointments-page">
+                <HBox styleClass="breadcrumbs" alignment="CENTER_LEFT">
+                    <Label text="Customer portal / بوابة العميل" styleClass="breadcrumb-text"/>
+                    <Label text=" / " styleClass="breadcrumb-arrow"/>
+                    <Label text="Messages" styleClass="breadcrumb-text, breadcrumb-active"/>
+                </HBox>
+                <Label styleClass="label-header" text="Messages &amp; announcements / الرسائل والإعلانات" />
+                <HBox spacing="20" alignment="TOP_LEFT" VBox.vgrow="ALWAYS">
+                    <VBox spacing="12" styleClass="card" prefWidth="380" minWidth="300" VBox.vgrow="ALWAYS">
+                        <Label styleClass="section-header" text="Inbox / الوارد" />
+                        <Label styleClass="stat-label" text="Messages from your service provider appear here. Refresh (F5) or reopen this tab to update." wrapText="true" />
+                        <ListView fx:id="patientInboxList" styleClass="list-view" VBox.vgrow="ALWAYS" prefHeight="280" />
+                    </VBox>
+                    <VBox spacing="14" styleClass="card" HBox.hgrow="ALWAYS">
+                        <Label styleClass="section-header" text="Contact the team / تواصل مع الفريق" />
+                        <Label styleClass="stat-label" text="Your message is recorded for staff (audit trail)." wrapText="true" />
+                        <VBox spacing="6">
+                            <Label styleClass="stat-label" text="Subject" />
+                            <TextField fx:id="patientContactSubjectField" styleClass="text-field" promptText="e.g. Question about my appointment" />
+                        </VBox>
+                        <VBox spacing="6" VBox.vgrow="ALWAYS">
+                            <Label styleClass="stat-label" text="Message" />
+                            <TextArea fx:id="patientContactBodyArea" wrapText="true" prefRowCount="6" styleClass="text-area" promptText="Describe your request…" VBox.vgrow="ALWAYS" />
+                        </VBox>
+                        <HBox spacing="12" alignment="CENTER_LEFT">
+                            <Button fx:id="btnPatientSendContact" mnemonicParsing="false" onAction="#handlePatientSendContact" styleClass="button-primary" text="Send / إرسال" />
+                            <Label fx:id="patientMessagingStatusLabel" styleClass="stat-label" text="" wrapText="true" />
+                        </HBox>
+                    </VBox>
+                </HBox>
+            </VBox>
+
+            </StackPane>
+        </ScrollPane>
+        </VBox>
+    </center>
+</BorderPane>

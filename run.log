@@ -1,0 +1,1138 @@
+﻿java : WARNING: A restricted method in java.lang.System has been called
+At line:1 char:1
++ java -classpath "C:\Users\PC\Desktop\F6D8~1\AppointmentSystem\apache- ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (WARNING: A rest...has been called:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+WARNING: java.lang.System::load has been called by org.fusesource.jansi.internal.JansiLoader in an unnamed module 
+(file:/C:/Users/PC/Desktop/F6D8~1/AppointmentSystem/apache-maven-3.9.9/lib/jansi-2.4.1.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+Apache Maven 3.9.9 (8e8579a9e76f7d015ee5ec7bfcdc97d260186937)
+Maven home: C:\Users\PC\Desktop\F6D8~1\AppointmentSystem\apache-maven-3.9.9
+Java version: 24.0.2, vendor: Oracle Corporation, runtime: C:\Program Files\Java\jdk-24
+Default locale: en_US, platform encoding: UTF-8
+OS name: "windows 11", version: "10.0", arch: "amd64", family: "windows"
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by 
+com.google.common.util.concurrent.AbstractFuture$UnsafeAtomicHelper 
+(file:/C:/Users/PC/Desktop/F6D8~1/AppointmentSystem/apache-maven-3.9.9/lib/guava-33.2.1-jre.jar)
+WARNING: Please consider reporting this to the maintainers of class 
+com.google.common.util.concurrent.AbstractFuture$UnsafeAtomicHelper
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+[DEBUG] Created new class realm maven.api
+[DEBUG] Importing foreign packages into class realm maven.api
+[DEBUG]   Imported: javax.annotation.* < plexus.core
+[DEBUG]   Imported: javax.annotation.security.* < plexus.core
+[DEBUG]   Imported: javax.inject.* < plexus.core
+[DEBUG]   Imported: org.apache.maven.* < plexus.core
+[DEBUG]   Imported: org.apache.maven.artifact < plexus.core
+[DEBUG]   Imported: org.apache.maven.classrealm < plexus.core
+[DEBUG]   Imported: org.apache.maven.cli < plexus.core
+[DEBUG]   Imported: org.apache.maven.configuration < plexus.core
+[DEBUG]   Imported: org.apache.maven.exception < plexus.core
+[DEBUG]   Imported: org.apache.maven.execution < plexus.core
+[DEBUG]   Imported: org.apache.maven.execution.scope < plexus.core
+[DEBUG]   Imported: org.apache.maven.graph < plexus.core
+[DEBUG]   Imported: org.apache.maven.lifecycle < plexus.core
+[DEBUG]   Imported: org.apache.maven.model < plexus.core
+[DEBUG]   Imported: org.apache.maven.monitor < plexus.core
+[DEBUG]   Imported: org.apache.maven.plugin < plexus.core
+[DEBUG]   Imported: org.apache.maven.profiles < plexus.core
+[DEBUG]   Imported: org.apache.maven.project < plexus.core
+[DEBUG]   Imported: org.apache.maven.reporting < plexus.core
+[DEBUG]   Imported: org.apache.maven.repository < plexus.core
+[DEBUG]   Imported: org.apache.maven.rtinfo < plexus.core
+[DEBUG]   Imported: org.apache.maven.settings < plexus.core
+[DEBUG]   Imported: org.apache.maven.toolchain < plexus.core
+[DEBUG]   Imported: org.apache.maven.usability < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.* < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.authentication < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.authorization < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.events < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.observers < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.proxy < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.repository < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.resource < plexus.core
+[DEBUG]   Imported: org.codehaus.classworlds < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.* < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.classworlds < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.component < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.configuration < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.container < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.context < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.lifecycle < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.logging < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.personality < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.util.xml.Xpp3Dom < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.util.xml.pull.XmlPullParser < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.util.xml.pull.XmlPullParserException < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.util.xml.pull.XmlSerializer < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.* < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.artifact < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.collection < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.deployment < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.graph < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.impl < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.installation < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.internal.impl < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.metadata < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.repository < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.resolution < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.spi < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.transfer < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.util < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.version < plexus.core
+[DEBUG]   Imported: org.fusesource.jansi.* < plexus.core
+[DEBUG]   Imported: org.slf4j.* < plexus.core
+[DEBUG]   Imported: org.slf4j.event.* < plexus.core
+[DEBUG]   Imported: org.slf4j.helpers.* < plexus.core
+[DEBUG]   Imported: org.slf4j.spi.* < plexus.core
+[DEBUG] Populating class realm maven.api
+[DEBUG] Created adapter factory; available factories [file-lock, rwlock-local, semaphore-local, noop]; available name mappers [discriminating, file-gav, file-hgav, file-static, gav, static]
+[INFO] Error stacktraces are turned on.
+[DEBUG] Message scheme: color
+[DEBUG] Message styles: debug info warning error success failure strong mojo project
+[DEBUG] Reading global settings from C:\Users\PC\Desktop\F6D8~1\AppointmentSystem\apache-maven-3.9.9\conf\settings.xml
+[DEBUG] Reading user settings from C:\Users\PC\.m2\settings.xml
+[DEBUG] Reading global toolchains from C:\Users\PC\Desktop\F6D8~1\AppointmentSystem\apache-maven-3.9.9\conf\toolchains.xml
+[DEBUG] Reading user toolchains from C:\Users\PC\.m2\toolchains.xml
+[DEBUG] Using local repository at C:\Users\PC\.m2\repository
+[DEBUG] Using manager EnhancedLocalRepositoryManager with priority 10.0 for C:\Users\PC\.m2\repository
+[INFO] Scanning for projects...
+[DEBUG] Extension realms for project com.appointmentscheduler:AppointmentSystem:jar:1.0-SNAPSHOT: (none)
+[DEBUG] Looking up lifecycle mappings for packaging jar from ClassRealm[plexus.core, parent: null]
+[DEBUG] Resolving plugin prefix javafx from [org.apache.maven.plugins, org.codehaus.mojo]
+[DEBUG] Creating adapter using nameMapper 'gav' and factory 'rwlock-local'
+[DEBUG] Resolved plugin prefix javafx to org.openjfx:javafx-maven-plugin from POM com.appointmentscheduler:AppointmentSystem:jar:1.0-SNAPSHOT
+[DEBUG] === REACTOR BUILD PLAN ================================================
+[DEBUG] Project: com.appointmentscheduler:AppointmentSystem:jar:1.0-SNAPSHOT
+[DEBUG] Tasks:   [clean, javafx:run]
+[DEBUG] Style:   Regular
+[DEBUG] =======================================================================
+[INFO] 
+[INFO] -------------< com.appointmentscheduler:AppointmentSystem >-------------
+[INFO] Building AppointmentSystem 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] Resolving plugin prefix javafx from [org.apache.maven.plugins, org.codehaus.mojo]
+[DEBUG] Resolved plugin prefix javafx to org.openjfx:javafx-maven-plugin from POM com.appointmentscheduler:AppointmentSystem:jar:1.0-SNAPSHOT
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] === PROJECT BUILD PLAN ================================================
+[DEBUG] Project:       com.appointmentscheduler:AppointmentSystem:1.0-SNAPSHOT
+[DEBUG] Dependencies (collect): []
+[DEBUG] Dependencies (resolve): [runtime]
+[DEBUG] Repositories (dependencies): [central (https://repo.maven.apache.org/maven2, default, releases)]
+[DEBUG] Repositories (plugins)     : [central (https://repo.maven.apache.org/maven2, default, releases)]
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Goal:          org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean (default-clean)
+[DEBUG] Style:         Regular
+[DEBUG] Configuration: <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <directory default-value="${project.build.directory}"/>
+  <excludeDefaultDirectories default-value="false">${maven.clean.excludeDefaultDirectories}</excludeDefaultDirectories>
+  <failOnError default-value="true">${maven.clean.failOnError}</failOnError>
+  <fast default-value="false">${maven.clean.fast}</fast>
+  <fastDir>${maven.clean.fastDir}</fastDir>
+  <fastMode default-value="background">${maven.clean.fastMode}</fastMode>
+  <followSymLinks default-value="false">${maven.clean.followSymLinks}</followSymLinks>
+  <outputDirectory default-value="${project.build.outputDirectory}"/>
+  <reportDirectory default-value="${project.build.outputDirectory}"/>
+  <retryOnError default-value="true">${maven.clean.retryOnError}</retryOnError>
+  <session default-value="${session}"/>
+  <skip default-value="false">${maven.clean.skip}</skip>
+  <testOutputDirectory default-value="${project.build.testOutputDirectory}"/>
+  <verbose>${maven.clean.verbose}</verbose>
+</configuration>
+[DEBUG] --- init fork of com.appointmentscheduler:AppointmentSystem:1.0-SNAPSHOT for org.openjfx:javafx-maven-plugin:0.0.8:run (default-cli) ---
+[DEBUG] Dependencies (collect): []
+[DEBUG] Dependencies (resolve): [compile, runtime]
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Goal:          org.jacoco:jacoco-maven-plugin:0.8.10:prepare-agent (default)
+[DEBUG] Style:         Regular
+[DEBUG] Configuration: <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <address>${jacoco.address}</address>
+  <append>${jacoco.append}</append>
+  <classDumpDir>${jacoco.classDumpDir}</classDumpDir>
+  <destFile default-value="${project.build.directory}/jacoco.exec">${jacoco.destFile}</destFile>
+  <dumpOnExit>${jacoco.dumpOnExit}</dumpOnExit>
+  <exclClassLoaders>${jacoco.exclClassLoaders}</exclClassLoaders>
+  <inclBootstrapClasses>${jacoco.inclBootstrapClasses}</inclBootstrapClasses>
+  <inclNoLocationClasses>${jacoco.inclNoLocationClasses}</inclNoLocationClasses>
+  <jmx>${jacoco.jmx}</jmx>
+  <output>${jacoco.output}</output>
+  <pluginArtifactMap>${plugin.artifactMap}</pluginArtifactMap>
+  <port>${jacoco.port}</port>
+  <project>${project}</project>
+  <propertyName>${jacoco.propertyName}</propertyName>
+  <sessionId>${jacoco.sessionId}</sessionId>
+  <skip default-value="false">${jacoco.skip}</skip>
+</configuration>
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Goal:          org.apache.maven.plugins:maven-resources-plugin:3.3.1:resources (default-resources)
+[DEBUG] Style:         Regular
+[DEBUG] Configuration: <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <addDefaultExcludes default-value="true"/>
+  <buildFilters default-value="${project.build.filters}"/>
+  <encoding default-value="${project.build.sourceEncoding}"/>
+  <escapeWindowsPaths default-value="true"/>
+  <fileNameFiltering default-value="false"/>
+  <includeEmptyDirs default-value="false"/>
+  <outputDirectory default-value="${project.build.outputDirectory}"/>
+  <overwrite default-value="false"/>
+  <project default-value="${project}"/>
+  <resources default-value="${project.resources}"/>
+  <session default-value="${session}"/>
+  <skip default-value="false">${maven.resources.skip}</skip>
+  <supportMultiLineFiltering default-value="false"/>
+  <useBuildFilters default-value="true"/>
+  <useDefaultDelimiters default-value="true"/>
+</configuration>
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Goal:          org.apache.maven.plugins:maven-compiler-plugin:3.11.0:compile (default-compile)
+[DEBUG] Style:         Regular
+[DEBUG] Configuration: <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <basedir default-value="${basedir}"/>
+  <buildDirectory default-value="${project.build.directory}"/>
+  <compilePath default-value="${project.compileClasspathElements}"/>
+  <compileSourceRoots default-value="${project.compileSourceRoots}"/>
+  <compilerId default-value="javac">${maven.compiler.compilerId}</compilerId>
+  <compilerReuseStrategy default-value="${reuseCreated}">${maven.compiler.compilerReuseStrategy}</compilerReuseStrategy>
+  <compilerVersion>${maven.compiler.compilerVersion}</compilerVersion>
+  <createMissingPackageInfoClass default-value="true">${maven.compiler.createMissingPackageInfoClass}</createMissingPackageInfoClass>
+  <debug default-value="true">${maven.compiler.debug}</debug>
+  <debugFileName default-value="javac"/>
+  <debuglevel>${maven.compiler.debuglevel}</debuglevel>
+  <enablePreview default-value="false">${maven.compiler.enablePreview}</enablePreview>
+  <encoding default-value="${project.build.sourceEncoding}">${encoding}</encoding>
+  <executable>${maven.compiler.executable}</executable>
+  <failOnError default-value="true">${maven.compiler.failOnError}</failOnError>
+  <failOnWarning default-value="false">${maven.compiler.failOnWarning}</failOnWarning>
+  <forceJavacCompilerUse default-value="false">${maven.compiler.forceJavacCompilerUse}</forceJavacCompilerUse>
+  <fork default-value="false">${maven.compiler.fork}</fork>
+  <generatedSourcesDirectory default-value="${project.build.directory}/generated-sources/annotations"/>
+  <implicit>${maven.compiler.implicit}</implicit>
+  <maxmem>${maven.compiler.maxmem}</maxmem>
+  <meminitial>${maven.compiler.meminitial}</meminitial>
+  <mojoExecution default-value="${mojoExecution}"/>
+  <optimize default-value="false">${maven.compiler.optimize}</optimize>
+  <outputDirectory default-value="${project.build.outputDirectory}"/>
+  <parameters default-value="false">${maven.compiler.parameters}</parameters>
+  <project default-value="${project}"/>
+  <projectArtifact default-value="${project.artifact}"/>
+  <release>${maven.compiler.release}</release>
+  <session default-value="${session}"/>
+  <showCompilationChanges default-value="false">${maven.compiler.showCompilationChanges}</showCompilationChanges>
+  <showDeprecation default-value="false">${maven.compiler.showDeprecation}</showDeprecation>
+  <showWarnings default-value="true">${maven.compiler.showWarnings}</showWarnings>
+  <skipMain>${maven.main.skip}</skipMain>
+  <skipMultiThreadWarning default-value="false">${maven.compiler.skipMultiThreadWarning}</skipMultiThreadWarning>
+  <source default-value="1.8">17</source>
+  <staleMillis default-value="0">${lastModGranularityMs}</staleMillis>
+  <target default-value="1.8">17</target>
+  <useIncrementalCompilation default-value="true">${maven.compiler.useIncrementalCompilation}</useIncrementalCompilation>
+  <verbose default-value="false">${maven.compiler.verbose}</verbose>
+</configuration>
+[DEBUG] --- exit fork of com.appointmentscheduler:AppointmentSystem:1.0-SNAPSHOT for org.openjfx:javafx-maven-plugin:0.0.8:run (default-cli) ---
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Goal:          org.openjfx:javafx-maven-plugin:0.0.8:run (default-cli)
+[DEBUG] Style:         Regular
+[DEBUG] Configuration: <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <async default-value="false">${javafx.async}</async>
+  <asyncDestroyOnShutdown default-value="true">${javafx.asyncDestroyOnShutdown}</asyncDestroyOnShutdown>
+  <basedir default-value="${basedir}"/>
+  <builddir default-value="${project.build.directory}"/>
+  <commandlineArgs>${javafx.args}</commandlineArgs>
+  <compilePath default-value="${project.compileClasspathElements}"/>
+  <executable default-value="java">${javafx.executable}</executable>
+  <includePathExceptionsInClasspath default-value="false">${javafx.includePathExceptionsInClasspath}</includePathExceptionsInClasspath>
+  <mainClass>com.appointmentscheduler/com.appointmentscheduler.presentation.MainApp</mainClass>
+  <outputFile>${javafx.outputFile}</outputFile>
+  <project default-value="${project}"/>
+  <runtimePathOption>${javafx.runtimePathOption}</runtimePathOption>
+  <session default-value="${session}"/>
+  <skip default-value="false">${javafx.skip}</skip>
+  <workingDirectory>${javafx.workingDirectory}</workingDirectory>
+</configuration>
+[DEBUG] =======================================================================
+[WARNING] 6 problems were encountered while building the effective model for org.openjfx:javafx-controls:jar:17.0.6 during dependency collection step for project. Path to offending node from root:
+ -> com.appointmentscheduler:AppointmentSystem:jar:1.0-SNAPSHOT
+ => org.openjfx:javafx-controls:jar:17.0.6 (compile)
+Problems
+* 'profiles.profile.id' Duplicate activation for profile linux-x86_64 @ org.openjfx:javafx:17.0.6
+* 'profiles.profile.id' Duplicate activation for profile linux-aarch64 @ org.openjfx:javafx:17.0.6
+* 'profiles.profile.id' Duplicate activation for profile macosx-x86_64 @ org.openjfx:javafx:17.0.6
+* 'profiles.profile.id' Duplicate activation for profile macosx-aarch64 @ org.openjfx:javafx:17.0.6
+* 'profiles.profile.id' Duplicate activation for profile windows-x86_64 @ org.openjfx:javafx:17.0.6
+* 'profiles.profile.id' Duplicate activation for profile windows-x86 @ org.openjfx:javafx:17.0.6
+[DEBUG] Dependency collection stats {ConflictMarker.analyzeTime=801500, ConflictMarker.markTime=73300, ConflictMarker.nodeCount=36, ConflictIdSorter.graphTime=2218700, ConflictIdSorter.topsortTime=600200, ConflictIdSorter.conflictIdCount=19, ConflictIdSorter.conflictIdCycleCount=4, ConflictResolver.totalTime=3578800, ConflictResolver.conflictItemCount=30, DfDependencyCollector.collectTime=85107700, DfDependencyCollector.transformTime=9396300}
+[DEBUG] com.appointmentscheduler:AppointmentSystem:jar:1.0-SNAPSHOT
+[DEBUG]    org.openjfx:javafx-controls:jar:17.0.6:compile
+[DEBUG]       org.openjfx:javafx-controls:jar:win:17.0.6:compile
+[DEBUG]       org.openjfx:javafx-graphics:jar:17.0.6:compile
+[DEBUG]          org.openjfx:javafx-graphics:jar:win:17.0.6:compile
+[DEBUG]          org.openjfx:javafx-base:jar:17.0.6:compile
+[DEBUG]             org.openjfx:javafx-base:jar:win:17.0.6:compile
+[DEBUG]    org.openjfx:javafx-fxml:jar:17.0.6:compile
+[DEBUG]       org.openjfx:javafx-fxml:jar:win:17.0.6:compile
+[DEBUG]    org.junit.jupiter:junit-jupiter-api:jar:5.10.0:test
+[DEBUG]       org.opentest4j:opentest4j:jar:1.3.0:test
+[DEBUG]       org.junit.platform:junit-platform-commons:jar:1.10.0:test
+[DEBUG]       org.apiguardian:apiguardian-api:jar:1.1.2:test
+[DEBUG]    org.junit.jupiter:junit-jupiter-engine:jar:5.10.0:test
+[DEBUG]       org.junit.platform:junit-platform-engine:jar:1.10.0:test
+[DEBUG]    org.mockito:mockito-core:jar:5.5.0:test
+[DEBUG]       net.bytebuddy:byte-buddy:jar:1.14.6:test
+[DEBUG]       net.bytebuddy:byte-buddy-agent:jar:1.14.6:test
+[DEBUG]       org.objenesis:objenesis:jar:3.3:test
+[DEBUG]    org.mockito:mockito-junit-jupiter:jar:5.5.0:test
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ AppointmentSystem ---
+[DEBUG] Dependency collection stats {ConflictMarker.analyzeTime=12700, ConflictMarker.markTime=30700, ConflictMarker.nodeCount=3, ConflictIdSorter.graphTime=4400, ConflictIdSorter.topsortTime=7600, ConflictIdSorter.conflictIdCount=3, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=116700, ConflictResolver.conflictItemCount=3, DfDependencyCollector.collectTime=27497600, DfDependencyCollector.transformTime=183100}
+[DEBUG] org.apache.maven.plugins:maven-clean-plugin:jar:3.2.0
+[DEBUG]    org.apache.maven.shared:maven-shared-utils:jar:3.3.4:compile
+[DEBUG]       commons-io:commons-io:jar:2.6:compile
+[DEBUG] Created new class realm plugin>org.apache.maven.plugins:maven-clean-plugin:3.2.0
+[DEBUG] Importing foreign packages into class realm plugin>org.apache.maven.plugins:maven-clean-plugin:3.2.0
+[DEBUG]   Imported:  < maven.api
+[DEBUG] Populating class realm plugin>org.apache.maven.plugins:maven-clean-plugin:3.2.0
+[DEBUG]   Included: org.apache.maven.plugins:maven-clean-plugin:jar:3.2.0
+[DEBUG]   Included: org.apache.maven.shared:maven-shared-utils:jar:3.3.4
+[DEBUG]   Included: commons-io:commons-io:jar:2.6
+[DEBUG] Loading mojo org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean from plugin realm ClassRealm[plugin>org.apache.maven.plugins:maven-clean-plugin:3.2.0, parent: jdk.internal.loader.ClassLoaders$AppClassLoader@11a4022a]
+[DEBUG] Configuring mojo execution 'org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean:default-clean' with basic configurator -->
+[DEBUG]   (f) directory = C:\Users\PC\Desktop\???????\AppointmentSystem\target
+[DEBUG]   (f) excludeDefaultDirectories = false
+[DEBUG]   (f) failOnError = true
+[DEBUG]   (f) fast = false
+[DEBUG]   (f) fastMode = background
+[DEBUG]   (f) followSymLinks = false
+[DEBUG]   (f) outputDirectory = C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes
+[DEBUG]   (f) reportDirectory = C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes
+[DEBUG]   (f) retryOnError = true
+[DEBUG]   (f) session = org.apache.maven.execution.MavenSession@2a066689
+[DEBUG]   (f) skip = false
+[DEBUG]   (f) testOutputDirectory = C:\Users\PC\Desktop\???????\AppointmentSystem\target\test-classes
+[DEBUG] -- end configuration --
+[INFO] Deleting C:\Users\PC\Desktop\???????\AppointmentSystem\target
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\maven-status\maven-compiler-plugin\compile\default-compile\inputFiles.lst
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\maven-status\maven-compiler-plugin\compile\default-compile\createdFiles.lst
+[INFO] Deleting directory C:\Users\PC\Desktop\???????\AppointmentSystem\target\maven-status\maven-compiler-plugin\compile\default-compile
+[INFO] Deleting directory C:\Users\PC\Desktop\???????\AppointmentSystem\target\maven-status\maven-compiler-plugin\compile
+[INFO] Deleting directory C:\Users\PC\Desktop\???????\AppointmentSystem\target\maven-status\maven-compiler-plugin
+[INFO] Deleting directory C:\Users\PC\Desktop\???????\AppointmentSystem\target\maven-status
+[INFO] Deleting directory C:\Users\PC\Desktop\???????\AppointmentSystem\target\generated-sources\annotations
+[INFO] Deleting directory C:\Users\PC\Desktop\???????\AppointmentSystem\target\generated-sources
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\module-info.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\presentation\PatientDashboardController.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\presentation\PatientDashboardController$1.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\presentation\PatientDashboard.fxml
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\presentation\ModifyAppointmentController.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\presentation\ModifyAppointmentController$1.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\presentation\ModifyAppointment.fxml
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\presentation\MainApp.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\presentation\LoginController.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\presentation\Login.fxml
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\presentation\BookAppointmentController.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\presentation\BookAppointmentController$1.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\presentation\BookAppointment.fxml
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\presentation\application.css
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\presentation\AdminDashboardController.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\presentation\AdminDashboardController$1.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\presentation\AdminDashboard.fxml
+[INFO] Deleting directory C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\presentation
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\persistence\UserRepository.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\persistence\InMemoryUserRepository.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\persistence\InMemoryAppointmentRepository.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\persistence\AppointmentRepository.class
+[INFO] Deleting directory C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\persistence
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\domain\VirtualAppointment.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\domain\User.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\domain\UrgentAppointment.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\domain\TimeSlot.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\domain\Schedule.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\domain\rules\DurationRuleStrategy.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\domain\rules\CapacityRuleStrategy.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\domain\rules\BookingRuleStrategy.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\domain\rules\AppointmentTypeRuleStrategy.class
+[INFO] Deleting directory C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\domain\rules
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\domain\notifiers\Observer.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\domain\notifiers\EmailNotifier.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\domain\notifiers\CalendarNotifier.class
+[INFO] Deleting directory C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\domain\notifiers
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\domain\NotificationMessage.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\domain\InPersonAppointment.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\domain\IndividualAppointment.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\domain\GroupAppointment.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\domain\FollowUpAppointment.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\domain\AssessmentAppointment.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\domain\Appointment.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\domain\Administrator.class
+[INFO] Deleting directory C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\domain
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\application\ScheduleService.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\application\ReportGenerator.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\application\NotificationService.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\application\BookingService.class
+[INFO] Deleting file C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\application\AuthService.class
+[INFO] Deleting directory C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\application
+[INFO] Deleting directory C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler
+[INFO] Deleting directory C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com
+[INFO] Deleting directory C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes
+[INFO] Deleting directory C:\Users\PC\Desktop\???????\AppointmentSystem\target
+[DEBUG] Skipping non-existing directory C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes
+[DEBUG] Skipping non-existing directory C:\Users\PC\Desktop\???????\AppointmentSystem\target\test-classes
+[DEBUG] Skipping non-existing directory C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes
+[INFO] 
+[INFO] >>> javafx:0.0.8:run (default-cli) > process-classes @ AppointmentSystem >>>
+[DEBUG] Dependency collection stats {ConflictMarker.analyzeTime=72000, ConflictMarker.markTime=60000, ConflictMarker.nodeCount=36, ConflictIdSorter.graphTime=32500, ConflictIdSorter.topsortTime=42300, ConflictIdSorter.conflictIdCount=19, ConflictIdSorter.conflictIdCycleCount=4, ConflictResolver.totalTime=569400, ConflictResolver.conflictItemCount=30, DfDependencyCollector.collectTime=1469500, DfDependencyCollector.transformTime=796600}
+[DEBUG] com.appointmentscheduler:AppointmentSystem:jar:1.0-SNAPSHOT
+[DEBUG]    org.openjfx:javafx-controls:jar:17.0.6:compile
+[DEBUG]       org.openjfx:javafx-controls:jar:win:17.0.6:compile
+[DEBUG]       org.openjfx:javafx-graphics:jar:17.0.6:compile
+[DEBUG]          org.openjfx:javafx-graphics:jar:win:17.0.6:compile
+[DEBUG]          org.openjfx:javafx-base:jar:17.0.6:compile
+[DEBUG]             org.openjfx:javafx-base:jar:win:17.0.6:compile
+[DEBUG]    org.openjfx:javafx-fxml:jar:17.0.6:compile
+[DEBUG]       org.openjfx:javafx-fxml:jar:win:17.0.6:compile
+[DEBUG]    org.junit.jupiter:junit-jupiter-api:jar:5.10.0:test
+[DEBUG]       org.opentest4j:opentest4j:jar:1.3.0:test
+[DEBUG]       org.junit.platform:junit-platform-commons:jar:1.10.0:test
+[DEBUG]       org.apiguardian:apiguardian-api:jar:1.1.2:test
+[DEBUG]    org.junit.jupiter:junit-jupiter-engine:jar:5.10.0:test
+[DEBUG]       org.junit.platform:junit-platform-engine:jar:1.10.0:test
+[DEBUG]    org.mockito:mockito-core:jar:5.5.0:test
+[DEBUG]       net.bytebuddy:byte-buddy:jar:1.14.6:test
+[DEBUG]       net.bytebuddy:byte-buddy-agent:jar:1.14.6:test
+[DEBUG]       org.objenesis:objenesis:jar:3.3:test
+[DEBUG]    org.mockito:mockito-junit-jupiter:jar:5.5.0:test
+[INFO] 
+[INFO] --- jacoco:0.8.10:prepare-agent (default) @ AppointmentSystem ---
+[DEBUG] Using mirror maven-default-http-blocker (http://0.0.0.0/) for apache.snapshots (http://people.apache.org/repo/m2-snapshot-repository).
+[DEBUG] Using mirror maven-default-http-blocker (http://0.0.0.0/) for snapshots (http://snapshots.maven.codehaus.org/maven2).
+[DEBUG] Using mirror maven-default-http-blocker (http://0.0.0.0/) for apache.snapshots (http://cvs.apache.org/maven-snapshot-repository).
+[DEBUG] Using mirror maven-default-http-blocker (http://0.0.0.0/) for central (http://repo1.maven.org/maven2).
+[DEBUG] Using mirror maven-default-http-blocker (http://0.0.0.0/) for codehaus.snapshots (http://snapshots.repository.codehaus.org).
+[DEBUG] Using mirror maven-default-http-blocker (http://0.0.0.0/) for apache.snapshots (http://people.apache.org/maven-snapshot-repository).
+[DEBUG] Using mirror maven-default-http-blocker (http://0.0.0.0/) for apache.snapshots (http://repository.apache.org/snapshots).
+[DEBUG] Dependency collection stats {ConflictMarker.analyzeTime=113900, ConflictMarker.markTime=56400, ConflictMarker.nodeCount=38, ConflictIdSorter.graphTime=28400, ConflictIdSorter.topsortTime=13000, ConflictIdSorter.conflictIdCount=21, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=942100, ConflictResolver.conflictItemCount=34, DfDependencyCollector.collectTime=149191800, DfDependencyCollector.transformTime=1171800}
+[DEBUG] org.jacoco:jacoco-maven-plugin:jar:0.8.10
+[DEBUG]    org.codehaus.plexus:plexus-utils:jar:3.0.24:compile
+[DEBUG]    org.apache.maven.shared:file-management:jar:1.2.1:compile
+[DEBUG]       org.apache.maven:maven-plugin-api:jar:2.0.6:compile
+[DEBUG]       org.apache.maven.shared:maven-shared-io:jar:1.1:compile
+[DEBUG]          org.apache.maven:maven-artifact:jar:2.0.2:compile
+[DEBUG]          org.apache.maven:maven-artifact-manager:jar:2.0.2:compile
+[DEBUG]             org.apache.maven:maven-repository-metadata:jar:2.0.2:compile
+[DEBUG]          org.apache.maven.wagon:wagon-provider-api:jar:1.0-alpha-6:compile
+[DEBUG]       org.codehaus.plexus:plexus-container-default:jar:1.0-alpha-9:compile
+[DEBUG]          junit:junit:jar:4.13.1:compile (version managed from default)
+[DEBUG]             org.hamcrest:hamcrest-core:jar:1.3:compile
+[DEBUG]          classworlds:classworlds:jar:1.1-alpha-2:compile
+[DEBUG]    org.apache.maven.reporting:maven-reporting-api:jar:3.0:compile
+[DEBUG]       org.apache.maven.doxia:doxia-sink-api:jar:1.0:compile
+[DEBUG]    org.jacoco:org.jacoco.agent:jar:runtime:0.8.10:compile
+[DEBUG]    org.jacoco:org.jacoco.core:jar:0.8.10:compile
+[DEBUG]       org.ow2.asm:asm:jar:9.5:compile (version managed from default)
+[DEBUG]       org.ow2.asm:asm-commons:jar:9.5:compile (version managed from default)
+[DEBUG]       org.ow2.asm:asm-tree:jar:9.5:compile (version managed from default)
+[DEBUG]    org.jacoco:org.jacoco.report:jar:0.8.10:compile
+[DEBUG] Created new class realm plugin>org.jacoco:jacoco-maven-plugin:0.8.10
+[DEBUG] Importing foreign packages into class realm plugin>org.jacoco:jacoco-maven-plugin:0.8.10
+[DEBUG]   Imported:  < maven.api
+[DEBUG] Populating class realm plugin>org.jacoco:jacoco-maven-plugin:0.8.10
+[DEBUG]   Included: org.jacoco:jacoco-maven-plugin:jar:0.8.10
+[DEBUG]   Included: org.codehaus.plexus:plexus-utils:jar:3.0.24
+[DEBUG]   Included: org.apache.maven.shared:file-management:jar:1.2.1
+[DEBUG]   Included: org.apache.maven.shared:maven-shared-io:jar:1.1
+[DEBUG]   Included: junit:junit:jar:4.13.1
+[DEBUG]   Included: org.hamcrest:hamcrest-core:jar:1.3
+[DEBUG]   Included: org.apache.maven.reporting:maven-reporting-api:jar:3.0
+[DEBUG]   Included: org.apache.maven.doxia:doxia-sink-api:jar:1.0
+[DEBUG]   Included: org.jacoco:org.jacoco.agent:jar:runtime:0.8.10
+[DEBUG]   Included: org.jacoco:org.jacoco.core:jar:0.8.10
+[DEBUG]   Included: org.ow2.asm:asm:jar:9.5
+[DEBUG]   Included: org.ow2.asm:asm-commons:jar:9.5
+[DEBUG]   Included: org.ow2.asm:asm-tree:jar:9.5
+[DEBUG]   Included: org.jacoco:org.jacoco.report:jar:0.8.10
+[DEBUG] Loading mojo org.jacoco:jacoco-maven-plugin:0.8.10:prepare-agent from plugin realm ClassRealm[plugin>org.jacoco:jacoco-maven-plugin:0.8.10, parent: jdk.internal.loader.ClassLoaders$AppClassLoader@11a4022a]
+[DEBUG] Configuring mojo execution 'org.jacoco:jacoco-maven-plugin:0.8.10:prepare-agent:default' with basic configurator -->
+[DEBUG]   (f) destFile = C:\Users\PC\Desktop\???????\AppointmentSystem\target\jacoco.exec
+[DEBUG]   (f) pluginArtifactMap = {org.jacoco:jacoco-maven-plugin=org.jacoco:jacoco-maven-plugin:maven-plugin:0.8.10:, org.codehaus.plexus:plexus-utils=org.codehaus.plexus:plexus-utils:jar:3.0.24:compile, org.apache.maven.shared:file-management=org.apache.maven.shared:file-management:jar:1.2.1:compile, org.apache.maven:maven-plugin-api=org.apache.maven:maven-plugin-api:jar:2.0.6:compile, org.apache.maven.shared:maven-shared-io=org.apache.maven.shared:maven-shared-io:jar:1.1:compile, org.apache.maven:maven-artifact=org.apache.maven:maven-artifact:jar:2.0.2:compile, org.apache.maven:maven-artifact-manager=org.apache.maven:maven-artifact-manager:jar:2.0.2:compile, org.apache.maven:maven-repository-metadata=org.apache.maven:maven-repository-metadata:jar:2.0.2:compile, org.apache.maven.wagon:wagon-provider-api=org.apache.maven.wagon:wagon-provider-api:jar:1.0-alpha-6:compile, org.codehaus.plexus:plexus-container-default=org.codehaus.plexus:plexus-container-default:jar:1.0-alpha-9:compile, junit:junit=junit:junit:jar:4.13.1:compile, org.hamcrest:hamcrest-core=org.hamcrest:hamcrest-core:jar:1.3:compile, classworlds:classworlds=classworlds:classworlds:jar:1.1-alpha-2:compile, org.apache.maven.reporting:maven-reporting-api=org.apache.maven.reporting:maven-reporting-api:jar:3.0:compile, org.apache.maven.doxia:doxia-sink-api=org.apache.maven.doxia:doxia-sink-api:jar:1.0:compile, org.jacoco:org.jacoco.agent=org.jacoco:org.jacoco.agent:jar:runtime:0.8.10:compile, org.jacoco:org.jacoco.core=org.jacoco:org.jacoco.core:jar:0.8.10:compile, org.ow2.asm:asm=org.ow2.asm:asm:jar:9.5:compile, org.ow2.asm:asm-commons=org.ow2.asm:asm-commons:jar:9.5:compile, org.ow2.asm:asm-tree=org.ow2.asm:asm-tree:jar:9.5:compile, org.jacoco:org.jacoco.report=org.jacoco:org.jacoco.report:jar:0.8.10:compile}
+[DEBUG]   (f) project = MavenProject: com.appointmentscheduler:AppointmentSystem:1.0-SNAPSHOT @ C:\Users\PC\Desktop\???????\AppointmentSystem\pom.xml
+[DEBUG]   (f) skip = false
+[DEBUG] -- end configuration --
+[INFO] argLine set to -javaagent:C:\\Users\\PC\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.10\\org.jacoco.agent-0.8.10-runtime.jar=destfile=C:\\Users\\PC\\Desktop\\???????\\AppointmentSystem\\target\\jacoco.exec
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ AppointmentSystem ---
+[DEBUG] Dependency collection stats {ConflictMarker.analyzeTime=63500, ConflictMarker.markTime=54600, ConflictMarker.nodeCount=13, ConflictIdSorter.graphTime=18000, ConflictIdSorter.topsortTime=13500, ConflictIdSorter.conflictIdCount=9, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=399900, ConflictResolver.conflictItemCount=13, DfDependencyCollector.collectTime=63835300, DfDependencyCollector.transformTime=568400}
+[DEBUG] org.apache.maven.plugins:maven-resources-plugin:jar:3.3.1
+[DEBUG]    org.codehaus.plexus:plexus-interpolation:jar:1.26:runtime
+[DEBUG]    org.codehaus.plexus:plexus-utils:jar:3.5.1:compile
+[DEBUG]    org.apache.maven.shared:maven-filtering:jar:3.3.1:compile
+[DEBUG]       javax.inject:javax.inject:jar:1:compile
+[DEBUG]       org.slf4j:slf4j-api:jar:1.7.36:compile
+[DEBUG]       org.sonatype.plexus:plexus-build-api:jar:0.0.7:compile
+[DEBUG]    commons-io:commons-io:jar:2.11.0:compile
+[DEBUG]    org.apache.commons:commons-lang3:jar:3.12.0:compile
+[DEBUG] Created new class realm plugin>org.apache.maven.plugins:maven-resources-plugin:3.3.1
+[DEBUG] Importing foreign packages into class realm plugin>org.apache.maven.plugins:maven-resources-plugin:3.3.1
+[DEBUG]   Imported:  < maven.api
+[DEBUG] Populating class realm plugin>org.apache.maven.plugins:maven-resources-plugin:3.3.1
+[DEBUG]   Included: org.apache.maven.plugins:maven-resources-plugin:jar:3.3.1
+[DEBUG]   Included: org.codehaus.plexus:plexus-interpolation:jar:1.26
+[DEBUG]   Included: org.codehaus.plexus:plexus-utils:jar:3.5.1
+[DEBUG]   Included: org.apache.maven.shared:maven-filtering:jar:3.3.1
+[DEBUG]   Included: org.sonatype.plexus:plexus-build-api:jar:0.0.7
+[DEBUG]   Included: commons-io:commons-io:jar:2.11.0
+[DEBUG]   Included: org.apache.commons:commons-lang3:jar:3.12.0
+[DEBUG] Loading mojo org.apache.maven.plugins:maven-resources-plugin:3.3.1:resources from plugin realm ClassRealm[plugin>org.apache.maven.plugins:maven-resources-plugin:3.3.1, parent: jdk.internal.loader.ClassLoaders$AppClassLoader@11a4022a]
+[DEBUG] Configuring mojo execution 'org.apache.maven.plugins:maven-resources-plugin:3.3.1:resources:default-resources' with basic configurator -->
+[DEBUG]   (f) addDefaultExcludes = true
+[DEBUG]   (f) buildFilters = []
+[DEBUG]   (f) encoding = UTF-8
+[DEBUG]   (f) escapeWindowsPaths = true
+[DEBUG]   (f) fileNameFiltering = false
+[DEBUG]   (s) includeEmptyDirs = false
+[DEBUG]   (s) outputDirectory = C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes
+[DEBUG]   (s) overwrite = false
+[DEBUG]   (f) project = MavenProject: com.appointmentscheduler:AppointmentSystem:1.0-SNAPSHOT @ C:\Users\PC\Desktop\???????\AppointmentSystem\pom.xml
+[DEBUG]   (s) resources = [Resource {targetPath: null, filtering: false, FileSet {directory: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\resources, PatternSet [includes: {}, excludes: {}]}}]
+[DEBUG]   (f) session = org.apache.maven.execution.MavenSession@2a066689
+[DEBUG]   (f) skip = false
+[DEBUG]   (f) supportMultiLineFiltering = false
+[DEBUG]   (f) useBuildFilters = true
+[DEBUG]   (s) useDefaultDelimiters = true
+[DEBUG] -- end configuration --
+[DEBUG] properties used:
+[DEBUG] argLine: -javaagent:C:\\Users\\PC\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.10\\org.jacoco.agent-0.8.10-runtime.jar=destfile=C:\\Users\\PC\\Desktop\\???????\\AppointmentSystem\\target\\jacoco.exec
+[DEBUG] classworlds.conf: C:\Users\PC\Desktop\F6D8~1\AppointmentSystem\apache-maven-3.9.9\bin\m2.conf
+[DEBUG] env.ALLUSERSPROFILE: C:\ProgramData
+[DEBUG] env.ANTIGRAVITY_EDITOR_APP_ROOT: c:\Users\PC\AppData\Local\Programs\Antigravity\resources\app
+[DEBUG] env.APPDATA: C:\Users\PC\AppData\Roaming
+[DEBUG] env.ASL.LOG: Destination=file
+[DEBUG] env.CHROME_CRASHPAD_PIPE_NAME: \\.\pipe\crashpad_26092_VGIQBIKKYSPYDKPB
+[DEBUG] env.COMMONPROGRAMFILES: C:\Program Files\Common Files
+[DEBUG] env.COMMONPROGRAMFILES(X86): C:\Program Files (x86)\Common Files
+[DEBUG] env.COMMONPROGRAMW6432: C:\Program Files\Common Files
+[DEBUG] env.COMPUTERNAME: DESKTOP-083Q3R6
+[DEBUG] env.DRIVERDATA: C:\Windows\System32\Drivers\DriverData
+[DEBUG] env.EFC_8816_1592913036: 1
+[DEBUG] env.ELECTRON_RUN_AS_NODE: 1
+[DEBUG] env.HOMEDRIVE: C:
+[DEBUG] env.HOMEPATH: \Users\PC
+[DEBUG] env.INTELLIJ IDEA: C:\Program Files\JetBrains\IntelliJ IDEA 2025.2.3\bin
+[DEBUG] env.IVIROOTDIR32: C:\Program Files (x86)\IVI Foundation\IVI\
+[DEBUG] env.IVIROOTDIR64: C:\Program Files\IVI Foundation\IVI\
+[DEBUG] env.JAVA_HOME: C:\Program Files\Java\jdk-24
+[DEBUG] env.LOCALAPPDATA: C:\Users\PC\AppData\Local
+[DEBUG] env.LOGONSERVER: \\DESKTOP-083Q3R6
+[DEBUG] env.MAVEN_HOME: C:\Apache\apache-maven-3.9.12\bin
+[DEBUG] env.NO_PROXY: *.azureedge.net
+[DEBUG] env.NUMBER_OF_PROCESSORS: 8
+[DEBUG] env.ONEDRIVE: C:\Users\PC\OneDrive
+[DEBUG] env.OS: Windows_NT
+[DEBUG] env.PATH: C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files\Java\jdk-21\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\Java\jdk-23\bin;C:\Program Files\dotnet\;C:\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\;C:\Program Files\IVI Foundation\VISA\Win64\Bin\;C:\Program Files (x86)\IVI Foundation\IVI\Bin\;C:\Program Files\IVI Foundation\IVI\Bin\;C:\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin;C:\Program Files\cursor\resources\app\bin;C:\Program Files\Git\cmd;C:\Program Files\Java\jdk-24\bin;C:\Apache\apache-maven-3.9.12\bin\bin;C:\Users\PC\AppData\Local\Programs\Python\Python313\Scripts\;C:\Users\PC\AppData\Local\Programs\Python\Python313\;C:\Users\PC\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\IntelliJ IDEA 2025.2.3\bin;C:\Users\PC\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\PC\AppData\Local\Programs\Antigravity\bin
+[DEBUG] env.PATHEXT: .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.CPL
+[DEBUG] env.PROCESSOR_ARCHITECTURE: AMD64
+[DEBUG] env.PROCESSOR_IDENTIFIER: Intel64 Family 6 Model 140 Stepping 1, GenuineIntel
+[DEBUG] env.PROCESSOR_LEVEL: 6
+[DEBUG] env.PROCESSOR_REVISION: 8c01
+[DEBUG] env.PROGRAMDATA: C:\ProgramData
+[DEBUG] env.PROGRAMFILES: C:\Program Files
+[DEBUG] env.PROGRAMFILES(X86): C:\Program Files (x86)
+[DEBUG] env.PROGRAMW6432: C:\Program Files
+[DEBUG] env.PSMODULEPATH: C:\Users\PC\Documents\WindowsPowerShell\Modules;C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
+[DEBUG] env.PUBLIC: C:\Users\Public
+[DEBUG] env.SESSIONNAME: Console
+[DEBUG] env.SYSTEMDRIVE: C:
+[DEBUG] env.SYSTEMROOT: C:\WINDOWS
+[DEBUG] env.TEMP: C:\Users\PC\AppData\Local\Temp
+[DEBUG] env.TMP: C:\Users\PC\AppData\Local\Temp
+[DEBUG] env.USERDOMAIN: DESKTOP-083Q3R6
+[DEBUG] env.USERDOMAIN_ROAMINGPROFILE: DESKTOP-083Q3R6
+[DEBUG] env.USERNAME: PC
+[DEBUG] env.USERPROFILE: C:\Users\PC
+[DEBUG] env.VSCODE_CODE_CACHE_PATH: C:\Users\PC\AppData\Roaming\Antigravity\CachedData\c9b91c281ca4919466bd32a6ea2fcdab11102259
+[DEBUG] env.VSCODE_CRASH_REPORTER_PROCESS_TYPE: extensionHost
+[DEBUG] env.VSCODE_CWD: C:\Users\PC\AppData\Local\Programs\Antigravity
+[DEBUG] env.VSCODE_ESM_ENTRYPOINT: vs/workbench/api/node/extensionHostProcess
+[DEBUG] env.VSCODE_HANDLES_UNCAUGHT_ERRORS: true
+[DEBUG] env.VSCODE_IPC_HOOK: \\.\pipe\e4cda82a-1.107.0-main-sock
+[DEBUG] env.VSCODE_NLS_CONFIG: {"userLocale":"en-us","osLocale":"en-us","resolvedLanguage":"en","defaultMessagesFile":"C:\\Users\\PC\\AppData\\Local\\Programs\\Antigravity\\resources\\app\\out\\nls.messages.json","locale":"en-us","availableLanguages":{}}
+[DEBUG] env.VSCODE_PID: 26092
+[DEBUG] env.VXIPNPPATH: C:\Program Files (x86)\IVI Foundation\VISA\
+[DEBUG] env.VXIPNPPATH64: C:\Program Files\IVI Foundation\VISA\
+[DEBUG] env.WINDIR: C:\WINDOWS
+[DEBUG] env.ZES_ENABLE_SYSMAN: 1
+[DEBUG] file.encoding: UTF-8
+[DEBUG] file.separator: \
+[DEBUG] java.class.path: C:\Users\PC\Desktop\F6D8~1\AppointmentSystem\apache-maven-3.9.9\boot\plexus-classworlds-2.8.0.jar
+[DEBUG] java.class.version: 68.0
+[DEBUG] java.home: C:\Program Files\Java\jdk-24
+[DEBUG] java.io.tmpdir: C:\Users\PC\AppData\Local\Temp\
+[DEBUG] java.library.path: C:\Program Files\Java\jdk-24\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files\Java\jdk-21\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\Java\jdk-23\bin;C:\Program Files\dotnet\;C:\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\;C:\Program Files\IVI Foundation\VISA\Win64\Bin\;C:\Program Files (x86)\IVI Foundation\IVI\Bin\;C:\Program Files\IVI Foundation\IVI\Bin\;C:\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin;C:\Program Files\cursor\resources\app\bin;C:\Program Files\Git\cmd;C:\Program Files\Java\jdk-24\bin;C:\Apache\apache-maven-3.9.12\bin\bin;C:\Users\PC\AppData\Local\Programs\Python\Python313\Scripts\;C:\Users\PC\AppData\Local\Programs\Python\Python313\;C:\Users\PC\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\IntelliJ IDEA 2025.2.3\bin;C:\Users\PC\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\PC\AppData\Local\Programs\Antigravity\bin;.
+[DEBUG] java.runtime.name: Java(TM) SE Runtime Environment
+[DEBUG] java.runtime.version: 24.0.2+12-54
+[DEBUG] java.specification.name: Java Platform API Specification
+[DEBUG] java.specification.vendor: Oracle Corporation
+[DEBUG] java.specification.version: 24
+[DEBUG] java.vendor: Oracle Corporation
+[DEBUG] java.vendor.url: https://java.oracle.com/
+[DEBUG] java.vendor.url.bug: https://bugreport.java.com/bugreport/
+[DEBUG] java.version: 24.0.2
+[DEBUG] java.version.date: 2025-07-15
+[DEBUG] java.vm.compressedOopsMode: Zero based
+[DEBUG] java.vm.info: mixed mode, sharing
+[DEBUG] java.vm.name: Java HotSpot(TM) 64-Bit Server VM
+[DEBUG] java.vm.specification.name: Java Virtual Machine Specification
+[DEBUG] java.vm.specification.vendor: Oracle Corporation
+[DEBUG] java.vm.specification.version: 24
+[DEBUG] java.vm.vendor: Oracle Corporation
+[DEBUG] java.vm.version: 24.0.2+12-54
+[DEBUG] javafx.version: 17.0.6
+[DEBUG] jdk.debug: release
+[DEBUG] junit.version: 5.10.0
+[DEBUG] line.separator: 
+
+[DEBUG] maven.build.timestamp: 2026-02-21T02:23:49Z
+[DEBUG] maven.build.version: Apache Maven 3.9.9 (8e8579a9e76f7d015ee5ec7bfcdc97d260186937)
+[DEBUG] maven.compiler.source: 17
+[DEBUG] maven.compiler.target: 17
+[DEBUG] maven.conf: C:\Users\PC\Desktop\F6D8~1\AppointmentSystem\apache-maven-3.9.9/conf
+[DEBUG] maven.home: C:\Users\PC\Desktop\F6D8~1\AppointmentSystem\apache-maven-3.9.9
+[DEBUG] maven.multiModuleProjectDirectory: C:\Users\PC\Desktop\F6D8~1\AppointmentSystem
+[DEBUG] maven.version: 3.9.9
+[DEBUG] mockito.version: 5.5.0
+[DEBUG] native.encoding: Cp1252
+[DEBUG] os.arch: amd64
+[DEBUG] os.name: Windows 11
+[DEBUG] os.version: 10.0
+[DEBUG] path.separator: ;
+[DEBUG] project.baseUri: file:/C:/Users/PC/Desktop/???????/AppointmentSystem/
+[DEBUG] project.build.sourceEncoding: UTF-8
+[DEBUG] stderr.encoding: Cp1252
+[DEBUG] stdout.encoding: Cp1252
+[DEBUG] sun.arch.data.model: 64
+[DEBUG] sun.boot.library.path: C:\Program Files\Java\jdk-24\bin
+[DEBUG] sun.cpu.endian: little
+[DEBUG] sun.cpu.isalist: amd64
+[DEBUG] sun.io.unicode.encoding: UnicodeLittle
+[DEBUG] sun.java.command: org.codehaus.plexus.classworlds.launcher.Launcher clean javafx:run -X
+[DEBUG] sun.java.launcher: SUN_STANDARD
+[DEBUG] sun.jnu.encoding: Cp1252
+[DEBUG] sun.management.compiler: HotSpot 64-Bit Tiered Compilers
+[DEBUG] sun.os.patch.level: 
+[DEBUG] user.country: US
+[DEBUG] user.dir: C:\Users\PC\Desktop\???????\AppointmentSystem
+[DEBUG] user.home: C:\Users\PC
+[DEBUG] user.language: en
+[DEBUG] user.name: PC
+[DEBUG] user.script: 
+[DEBUG] user.variant: 
+[DEBUG] Using 'UTF-8' encoding to copy filtered resources.
+[DEBUG] Using 'UTF-8' encoding to copy filtered properties files.
+[DEBUG] resource with targetPath null
+directory C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\resources
+excludes []
+includes []
+[DEBUG] ignoreDelta true
+[INFO] Copying 6 resources from src\main\resources to target\classes
+[DEBUG] Copying file com\appointmentscheduler\presentation\AdminDashboard.fxml
+[DEBUG] file AdminDashboard.fxml has a filtered file extension
+[DEBUG] Using 'UTF-8' encoding to copy filtered resource 'AdminDashboard.fxml'.
+[DEBUG] copy C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\resources\com\appointmentscheduler\presentation\AdminDashboard.fxml to C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\presentation\AdminDashboard.fxml
+[DEBUG] Copying file com\appointmentscheduler\presentation\application.css
+[DEBUG] file application.css has a filtered file extension
+[DEBUG] Using 'UTF-8' encoding to copy filtered resource 'application.css'.
+[DEBUG] copy C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\resources\com\appointmentscheduler\presentation\application.css to C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\presentation\application.css
+[DEBUG] Copying file com\appointmentscheduler\presentation\BookAppointment.fxml
+[DEBUG] file BookAppointment.fxml has a filtered file extension
+[DEBUG] Using 'UTF-8' encoding to copy filtered resource 'BookAppointment.fxml'.
+[DEBUG] copy C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\resources\com\appointmentscheduler\presentation\BookAppointment.fxml to C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\presentation\BookAppointment.fxml
+[DEBUG] Copying file com\appointmentscheduler\presentation\Login.fxml
+[DEBUG] file Login.fxml has a filtered file extension
+[DEBUG] Using 'UTF-8' encoding to copy filtered resource 'Login.fxml'.
+[DEBUG] copy C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\resources\com\appointmentscheduler\presentation\Login.fxml to C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\presentation\Login.fxml
+[DEBUG] Copying file com\appointmentscheduler\presentation\ModifyAppointment.fxml
+[DEBUG] file ModifyAppointment.fxml has a filtered file extension
+[DEBUG] Using 'UTF-8' encoding to copy filtered resource 'ModifyAppointment.fxml'.
+[DEBUG] copy C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\resources\com\appointmentscheduler\presentation\ModifyAppointment.fxml to C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\presentation\ModifyAppointment.fxml
+[DEBUG] Copying file com\appointmentscheduler\presentation\PatientDashboard.fxml
+[DEBUG] file PatientDashboard.fxml has a filtered file extension
+[DEBUG] Using 'UTF-8' encoding to copy filtered resource 'PatientDashboard.fxml'.
+[DEBUG] copy C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\resources\com\appointmentscheduler\presentation\PatientDashboard.fxml to C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\com\appointmentscheduler\presentation\PatientDashboard.fxml
+[DEBUG] no user filter components
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ AppointmentSystem ---
+[DEBUG] Dependency collection stats {ConflictMarker.analyzeTime=61000, ConflictMarker.markTime=27500, ConflictMarker.nodeCount=17, ConflictIdSorter.graphTime=13100, ConflictIdSorter.topsortTime=10800, ConflictIdSorter.conflictIdCount=12, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=201600, ConflictResolver.conflictItemCount=17, DfDependencyCollector.collectTime=66694800, DfDependencyCollector.transformTime=331700}
+[DEBUG] org.apache.maven.plugins:maven-compiler-plugin:jar:3.11.0
+[DEBUG]    org.apache.maven.shared:maven-shared-utils:jar:3.3.4:compile
+[DEBUG]       commons-io:commons-io:jar:2.6:compile
+[DEBUG]    org.apache.maven.shared:maven-shared-incremental:jar:1.1:compile
+[DEBUG]       org.codehaus.plexus:plexus-component-annotations:jar:1.5.5:compile
+[DEBUG]    org.codehaus.plexus:plexus-java:jar:1.1.2:compile
+[DEBUG]       org.ow2.asm:asm:jar:9.4:compile
+[DEBUG]       com.thoughtworks.qdox:qdox:jar:2.0.3:compile (version managed from default)
+[DEBUG]    org.codehaus.plexus:plexus-compiler-api:jar:2.13.0:compile
+[DEBUG]       org.codehaus.plexus:plexus-utils:jar:3.5.0:compile (version managed from default)
+[DEBUG]    org.codehaus.plexus:plexus-compiler-manager:jar:2.13.0:compile
+[DEBUG]    org.codehaus.plexus:plexus-compiler-javac:jar:2.13.0:runtime
+[DEBUG] Created new class realm plugin>org.apache.maven.plugins:maven-compiler-plugin:3.11.0
+[DEBUG] Importing foreign packages into class realm plugin>org.apache.maven.plugins:maven-compiler-plugin:3.11.0
+[DEBUG]   Imported:  < maven.api
+[DEBUG] Populating class realm plugin>org.apache.maven.plugins:maven-compiler-plugin:3.11.0
+[DEBUG]   Included: org.apache.maven.plugins:maven-compiler-plugin:jar:3.11.0
+[DEBUG]   Included: org.apache.maven.shared:maven-shared-utils:jar:3.3.4
+[DEBUG]   Included: commons-io:commons-io:jar:2.6
+[DEBUG]   Included: org.apache.maven.shared:maven-shared-incremental:jar:1.1
+[DEBUG]   Included: org.codehaus.plexus:plexus-component-annotations:jar:1.5.5
+[DEBUG]   Included: org.codehaus.plexus:plexus-java:jar:1.1.2
+[DEBUG]   Included: org.ow2.asm:asm:jar:9.4
+[DEBUG]   Included: com.thoughtworks.qdox:qdox:jar:2.0.3
+[DEBUG]   Included: org.codehaus.plexus:plexus-compiler-api:jar:2.13.0
+[DEBUG]   Included: org.codehaus.plexus:plexus-utils:jar:3.5.0
+[DEBUG]   Included: org.codehaus.plexus:plexus-compiler-manager:jar:2.13.0
+[DEBUG]   Included: org.codehaus.plexus:plexus-compiler-javac:jar:2.13.0
+[DEBUG] Loading mojo org.apache.maven.plugins:maven-compiler-plugin:3.11.0:compile from plugin realm ClassRealm[plugin>org.apache.maven.plugins:maven-compiler-plugin:3.11.0, parent: jdk.internal.loader.ClassLoaders$AppClassLoader@11a4022a]
+[DEBUG] Configuring mojo execution 'org.apache.maven.plugins:maven-compiler-plugin:3.11.0:compile:default-compile' with basic configurator -->
+[DEBUG]   (f) basedir = C:\Users\PC\Desktop\???????\AppointmentSystem
+[DEBUG]   (f) buildDirectory = C:\Users\PC\Desktop\???????\AppointmentSystem\target
+[DEBUG]   (f) compilePath = [C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes, C:\Users\PC\.m2\repository\org\openjfx\javafx-controls\17.0.6\javafx-controls-17.0.6.jar, C:\Users\PC\.m2\repository\org\openjfx\javafx-controls\17.0.6\javafx-controls-17.0.6-win.jar, C:\Users\PC\.m2\repository\org\openjfx\javafx-graphics\17.0.6\javafx-graphics-17.0.6.jar, C:\Users\PC\.m2\repository\org\openjfx\javafx-graphics\17.0.6\javafx-graphics-17.0.6-win.jar, C:\Users\PC\.m2\repository\org\openjfx\javafx-base\17.0.6\javafx-base-17.0.6.jar, C:\Users\PC\.m2\repository\org\openjfx\javafx-base\17.0.6\javafx-base-17.0.6-win.jar, C:\Users\PC\.m2\repository\org\openjfx\javafx-fxml\17.0.6\javafx-fxml-17.0.6.jar, C:\Users\PC\.m2\repository\org\openjfx\javafx-fxml\17.0.6\javafx-fxml-17.0.6-win.jar]
+[DEBUG]   (f) compileSourceRoots = [C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java]
+[DEBUG]   (f) compilerId = javac
+[DEBUG]   (f) createMissingPackageInfoClass = true
+[DEBUG]   (f) debug = true
+[DEBUG]   (f) debugFileName = javac
+[DEBUG]   (f) enablePreview = false
+[DEBUG]   (f) encoding = UTF-8
+[DEBUG]   (f) failOnError = true
+[DEBUG]   (f) failOnWarning = false
+[DEBUG]   (f) forceJavacCompilerUse = false
+[DEBUG]   (f) fork = false
+[DEBUG]   (f) generatedSourcesDirectory = C:\Users\PC\Desktop\???????\AppointmentSystem\target\generated-sources\annotations
+[DEBUG]   (f) mojoExecution = org.apache.maven.plugins:maven-compiler-plugin:3.11.0:compile {execution: default-compile}
+[DEBUG]   (f) optimize = false
+[DEBUG]   (f) outputDirectory = C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes
+[DEBUG]   (f) parameters = false
+[DEBUG]   (f) project = MavenProject: com.appointmentscheduler:AppointmentSystem:1.0-SNAPSHOT @ C:\Users\PC\Desktop\???????\AppointmentSystem\pom.xml
+[DEBUG]   (f) projectArtifact = com.appointmentscheduler:AppointmentSystem:jar:1.0-SNAPSHOT
+[DEBUG]   (f) session = org.apache.maven.execution.MavenSession@2a066689
+[DEBUG]   (f) showCompilationChanges = false
+[DEBUG]   (f) showDeprecation = false
+[DEBUG]   (f) showWarnings = true
+[DEBUG]   (f) skipMultiThreadWarning = false
+[DEBUG]   (f) source = 17
+[DEBUG]   (f) staleMillis = 0
+[DEBUG]   (s) target = 17
+[DEBUG]   (f) useIncrementalCompilation = true
+[DEBUG]   (f) verbose = false
+[DEBUG] -- end configuration --
+[DEBUG] Using compiler 'javac'.
+[DEBUG] Adding C:\Users\PC\Desktop\???????\AppointmentSystem\target\generated-sources\annotations to compile source roots:
+  C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java
+[DEBUG] New compile source roots:
+  C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java
+  C:\Users\PC\Desktop\???????\AppointmentSystem\target\generated-sources\annotations
+[DEBUG] CompilerReuseStrategy: reuseCreated
+[DEBUG] useIncrementalCompilation enabled
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\domain\VirtualAppointment.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\domain\Appointment.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\domain\rules\AppointmentTypeRuleStrategy.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\module-info.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\application\ScheduleService.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\domain\FollowUpAppointment.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\presentation\AdminDashboardController.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\domain\rules\BookingRuleStrategy.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\domain\GroupAppointment.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\application\ReportGenerator.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\domain\IndividualAppointment.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\domain\notifiers\EmailNotifier.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\domain\AssessmentAppointment.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\domain\rules\DurationRuleStrategy.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\application\BookingService.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\application\NotificationService.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\domain\TimeSlot.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\domain\UrgentAppointment.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\presentation\MainApp.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\domain\User.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\domain\Administrator.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\presentation\PatientDashboardController.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\persistence\InMemoryAppointmentRepository.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\domain\NotificationMessage.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\persistence\AppointmentRepository.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\domain\Schedule.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\domain\InPersonAppointment.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\domain\rules\CapacityRuleStrategy.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\domain\notifiers\Observer.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\presentation\BookAppointmentController.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\presentation\LoginController.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\persistence\InMemoryUserRepository.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\domain\notifiers\CalendarNotifier.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\persistence\UserRepository.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\presentation\ModifyAppointmentController.java
+[DEBUG] Stale source detected: C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java\com\appointmentscheduler\application\AuthService.java
+[INFO] Changes detected - recompiling the module! :source
+[DEBUG] Classpath:
+[DEBUG]  C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes
+[DEBUG]  C:\Users\PC\.m2\repository\org\openjfx\javafx-controls\17.0.6\javafx-controls-17.0.6.jar
+[DEBUG]  C:\Users\PC\.m2\repository\org\openjfx\javafx-graphics\17.0.6\javafx-graphics-17.0.6.jar
+[DEBUG]  C:\Users\PC\.m2\repository\org\openjfx\javafx-base\17.0.6\javafx-base-17.0.6.jar
+[DEBUG]  C:\Users\PC\.m2\repository\org\openjfx\javafx-fxml\17.0.6\javafx-fxml-17.0.6.jar
+[DEBUG] Modulepath:
+[DEBUG]  C:\Users\PC\.m2\repository\org\openjfx\javafx-controls\17.0.6\javafx-controls-17.0.6-win.jar
+[DEBUG]  C:\Users\PC\.m2\repository\org\openjfx\javafx-graphics\17.0.6\javafx-graphics-17.0.6-win.jar
+[DEBUG]  C:\Users\PC\.m2\repository\org\openjfx\javafx-base\17.0.6\javafx-base-17.0.6-win.jar
+[DEBUG]  C:\Users\PC\.m2\repository\org\openjfx\javafx-fxml\17.0.6\javafx-fxml-17.0.6-win.jar
+[DEBUG] Source roots:
+[DEBUG]  C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java
+[DEBUG]  C:\Users\PC\Desktop\???????\AppointmentSystem\target\generated-sources\annotations
+[DEBUG] Command line options:
+[DEBUG] -d C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes -classpath C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes;C:\Users\PC\.m2\repository\org\openjfx\javafx-controls\17.0.6\javafx-controls-17.0.6.jar;C:\Users\PC\.m2\repository\org\openjfx\javafx-graphics\17.0.6\javafx-graphics-17.0.6.jar;C:\Users\PC\.m2\repository\org\openjfx\javafx-base\17.0.6\javafx-base-17.0.6.jar;C:\Users\PC\.m2\repository\org\openjfx\javafx-fxml\17.0.6\javafx-fxml-17.0.6.jar; --module-path C:\Users\PC\.m2\repository\org\openjfx\javafx-controls\17.0.6\javafx-controls-17.0.6-win.jar;C:\Users\PC\.m2\repository\org\openjfx\javafx-graphics\17.0.6\javafx-graphics-17.0.6-win.jar;C:\Users\PC\.m2\repository\org\openjfx\javafx-base\17.0.6\javafx-base-17.0.6-win.jar;C:\Users\PC\.m2\repository\org\openjfx\javafx-fxml\17.0.6\javafx-fxml-17.0.6-win.jar; -sourcepath C:\Users\PC\Desktop\???????\AppointmentSystem\src\main\java;C:\Users\PC\Desktop\???????\AppointmentSystem\target\generated-sources\annotations; -s C:\Users\PC\Desktop\???????\AppointmentSystem\target\generated-sources\annotations -g -target 17 -source 17 -encoding UTF-8 --module-version 1.0-SNAPSHOT
+[DEBUG] incrementalBuildHelper#beforeRebuildExecution
+[INFO] Compiling 36 source files with javac [debug target 17 module-path] to target\classes
+[DEBUG] incrementalBuildHelper#afterRebuildExecution
+[WARNING] location of system modules is not set in conjunction with -source 17
+  not setting the location of system modules may lead to class files that cannot run on JDK 17
+    --release 17 is recommended instead of -source 17 -target 17 because it sets the location of system modules automatically
+[INFO] 
+[INFO] <<< javafx:0.0.8:run (default-cli) < process-classes @ AppointmentSystem <<<
+[INFO] 
+[INFO] 
+[INFO] --- javafx:0.0.8:run (default-cli) @ AppointmentSystem ---
+[DEBUG] Using mirror maven-default-http-blocker (http://0.0.0.0/) for repository.jboss.org (http://repository.jboss.org/maven2).
+[DEBUG] Using mirror maven-default-http-blocker (http://0.0.0.0/) for snapshots.jboss.org (http://snapshots.jboss.org/maven2).
+[DEBUG] Using mirror maven-default-http-blocker (http://0.0.0.0/) for oss.sonatype.org/jboss-snapshots (http://oss.sonatype.org/content/repositories/jboss-snapshots).
+[DEBUG] Using mirror maven-default-http-blocker (http://0.0.0.0/) for ow2-snapshot (http://repository.ow2.org/nexus/content/repositories/snapshots).
+[DEBUG] Using mirror maven-default-http-blocker (http://0.0.0.0/) for codehaus-snapshots (http://nexus.codehaus.org/snapshots/).
+[DEBUG] Dependency collection stats {ConflictMarker.analyzeTime=167900, ConflictMarker.markTime=102900, ConflictMarker.nodeCount=96, ConflictIdSorter.graphTime=57700, ConflictIdSorter.topsortTime=31900, ConflictIdSorter.conflictIdCount=48, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=1037900, ConflictResolver.conflictItemCount=94, DfDependencyCollector.collectTime=229051100, DfDependencyCollector.transformTime=1420200}
+[DEBUG] org.openjfx:javafx-maven-plugin:jar:0.0.8
+[DEBUG]    org.apache.maven:maven-plugin-api:jar:3.6.0:compile
+[DEBUG]       org.apache.maven:maven-model:jar:3.6.0:compile
+[DEBUG]       org.apache.maven:maven-artifact:jar:3.6.0:compile
+[DEBUG]       org.eclipse.sisu:org.eclipse.sisu.plexus:jar:0.3.3:compile
+[DEBUG]          javax.enterprise:cdi-api:jar:1.0:compile
+[DEBUG]             javax.annotation:jsr250-api:jar:1.0:compile
+[DEBUG]       org.codehaus.plexus:plexus-utils:jar:3.1.0:compile
+[DEBUG]       org.codehaus.plexus:plexus-classworlds:jar:2.5.2:compile
+[DEBUG]    org.codehaus.plexus:plexus-java:jar:0.9.11:compile
+[DEBUG]       org.ow2.asm:asm:jar:7.0-beta:compile
+[DEBUG]       com.thoughtworks.qdox:qdox:jar:2.0-M9:compile
+[DEBUG]    org.codehaus.plexus:plexus-archiver:jar:3.6.0:compile
+[DEBUG]       org.codehaus.plexus:plexus-io:jar:3.0.1:compile
+[DEBUG]          commons-io:commons-io:jar:2.6:compile
+[DEBUG]       org.apache.commons:commons-compress:jar:1.16.1:compile
+[DEBUG]          org.objenesis:objenesis:jar:2.6:compile
+[DEBUG]       org.iq80.snappy:snappy:jar:0.4:compile
+[DEBUG]       org.tukaani:xz:jar:1.8:runtime
+[DEBUG]    org.apache.commons:commons-exec:jar:1.3:compile
+[DEBUG]    org.apache.maven:maven-core:jar:3.6.0:compile
+[DEBUG]       org.apache.maven:maven-settings:jar:3.6.0:compile
+[DEBUG]       org.apache.maven:maven-settings-builder:jar:3.6.0:compile
+[DEBUG]          org.codehaus.plexus:plexus-interpolation:jar:1.25:compile
+[DEBUG]          org.sonatype.plexus:plexus-sec-dispatcher:jar:1.4:compile
+[DEBUG]             org.sonatype.plexus:plexus-cipher:jar:1.4:compile
+[DEBUG]       org.apache.maven:maven-builder-support:jar:3.6.0:compile
+[DEBUG]       org.apache.maven:maven-repository-metadata:jar:3.6.0:compile
+[DEBUG]       org.apache.maven:maven-model-builder:jar:3.6.0:compile
+[DEBUG]       org.apache.maven:maven-resolver-provider:jar:3.6.0:compile
+[DEBUG]          org.slf4j:slf4j-api:jar:1.7.25:compile
+[DEBUG]       org.apache.maven.resolver:maven-resolver-impl:jar:1.3.1:compile
+[DEBUG]       org.apache.maven.resolver:maven-resolver-api:jar:1.3.1:compile
+[DEBUG]       org.apache.maven.resolver:maven-resolver-spi:jar:1.3.1:compile
+[DEBUG]       org.apache.maven.resolver:maven-resolver-util:jar:1.3.1:compile
+[DEBUG]       org.apache.maven.shared:maven-shared-utils:jar:3.2.1:compile
+[DEBUG]       org.eclipse.sisu:org.eclipse.sisu.inject:jar:0.3.3:compile
+[DEBUG]       com.google.inject:guice:jar:no_aop:4.2.1:compile
+[DEBUG]          aopalliance:aopalliance:jar:1.0:compile
+[DEBUG]          com.google.guava:guava:jar:25.1-android:compile
+[DEBUG]             com.google.code.findbugs:jsr305:jar:3.0.2:compile
+[DEBUG]             org.checkerframework:checker-compat-qual:jar:2.0.0:compile
+[DEBUG]             com.google.errorprone:error_prone_annotations:jar:2.1.3:compile
+[DEBUG]             com.google.j2objc:j2objc-annotations:jar:1.1:compile
+[DEBUG]             org.codehaus.mojo:animal-sniffer-annotations:jar:1.14:compile
+[DEBUG]       javax.inject:javax.inject:jar:1:compile
+[DEBUG]       org.codehaus.plexus:plexus-component-annotations:jar:1.7.1:compile
+[DEBUG]       org.apache.commons:commons-lang3:jar:3.8.1:compile
+[DEBUG] Created new class realm plugin>org.openjfx:javafx-maven-plugin:0.0.8
+[DEBUG] Importing foreign packages into class realm plugin>org.openjfx:javafx-maven-plugin:0.0.8
+[DEBUG]   Imported:  < maven.api
+[DEBUG] Populating class realm plugin>org.openjfx:javafx-maven-plugin:0.0.8
+[DEBUG]   Included: org.openjfx:javafx-maven-plugin:jar:0.0.8
+[DEBUG]   Included: javax.enterprise:cdi-api:jar:1.0
+[DEBUG]   Included: javax.annotation:jsr250-api:jar:1.0
+[DEBUG]   Included: org.codehaus.plexus:plexus-utils:jar:3.1.0
+[DEBUG]   Included: org.codehaus.plexus:plexus-java:jar:0.9.11
+[DEBUG]   Included: org.ow2.asm:asm:jar:7.0-beta
+[DEBUG]   Included: com.thoughtworks.qdox:qdox:jar:2.0-M9
+[DEBUG]   Included: org.codehaus.plexus:plexus-archiver:jar:3.6.0
+[DEBUG]   Included: org.codehaus.plexus:plexus-io:jar:3.0.1
+[DEBUG]   Included: commons-io:commons-io:jar:2.6
+[DEBUG]   Included: org.apache.commons:commons-compress:jar:1.16.1
+[DEBUG]   Included: org.objenesis:objenesis:jar:2.6
+[DEBUG]   Included: org.iq80.snappy:snappy:jar:0.4
+[DEBUG]   Included: org.tukaani:xz:jar:1.8
+[DEBUG]   Included: org.apache.commons:commons-exec:jar:1.3
+[DEBUG]   Included: org.codehaus.plexus:plexus-interpolation:jar:1.25
+[DEBUG]   Included: org.sonatype.plexus:plexus-sec-dispatcher:jar:1.4
+[DEBUG]   Included: org.sonatype.plexus:plexus-cipher:jar:1.4
+[DEBUG]   Included: org.apache.maven:maven-builder-support:jar:3.6.0
+[DEBUG]   Included: org.apache.maven.shared:maven-shared-utils:jar:3.2.1
+[DEBUG]   Included: org.eclipse.sisu:org.eclipse.sisu.inject:jar:0.3.3
+[DEBUG]   Included: com.google.inject:guice:jar:no_aop:4.2.1
+[DEBUG]   Included: aopalliance:aopalliance:jar:1.0
+[DEBUG]   Included: com.google.guava:guava:jar:25.1-android
+[DEBUG]   Included: com.google.code.findbugs:jsr305:jar:3.0.2
+[DEBUG]   Included: org.checkerframework:checker-compat-qual:jar:2.0.0
+[DEBUG]   Included: com.google.errorprone:error_prone_annotations:jar:2.1.3
+[DEBUG]   Included: com.google.j2objc:j2objc-annotations:jar:1.1
+[DEBUG]   Included: org.codehaus.mojo:animal-sniffer-annotations:jar:1.14
+[DEBUG]   Included: org.codehaus.plexus:plexus-component-annotations:jar:1.7.1
+[DEBUG]   Included: org.apache.commons:commons-lang3:jar:3.8.1
+[DEBUG] Loading mojo org.openjfx:javafx-maven-plugin:0.0.8:run from plugin realm ClassRealm[plugin>org.openjfx:javafx-maven-plugin:0.0.8, parent: jdk.internal.loader.ClassLoaders$AppClassLoader@11a4022a]
+[DEBUG] Configuring mojo execution 'org.openjfx:javafx-maven-plugin:0.0.8:run:default-cli' with basic configurator -->
+[DEBUG]   (f) async = false
+[DEBUG]   (f) asyncDestroyOnShutdown = true
+[DEBUG]   (f) basedir = C:\Users\PC\Desktop\???????\AppointmentSystem
+[DEBUG]   (f) builddir = C:\Users\PC\Desktop\???????\AppointmentSystem\target
+[DEBUG]   (f) compilePath = [C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes, C:\Users\PC\.m2\repository\org\openjfx\javafx-controls\17.0.6\javafx-controls-17.0.6.jar, C:\Users\PC\.m2\repository\org\openjfx\javafx-controls\17.0.6\javafx-controls-17.0.6-win.jar, C:\Users\PC\.m2\repository\org\openjfx\javafx-graphics\17.0.6\javafx-graphics-17.0.6.jar, C:\Users\PC\.m2\repository\org\openjfx\javafx-graphics\17.0.6\javafx-graphics-17.0.6-win.jar, C:\Users\PC\.m2\repository\org\openjfx\javafx-base\17.0.6\javafx-base-17.0.6.jar, C:\Users\PC\.m2\repository\org\openjfx\javafx-base\17.0.6\javafx-base-17.0.6-win.jar, C:\Users\PC\.m2\repository\org\openjfx\javafx-fxml\17.0.6\javafx-fxml-17.0.6.jar, C:\Users\PC\.m2\repository\org\openjfx\javafx-fxml\17.0.6\javafx-fxml-17.0.6-win.jar]
+[DEBUG]   (f) executable = java
+[DEBUG]   (f) includePathExceptionsInClasspath = false
+[DEBUG]   (f) mainClass = com.appointmentscheduler/com.appointmentscheduler.presentation.MainApp
+[DEBUG]   (f) project = MavenProject: com.appointmentscheduler:AppointmentSystem:1.0-SNAPSHOT @ C:\Users\PC\Desktop\???????\AppointmentSystem\pom.xml
+[DEBUG]   (f) session = org.apache.maven.execution.MavenSession@2a066689
+[DEBUG]   (f) skip = false
+[DEBUG] -- end configuration --
+[DEBUG] Executable [C:\Program Files\Java\jdk-24\bin\java.exe]
+[DEBUG] Total dependencyArtifacts: 9
+[DEBUG] module descriptor path: C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes\module-info.class
+[DEBUG] Classpath:4
+[DEBUG]  C:\Users\PC\.m2\repository\org\openjfx\javafx-base\17.0.6\javafx-base-17.0.6.jar
+[DEBUG]  C:\Users\PC\.m2\repository\org\openjfx\javafx-controls\17.0.6\javafx-controls-17.0.6.jar
+[DEBUG]  C:\Users\PC\.m2\repository\org\openjfx\javafx-fxml\17.0.6\javafx-fxml-17.0.6.jar
+[DEBUG]  C:\Users\PC\.m2\repository\org\openjfx\javafx-graphics\17.0.6\javafx-graphics-17.0.6.jar
+[DEBUG] Modulepath: 5
+[DEBUG]  C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes
+[DEBUG]  C:\Users\PC\.m2\repository\org\openjfx\javafx-base\17.0.6\javafx-base-17.0.6-win.jar
+[DEBUG]  C:\Users\PC\.m2\repository\org\openjfx\javafx-controls\17.0.6\javafx-controls-17.0.6-win.jar
+[DEBUG]  C:\Users\PC\.m2\repository\org\openjfx\javafx-fxml\17.0.6\javafx-fxml-17.0.6-win.jar
+[DEBUG]  C:\Users\PC\.m2\repository\org\openjfx\javafx-graphics\17.0.6\javafx-graphics-17.0.6-win.jar
+[DEBUG] pathElements: 9
+[DEBUG]  C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes :: com.appointmentscheduler
+[DEBUG]  C:\Users\PC\.m2\repository\org\openjfx\javafx-base\17.0.6\javafx-base-17.0.6-win.jar :: javafx.base
+[DEBUG]  C:\Users\PC\.m2\repository\org\openjfx\javafx-base\17.0.6\javafx-base-17.0.6.jar :: javafx.baseEmpty
+[DEBUG]  C:\Users\PC\.m2\repository\org\openjfx\javafx-controls\17.0.6\javafx-controls-17.0.6-win.jar :: javafx.controls
+[DEBUG]  C:\Users\PC\.m2\repository\org\openjfx\javafx-controls\17.0.6\javafx-controls-17.0.6.jar :: javafx.controlsEmpty
+[DEBUG]  C:\Users\PC\.m2\repository\org\openjfx\javafx-fxml\17.0.6\javafx-fxml-17.0.6-win.jar :: javafx.fxml
+[DEBUG]  C:\Users\PC\.m2\repository\org\openjfx\javafx-fxml\17.0.6\javafx-fxml-17.0.6.jar :: javafx.fxmlEmpty
+[DEBUG]  C:\Users\PC\.m2\repository\org\openjfx\javafx-graphics\17.0.6\javafx-graphics-17.0.6-win.jar :: javafx.graphics
+[DEBUG]  C:\Users\PC\.m2\repository\org\openjfx\javafx-graphics\17.0.6\javafx-graphics-17.0.6.jar :: javafx.graphicsEmpty
+[DEBUG] Executing command line: [C:\Program Files\Java\jdk-24\bin\java.exe, --module-path, C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes;C:\Users\PC\.m2\repository\org\openjfx\javafx-base\17.0.6\javafx-base-17.0.6-win.jar;C:\Users\PC\.m2\repository\org\openjfx\javafx-controls\17.0.6\javafx-controls-17.0.6-win.jar;C:\Users\PC\.m2\repository\org\openjfx\javafx-fxml\17.0.6\javafx-fxml-17.0.6-win.jar;C:\Users\PC\.m2\repository\org\openjfx\javafx-graphics\17.0.6\javafx-graphics-17.0.6-win.jar, --add-modules, com.appointmentscheduler, -classpath, C:\Users\PC\.m2\repository\org\openjfx\javafx-base\17.0.6\javafx-base-17.0.6.jar;C:\Users\PC\.m2\repository\org\openjfx\javafx-controls\17.0.6\javafx-controls-17.0.6.jar;C:\Users\PC\.m2\repository\org\openjfx\javafx-fxml\17.0.6\javafx-fxml-17.0.6.jar;C:\Users\PC\.m2\repository\org\openjfx\javafx-graphics\17.0.6\javafx-graphics-17.0.6.jar, --module, com.appointmentscheduler/com.appointmentscheduler.presentation.MainApp]
+Error occurred during initialization of boot layer
+java.nio.file.InvalidPathException: Illegal char <?> at index 20: C:\Users\PC\Desktop\???????\AppointmentSystem\target\classes
+[ERROR] Command execution failed.
+org.apache.commons.exec.ExecuteException: Process exited with an error: 1 (Exit value: 1)
+    at org.apache.commons.exec.DefaultExecutor.executeInternal (DefaultExecutor.java:404)
+    at org.apache.commons.exec.DefaultExecutor.execute (DefaultExecutor.java:166)
+    at org.openjfx.JavaFXBaseMojo.executeCommandLine (JavaFXBaseMojo.java:567)
+    at org.openjfx.JavaFXBaseMojo.executeCommandLine (JavaFXBaseMojo.java:434)
+    at org.openjfx.JavaFXRunMojo.execute (JavaFXRunMojo.java:105)
+    at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo (DefaultBuildPluginManager.java:126)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute2 (MojoExecutor.java:328)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute (MojoExecutor.java:316)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:212)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:174)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.access$000 (MojoExecutor.java:75)
+    at org.apache.maven.lifecycle.internal.MojoExecutor$1.run (MojoExecutor.java:162)
+    at org.apache.maven.plugin.DefaultMojosExecutionStrategy.execute (DefaultMojosExecutionStrategy.java:39)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:159)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:105)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:73)
+    at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build (SingleThreadedBuilder.java:53)
+    at org.apache.maven.lifecycle.internal.LifecycleStarter.execute (LifecycleStarter.java:118)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:261)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:173)
+    at org.apache.maven.DefaultMaven.execute (DefaultMaven.java:101)
+    at org.apache.maven.cli.MavenCli.execute (MavenCli.java:906)
+    at org.apache.maven.cli.MavenCli.doMain (MavenCli.java:283)
+    at org.apache.maven.cli.MavenCli.main (MavenCli.java:206)
+    at jdk.internal.reflect.DirectMethodHandleAccessor.invoke (DirectMethodHandleAccessor.java:104)
+    at java.lang.reflect.Method.invoke (Method.java:565)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced (Launcher.java:255)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launch (Launcher.java:201)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode (Launcher.java:361)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.main (Launcher.java:314)
+org.apache.commons.exec.ExecuteException: Process exited with an error: 1 (Exit value: 1)
+	at org.apache.commons.exec.DefaultExecutor.executeInternal(DefaultExecutor.java:404)
+	at org.apache.commons.exec.DefaultExecutor.execute(DefaultExecutor.java:166)
+	at org.openjfx.JavaFXBaseMojo.executeCommandLine(JavaFXBaseMojo.java:567)
+	at org.openjfx.JavaFXBaseMojo.executeCommandLine(JavaFXBaseMojo.java:434)
+	at org.openjfx.JavaFXRunMojo.execute(JavaFXRunMojo.java:105)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:126)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute2(MojoExecutor.java:328)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute(MojoExecutor.java:316)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:212)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:174)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.access$000(MojoExecutor.java:75)
+	at org.apache.maven.lifecycle.internal.MojoExecutor$1.run(MojoExecutor.java:162)
+	at org.apache.maven.plugin.DefaultMojosExecutionStrategy.execute(DefaultMojosExecutionStrategy.java:39)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:159)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:105)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:73)
+	at 
+org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:53)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:118)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:261)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:173)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:101)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:906)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:283)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:206)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:255)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:201)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:361)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:314)
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.872 s
+[INFO] Finished at: 2026-02-21T04:23:51+02:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.openjfx:javafx-maven-plugin:0.0.8:run (default-cli) on project AppointmentSystem: Error: Command execution failed. Process exited with an error: 1 (Exit value: 1) -> [Help 1]
+org.apache.maven.lifecycle.LifecycleExecutionException: Failed to execute goal org.openjfx:javafx-maven-plugin:0.0.8:run (default-cli) on project AppointmentSystem: Error
+    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute2 (MojoExecutor.java:333)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute (MojoExecutor.java:316)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:212)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:174)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.access$000 (MojoExecutor.java:75)
+    at org.apache.maven.lifecycle.internal.MojoExecutor$1.run (MojoExecutor.java:162)
+    at org.apache.maven.plugin.DefaultMojosExecutionStrategy.execute (DefaultMojosExecutionStrategy.java:39)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:159)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:105)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:73)
+    at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build (SingleThreadedBuilder.java:53)
+    at org.apache.maven.lifecycle.internal.LifecycleStarter.execute (LifecycleStarter.java:118)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:261)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:173)
+    at org.apache.maven.DefaultMaven.execute (DefaultMaven.java:101)
+    at org.apache.maven.cli.MavenCli.execute (MavenCli.java:906)
+    at org.apache.maven.cli.MavenCli.doMain (MavenCli.java:283)
+    at org.apache.maven.cli.MavenCli.main (MavenCli.java:206)
+    at jdk.internal.reflect.DirectMethodHandleAccessor.invoke (DirectMethodHandleAccessor.java:104)
+    at java.lang.reflect.Method.invoke (Method.java:565)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced (Launcher.java:255)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launch (Launcher.java:201)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode (Launcher.java:361)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.main (Launcher.java:314)
+Caused by: org.apache.maven.plugin.MojoExecutionException: Error
+    at org.openjfx.JavaFXRunMojo.execute (JavaFXRunMojo.java:122)
+    at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo (DefaultBuildPluginManager.java:126)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute2 (MojoExecutor.java:328)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute (MojoExecutor.java:316)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:212)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:174)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.access$000 (MojoExecutor.java:75)
+    at org.apache.maven.lifecycle.internal.MojoExecutor$1.run (MojoExecutor.java:162)
+    at org.apache.maven.plugin.DefaultMojosExecutionStrategy.execute (DefaultMojosExecutionStrategy.java:39)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:159)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:105)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:73)
+    at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build (SingleThreadedBuilder.java:53)
+    at org.apache.maven.lifecycle.internal.LifecycleStarter.execute (LifecycleStarter.java:118)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:261)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:173)
+    at org.apache.maven.DefaultMaven.execute (DefaultMaven.java:101)
+    at org.apache.maven.cli.MavenCli.execute (MavenCli.java:906)
+    at org.apache.maven.cli.MavenCli.doMain (MavenCli.java:283)
+    at org.apache.maven.cli.MavenCli.main (MavenCli.java:206)
+    at jdk.internal.reflect.DirectMethodHandleAccessor.invoke (DirectMethodHandleAccessor.java:104)
+    at java.lang.reflect.Method.invoke (Method.java:565)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced (Launcher.java:255)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launch (Launcher.java:201)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode (Launcher.java:361)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.main (Launcher.java:314)
+Caused by: org.apache.maven.plugin.MojoExecutionException: Command execution failed.
+    at org.openjfx.JavaFXRunMojo.execute (JavaFXRunMojo.java:116)
+    at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo (DefaultBuildPluginManager.java:126)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute2 (MojoExecutor.java:328)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute (MojoExecutor.java:316)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:212)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:174)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.access$000 (MojoExecutor.java:75)
+    at org.apache.maven.lifecycle.internal.MojoExecutor$1.run (MojoExecutor.java:162)
+    at org.apache.maven.plugin.DefaultMojosExecutionStrategy.execute (DefaultMojosExecutionStrategy.java:39)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:159)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:105)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:73)
+    at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build (SingleThreadedBuilder.java:53)
+    at org.apache.maven.lifecycle.internal.LifecycleStarter.execute (LifecycleStarter.java:118)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:261)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:173)
+    at org.apache.maven.DefaultMaven.execute (DefaultMaven.java:101)
+    at org.apache.maven.cli.MavenCli.execute (MavenCli.java:906)
+    at org.apache.maven.cli.MavenCli.doMain (MavenCli.java:283)
+    at org.apache.maven.cli.MavenCli.main (MavenCli.java:206)
+    at jdk.internal.reflect.DirectMethodHandleAccessor.invoke (DirectMethodHandleAccessor.java:104)
+    at java.lang.reflect.Method.invoke (Method.java:565)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced (Launcher.java:255)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launch (Launcher.java:201)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode (Launcher.java:361)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.main (Launcher.java:314)
+Caused by: org.apache.commons.exec.ExecuteException: Process exited with an error: 1 (Exit value: 1)
+    at org.apache.commons.exec.DefaultExecutor.executeInternal (DefaultExecutor.java:404)
+    at org.apache.commons.exec.DefaultExecutor.execute (DefaultExecutor.java:166)
+    at org.openjfx.JavaFXBaseMojo.executeCommandLine (JavaFXBaseMojo.java:567)
+    at org.openjfx.JavaFXBaseMojo.executeCommandLine (JavaFXBaseMojo.java:434)
+    at org.openjfx.JavaFXRunMojo.execute (JavaFXRunMojo.java:105)
+    at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo (DefaultBuildPluginManager.java:126)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute2 (MojoExecutor.java:328)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute (MojoExecutor.java:316)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:212)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:174)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.access$000 (MojoExecutor.java:75)
+    at org.apache.maven.lifecycle.internal.MojoExecutor$1.run (MojoExecutor.java:162)
+    at org.apache.maven.plugin.DefaultMojosExecutionStrategy.execute (DefaultMojosExecutionStrategy.java:39)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:159)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:105)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:73)
+    at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build (SingleThreadedBuilder.java:53)
+    at org.apache.maven.lifecycle.internal.LifecycleStarter.execute (LifecycleStarter.java:118)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:261)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:173)
+    at org.apache.maven.DefaultMaven.execute (DefaultMaven.java:101)
+    at org.apache.maven.cli.MavenCli.execute (MavenCli.java:906)
+    at org.apache.maven.cli.MavenCli.doMain (MavenCli.java:283)
+    at org.apache.maven.cli.MavenCli.main (MavenCli.java:206)
+    at jdk.internal.reflect.DirectMethodHandleAccessor.invoke (DirectMethodHandleAccessor.java:104)
+    at java.lang.reflect.Method.invoke (Method.java:565)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced (Launcher.java:255)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launch (Launcher.java:201)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode (Launcher.java:361)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.main (Launcher.java:314)
+[ERROR] 
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
+[DEBUG] Shutting down adapter factory; available factories [file-lock, rwlock-local, semaphore-local, noop]; available name mappers [discriminating, file-gav, file-hgav, file-static, gav, static]
+[DEBUG] Shutting down 'file-lock' factory
+[DEBUG] Shutting down 'rwlock-local' factory
+[DEBUG] Shutting down 'semaphore-local' factory
+[DEBUG] Shutting down 'noop' factory

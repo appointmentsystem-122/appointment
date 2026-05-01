@@ -1,0 +1,118 @@
+@startuml Appointment Scheduling System
+
+package domain {
+    class User {
+        - id: String
+        - name: String
+        - email: String
+        - password: String
+        + isAdmin(): boolean
+    }
+    class Administrator extends User {
+        + isAdmin(): boolean
+    }
+    class TimeSlot {
+        - startTime: LocalDateTime
+        - endTime: LocalDateTime
+        + overlapsWith(TimeSlot): boolean
+    }
+    abstract class Appointment {
+        - id: String
+        - status: String
+        - participantCount: int
+        - patient: User
+        - timeSlot: TimeSlot
+    }
+    class InPersonAppointment extends Appointment {
+        - location: String
+    }
+    class VirtualAppointment extends Appointment {
+        - meetingLink: String
+    }
+    class FollowUpAppointment extends Appointment {}
+    class AssessmentAppointment extends Appointment {}
+    class GroupAppointment extends Appointment {
+        - maxCapacity: int
+    }
+    class IndividualAppointment extends Appointment {}
+    class UrgentAppointment extends Appointment {}
+    class Schedule {
+        - appointments: List<Appointment>
+        + getOverlappingAppointments(TimeSlot): List<Appointment>
+    }
+    class NotificationMessage {
+        - subject: String
+        - content: String
+        - timestamp: LocalDateTime
+    }
+}
+
+package domain.rules {
+    interface BookingRuleStrategy {
+        + isValid(Appointment): boolean
+    }
+    class DurationRuleStrategy implements BookingRuleStrategy
+    class CapacityRuleStrategy implements BookingRuleStrategy
+    class AppointmentTypeRuleStrategy implements BookingRuleStrategy
+}
+
+package domain.notifiers {
+    interface Observer {
+        + notify(User, String)
+    }
+    class EmailNotifier implements Observer
+    class CalendarNotifier implements Observer
+}
+
+package persistence {
+    interface UserRepository {
+        + save(User)
+        + findByEmail(String): Optional<User>
+    }
+    interface AppointmentRepository {
+        + save(Appointment)
+        + findById(String): Optional<Appointment>
+        + deleteById(String)
+    }
+    class InMemoryUserRepository implements UserRepository
+    class InMemoryAppointmentRepository implements AppointmentRepository
+}
+
+package application {
+    class AuthService {
+        + login(String, String): boolean
+    }
+    class BookingService {
+        + bookAppointment(Appointment): boolean
+        + cancelAppointment(String, User): boolean
+        + modifyAppointment(String, User, TimeSlot): boolean
+    }
+    class ScheduleService {
+        + getAvailableSlots(LocalDate): List<TimeSlot>
+    }
+    class NotificationService {
+        + attach(Observer)
+        + notifyAllObservers(User, String)
+    }
+    
+    BookingService --> AppointmentRepository
+    BookingService --> ScheduleService
+    BookingService --> NotificationService
+    BookingService --> BookingRuleStrategy
+    AuthService --> UserRepository
+}
+
+package presentation {
+    class MainApp
+    class LoginController
+    class PatientDashboardController
+    class AdminDashboardController
+    class BookAppointmentController
+    class ModifyAppointmentController
+}
+
+MainApp --> AuthService
+MainApp --> BookingService
+MainApp --> ScheduleService
+MainApp --> NotificationService
+@enduml

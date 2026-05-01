@@ -1,0 +1,68 @@
+package com.appointmentscheduler.application;
+
+import com.appointmentscheduler.domain.AppointmentType;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.prefs.Preferences;
+
+/**
+ * Manages appointment types (name, duration, max participants). Persisted in Preferences.
+ */
+public final class AppointmentTypeService {
+
+    private static final String PREFS_KEY = "admin.appointmentTypes";
+    private static final Preferences PREFS = Preferences.userNodeForPackage(AppointmentTypeService.class);
+    private static final String SEP = "|";
+    private static final String DEF = "Standard|30|1,New session|60|1,Return visit|15|10,Express|30|1,Extended session|90|1,Preparation|45|1";
+
+    public static List<AppointmentType> getAll() {
+        String raw = PREFS.get(PREFS_KEY, DEF);
+        if (raw == null || raw.isBlank()) raw = DEF;
+        List<AppointmentType> list = new ArrayList<>();
+        for (String line : raw.split(",")) {
+            line = line.trim();
+            if (line.isEmpty()) continue;
+            String[] parts = line.split("\\" + SEP);
+            if (parts.length >= 3) {
+                try {
+                    String name = parts[0].trim();
+                    int dur = Integer.parseInt(parts[1].trim());
+                    int max = Integer.parseInt(parts[2].trim());
+                    list.add(new AppointmentType(name, dur, max));
+                } catch (Exception ignored) { }
+            }
+        }
+        if (list.isEmpty()) {
+            list.add(new AppointmentType("Standard", 30, 1));
+            list.add(new AppointmentType("New session", 60, 1));
+            list.add(new AppointmentType("Return visit", 15, 10));
+            list.add(new AppointmentType("Express", 30, 1));
+            list.add(new AppointmentType("Extended session", 90, 1));
+            list.add(new AppointmentType("Preparation", 45, 1));
+        }
+        return list;
+    }
+
+    public static void saveAll(List<AppointmentType> types) {
+        if (types == null || types.isEmpty()) return;
+        String value = types.stream()
+                .map(t -> t.getName() + SEP + t.getDurationMinutes() + SEP + t.getMaxParticipants())
+                .reduce((a, b) -> a + "," + b)
+                .orElse(DEF);
+        PREFS.put(PREFS_KEY, value);
+    }
+
+    public static void add(AppointmentType type) {
+        List<AppointmentType> list = new ArrayList<>(getAll());
+        list.removeIf(t -> t.getName().equalsIgnoreCase(type.getName()));
+        list.add(type);
+        saveAll(list);
+    }
+
+    public static void remove(String name) {
+        List<AppointmentType> list = new ArrayList<>(getAll());
+        list.removeIf(t -> t.getName().equalsIgnoreCase(name));
+        saveAll(list);
+    }
+}

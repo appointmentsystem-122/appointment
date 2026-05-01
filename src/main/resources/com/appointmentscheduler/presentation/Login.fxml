@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.SVGPath?>
+
+<StackPane prefHeight="800.0" prefWidth="1280.0" styleClass="root, login-bg" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.appointmentscheduler.presentation.LoginController">
+    <VBox alignment="CENTER" maxWidth="460.0" spacing="40.0" styleClass="login-card">
+        
+        <!-- Logo / Header -->
+        <VBox alignment="CENTER" spacing="20">
+            <StackPane style="-fx-background-color: linear-gradient(to bottom right, #0d9488, #0f766e); -fx-background-radius: 16px; -fx-padding: 24px;">
+                <SVGPath content="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" fill="white" scaleX="2.2" scaleY="2.2"/>
+            </StackPane>
+            
+            <VBox alignment="CENTER" spacing="8">
+                <Label styleClass="label-title" text="Sign In" />
+                <Label fx:id="loginSubtitleLabel" text="Appointment Scheduling" style="-fx-text-fill: #64748b; -fx-font-size: 15px; -fx-font-weight: 600;"/>
+            </VBox>
+        </VBox>
+
+        <VBox spacing="18.0" maxWidth="380">
+            <Label text="Email" styleClass="stat-label"/>
+            <TextField fx:id="emailField" promptText="you@company.com" styleClass="text-field" maxWidth="1.7976931348623157E308"/>
+            
+            <Label text="Password" styleClass="stat-label">
+                <VBox.margin><Insets top="12" /></VBox.margin>
+            </Label>
+            <StackPane maxWidth="1.7976931348623157E308">
+                <PasswordField fx:id="passwordField" promptText="Enter password" styleClass="password-field" StackPane.alignment="CENTER_LEFT" />
+                <Button fx:id="passwordToggleButton" mnemonicParsing="false" styleClass="password-toggle-button" StackPane.alignment="CENTER_RIGHT">
+                    <graphic>
+                        <SVGPath content="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12zm11 3a3 3 0 100-6 3 3 0 000 6z" scaleX="0.7" scaleY="0.7"/>
+                    </graphic>
+                </Button>
+            </StackPane>
+        </VBox>
+
+        <VBox alignment="CENTER" spacing="16" maxWidth="380">
+            <Button fx:id="loginButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleLogin" styleClass="button-primary" text="Sign In" />
+            <Button fx:id="registerButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleOpenRegistration" styleClass="button-export" text="Create New Account" />
+            <Label fx:id="messageLabel" styleClass="error-label" />
+        </VBox>
+
+        <VBox fx:id="devCredentialsBox" alignment="CENTER" spacing="12.0" style="-fx-background-color: #f8fafc; -fx-padding: 20 24; -fx-background-radius: 12; -fx-border-color: #e2e8f0; -fx-border-width: 1; -fx-border-radius: 12;">
+            <Label text="Demo Credentials" style="-fx-font-weight: bold; -fx-text-fill: #1e3a5f; -fx-font-size: 12px;"/>
+            <HBox alignment="CENTER" spacing="32">
+                <VBox alignment="CENTER" spacing="4">
+                    <Label text="Admin" style="-fx-text-fill: #64748b; -fx-font-size: 11px; -fx-font-weight: 700;"/>
+                    <Label text="admin@admin.com / admin123" style="-fx-text-fill: #475569; -fx-font-size: 12px; -fx-font-weight: 600;"/>
+                </VBox>
+                <VBox alignment="CENTER" spacing="4">
+                    <Label text="Client" style="-fx-text-fill: #64748b; -fx-font-size: 11px; -fx-font-weight: 700;"/>
+                    <Label text="customer@example.com / password123" style="-fx-text-fill: #475569; -fx-font-size: 12px; -fx-font-weight: 600;"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </VBox>
+</StackPane>

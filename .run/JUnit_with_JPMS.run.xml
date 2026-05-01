@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="JUnit (JPMS opens for JavaFX tests)" type="JUnit" factoryName="JUnit">
+    <module name="AppointmentSystem" />
+    <option name="MAIN_CLASS_NAME" value="" />
+    <option name="METHOD_NAME" value="" />
+    <option name="PACKAGE_NAME" value="com.appointmentscheduler" />
+    <option name="TEST_OBJECT" value="package" />
+    <option name="VM_PARAMETERS" value="--add-opens javafx.controls/javafx.scene.control=com.appointmentscheduler --add-opens javafx.graphics/javafx.scene=com.appointmentscheduler --add-opens javafx.base/javafx.beans=com.appointmentscheduler --add-opens javafx.graphics/com.sun.javafx.stage=ALL-UNNAMED" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
