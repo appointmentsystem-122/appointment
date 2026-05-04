@@ -61,8 +61,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PatientDashboardController {
+    private static final Logger log = LoggerFactory.getLogger(PatientDashboardController.class);
 
     private static final String SLOTS_PLACEHOLDER_DEFAULT = "Select a date above to see available slots";
 
@@ -434,14 +437,14 @@ public class PatientDashboardController {
                     calendarContainer.getChildren().add(new CalendarViewComponent(appts, LocalDate.now()));
                 }
                 Platform.runLater(() -> {
-                    try { updateReminders(); } catch (Exception ignored) { }
-                    try { loadPastAppointments(); } catch (Exception ignored) { }
-                    try { updatePatientQuickStats(); } catch (Exception ignored) { }
-                    try { updatePatientSessionLabel(); } catch (Exception ignored) { }
-                    try { refreshPatientInbox(); } catch (Exception ignored) { }
-                    try {
+                    safeUiUpdate("updateReminders", PatientDashboardController.this::updateReminders);
+                    safeUiUpdate("loadPastAppointments", PatientDashboardController.this::loadPastAppointments);
+                    safeUiUpdate("updatePatientQuickStats", PatientDashboardController.this::updatePatientQuickStats);
+                    safeUiUpdate("updatePatientSessionLabel", PatientDashboardController.this::updatePatientSessionLabel);
+                    safeUiUpdate("refreshPatientInbox", PatientDashboardController.this::refreshPatientInbox);
+                    safeUiUpdate("validateBookingForm", () -> {
                         if (bookView != null && bookView.isVisible()) validateBookingForm();
-                    } catch (Exception ignored) { }
+                    });
                 });
                 if (loadingOverlay != null) loadingOverlay.hide();
                 if (onComplete != null) Platform.runLater(onComplete);
@@ -1309,7 +1312,9 @@ public class PatientDashboardController {
             try {
                 String[] types = com.appointmentscheduler.application.AppConfig.getBookingAppointmentTypes();
                 if (types != null) searchTypeCombo.getItems().addAll(types);
-            } catch (Exception ignored) { }
+            } catch (Exception ex) {
+                log.debug("Could not load appointment types for patient search filter", ex);
+            }
             if (!searchTypeCombo.getItems().isEmpty()) searchTypeCombo.getSelectionModel().selectFirst();
         }
         if (searchBranchCombo != null) {
@@ -1321,10 +1326,19 @@ public class PatientDashboardController {
             if (!searchBranchCombo.getItems().isEmpty()) searchBranchCombo.getSelectionModel().selectFirst();
         }
         if (searchDatePicker != null) searchDatePicker.setValue(null);
-        javafx.beans.value.ChangeListener<Object> searchListener = (o, a, b) -> { try { applySearchFilter(); } catch (Exception ignored) { } };
+        javafx.beans.value.ChangeListener<Object> searchListener = (o, a, b) ->
+                safeUiUpdate("applySearchFilter", this::applySearchFilter);
         if (searchDatePicker != null) searchDatePicker.valueProperty().addListener(searchListener);
         if (searchTypeCombo != null) searchTypeCombo.valueProperty().addListener(searchListener);
         if (searchBranchCombo != null) searchBranchCombo.valueProperty().addListener(searchListener);
+    }
+
+    private void safeUiUpdate(String operationName, Runnable action) {
+        try {
+            action.run();
+        } catch (RuntimeException ex) {
+            log.debug("Patient dashboard UI update failed: {}", operationName, ex);
+        }
     }
 
     private void applySearchFilter() {
