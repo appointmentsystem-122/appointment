@@ -138,7 +138,7 @@ class PatientDashboardControllerTargetedBranchesTest {
         setField(c, "welcomeLabel", new Label());
 
         // currentUser == null → early return
-        assertThatCode(c::handleExportMyAppointments).doesNotThrowAnyException();
+        assertThatCode(() -> runOnFxVoid(c::handleExportMyAppointments)).doesNotThrowAnyException();
 
         // currentUser != null but list contains appointment with null timeslot → skip branch in loop
         User me = new User("me-exp", "Me", "me@e.com", "pw");
@@ -162,7 +162,7 @@ class PatientDashboardControllerTargetedBranchesTest {
             }
         }
 
-        assertThatCode(c::handleExportMyAppointments).doesNotThrowAnyException();
+        assertThatCode(() -> runOnFxVoid(c::handleExportMyAppointments)).doesNotThrowAnyException();
     }
 
     @Test

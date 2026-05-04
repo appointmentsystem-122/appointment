@@ -234,7 +234,7 @@
                 <configuration>
                     <!-- JaCoCo injects args into ${jacocoArgLine}. Byte Buddy: JDK 25 fallback if an older BB is on the classpath. -->
                     <!-- JPMS: tests reflect into JavaFX Cell/Alert internals (PresentationFxHarness, combo/list cells). -->
-                    <argLine>${jacocoArgLine} -XX:+EnableDynamicAgentLoading -Dnet.bytebuddy.experimental=true -Djava.awt.headless=true -Dprism.order=sw --add-opens javafx.controls/javafx.scene.control=com.appointmentscheduler --add-opens javafx.graphics/javafx.scene=com.appointmentscheduler --add-opens javafx.base/javafx.beans=com.appointmentscheduler --add-opens javafx.graphics/com.sun.javafx.stage=ALL-UNNAMED</argLine>
+                    <argLine>${jacocoArgLine} -XX:+EnableDynamicAgentLoading -Dnet.bytebuddy.experimental=true -Djava.awt.headless=true -Dprism.order=sw -Djavafx.cachedir=${java.io.tmpdir}/appointmentsystem-openjfx-cache --add-opens javafx.controls/javafx.scene.control=com.appointmentscheduler --add-opens javafx.graphics/javafx.scene=com.appointmentscheduler --add-opens javafx.base/javafx.beans=com.appointmentscheduler --add-opens javafx.graphics/com.sun.javafx.stage=ALL-UNNAMED</argLine>
                     <!-- Fork a separate JVM so JaCoCo's -javaagent actually attaches to the test process -->
                     <forkCount>1</forkCount>
                     <reuseForks>true</reuseForks>
@@ -305,6 +305,11 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
                             <reuseForks>false</reuseForks>
+                            <forkedProcessTimeoutInSeconds>300</forkedProcessTimeoutInSeconds>
+                            <includes>
+                                <include>**/com/appointmentscheduler/presentation/**/*Test.java</include>
+                                <include>**/com/generic/appointments/ui/**/*Test.java</include>
+                            </includes>
                             <excludes>
                                 <exclude>**/*MassBranchSweepTest.java</exclude>
                                 <exclude>**/*DeepMethodSweepTest.java</exclude>
