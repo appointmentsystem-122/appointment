@@ -170,8 +170,9 @@ public class LoginController {
             if (minimal != null && !pane.getStylesheets().contains(minimal.toExternalForm())) {
                 pane.getStylesheets().add(minimal.toExternalForm());
             }
-        } catch (Exception ignored) {
-            // If styling fails, continue with default dialog appearance
+        } catch (Exception ex) {
+            // Styling is optional for behavior; keep registration flow usable.
+            log.debug("Could not apply registration dialog stylesheet", ex);
         }
 
         // Localize button texts to match the rest of the app

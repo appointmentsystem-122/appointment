@@ -6,11 +6,14 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.Tooltip;
 import javafx.util.StringConverter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Shared UI setup for optional booking fields (patient dashboard + standalone book screen).
  */
 public final class BookingExtrasUi {
+    private static final Logger log = LoggerFactory.getLogger(BookingExtrasUi.class);
 
     private BookingExtrasUi() {}
 
@@ -59,7 +62,7 @@ public final class BookingExtrasUi {
     public static String reminderChannelLabel(String code) {
         if (code == null) return "";
         return switch (code) {
-            case BookingRequestFields.REMINDER_EMAIL -> "App / إشعار التطبيق";
+            case BookingRequestFields.REMINDER_EMAIL -> "Email / البريد الإلكتروني";
             case BookingRequestFields.REMINDER_SMS -> "SMS / رسالة نصية";
             case BookingRequestFields.REMINDER_NONE -> "None / بدون تذكير";
             default -> "App / إشعار التطبيق";
@@ -83,7 +86,8 @@ public final class BookingExtrasUi {
             if (spinner.getValue() != null) {
                 current = spinner.getValue();
             }
-        } catch (Exception ignored) {
+        } catch (RuntimeException ex) {
+            log.debug("Could not read spinner value; using fallback", ex);
             current = 1;
         }
         int bounded = Math.min(Math.max(1, current), max);

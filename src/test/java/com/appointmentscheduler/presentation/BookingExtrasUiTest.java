@@ -84,7 +84,7 @@ class BookingExtrasUiTest {
     void reminderChannelLabel_coversBranches() {
         assertThat(BookingExtrasUi.reminderChannelLabel(null)).isEmpty();
         assertThat(BookingExtrasUi.reminderChannelLabel(BookingRequestFields.REMINDER_EMAIL))
-                .contains("إشعار");
+                .contains("Email");
         assertThat(BookingExtrasUi.reminderChannelLabel(BookingRequestFields.REMINDER_SMS))
                 .contains("SMS");
         assertThat(BookingExtrasUi.reminderChannelLabel(BookingRequestFields.REMINDER_NONE))

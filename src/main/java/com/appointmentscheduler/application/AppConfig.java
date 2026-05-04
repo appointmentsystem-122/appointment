@@ -23,7 +23,10 @@ public final class AppConfig {
         Logger tempLog = null;
         try {
             tempLog = LoggerFactory.getLogger(AppConfig.class);
-        } catch (Throwable ignored) { /* SLF4J/Logback not available */ }
+        } catch (Throwable t) {
+            // Keep bootstrapping functional even if logging backend is unavailable.
+            System.err.println("AppConfig: logging backend unavailable during static init");
+        }
         log = tempLog;
         loadClasspathProperties();
         loadLocalOverrideProperties();
