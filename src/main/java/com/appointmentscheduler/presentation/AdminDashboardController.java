@@ -47,10 +47,12 @@ import javafx.scene.shape.SVGPath;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.io.BufferedWriter;
 import java.util.ArrayList;
 import java.util.Optional;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -294,8 +296,11 @@ public class AdminDashboardController {
             clinicSelectorCombo.getItems().add(c.getName() + " (" + c.getId() + ")");
         }
         String currentId = ApplicationContext.getCurrentClinicService().getCurrentClinicId();
-        if (currentId != null && ApplicationContext.getClinicRepository().findById(currentId).isPresent()) {
-            Clinic cur = ApplicationContext.getClinicRepository().findById(currentId).get();
+        Optional<Clinic> currentClinic = currentId != null
+                ? ApplicationContext.getClinicRepository().findById(currentId)
+                : Optional.empty();
+        if (currentClinic.isPresent()) {
+            Clinic cur = currentClinic.get();
             clinicSelectorCombo.getSelectionModel().select(cur.getName() + " (" + cur.getId() + ")");
         } else {
             clinicSelectorCombo.getSelectionModel().selectFirst();
@@ -1495,7 +1500,7 @@ public class AdminDashboardController {
             file = fileChooser.showSaveDialog(welcomeLabel.getScene().getWindow());
         }
         if (file != null) {
-            try (FileWriter writer = new FileWriter(file)) {
+            try (BufferedWriter writer = Files.newBufferedWriter(file.toPath(), StandardCharsets.UTF_8)) {
                 writer.write("ID,Patient Name,Start Time,End Time,Status,Type\n");
                 for (Appointment appt : ApplicationContext.getScheduleService().getMasterSchedule().getAllAppointments()) {
                     if (appt == null) continue;
@@ -1567,7 +1572,7 @@ public class AdminDashboardController {
             f = fc.showSaveDialog(welcomeLabel != null ? welcomeLabel.getScene().getWindow() : null);
         }
         if (f != null) {
-            try (FileWriter w = new FileWriter(f)) {
+            try (BufferedWriter w = Files.newBufferedWriter(f.toPath(), StandardCharsets.UTF_8)) {
                 w.write("Time,User ID,User Name,Action,Details,Entity Type,Entity ID,Old Value,New Value\n");
                 for (AuditEntry e : ApplicationContext.getAuditLogService().getRecentEntries(10000)) {
                     w.write(String.join(",",
@@ -1706,7 +1711,7 @@ public class AdminDashboardController {
             f = fc.showSaveDialog(welcomeLabel != null ? welcomeLabel.getScene().getWindow() : null);
         }
         if (f != null) {
-            try (FileWriter w = new FileWriter(f)) {
+            try (BufferedWriter w = Files.newBufferedWriter(f.toPath(), StandardCharsets.UTF_8)) {
                 w.write("id,name,email,admin\n");
                 for (User u : ApplicationContext.getAuthService().getUserRepository().getAllUsers()) {
                     w.write(CsvUtils.escape(u.getId()) + "," + CsvUtils.escape(u.getName()) + "," + CsvUtils.escape(u.getEmail()) + "," + u.isAdmin() + "\n");
@@ -1735,7 +1740,7 @@ public class AdminDashboardController {
             f = fc.showSaveDialog(welcomeLabel != null ? welcomeLabel.getScene().getWindow() : null);
         }
         if (f != null) {
-            try (FileWriter w = new FileWriter(f)) {
+            try (BufferedWriter w = Files.newBufferedWriter(f.toPath(), StandardCharsets.UTF_8)) {
                 List<Appointment> all = ApplicationContext.getScheduleService().getMasterSchedule().getAllAppointments();
                 w.write("appointment_id,patient_id,date,status\n");
                 for (Appointment a : all) {

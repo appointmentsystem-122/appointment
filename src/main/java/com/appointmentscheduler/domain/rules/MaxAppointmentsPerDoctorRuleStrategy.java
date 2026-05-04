@@ -30,7 +30,7 @@ public class MaxAppointmentsPerDoctorRuleStrategy implements BookingRuleStrategy
         String doctorId = appointment.getDoctorId();
         if (doctorId == null || doctorId.isEmpty()) return true;
         Optional<Doctor> docOpt = doctorRepository.findById(doctorId);
-        if (!docOpt.isPresent()) return true;
+        if (docOpt.isEmpty()) return true;
         Doctor doc = docOpt.get();
         LocalDate day = appointment.getTimeSlot().getStartTime().toLocalDate();
         long count = appointmentRepository.findAll().stream()

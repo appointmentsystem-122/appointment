@@ -56,6 +56,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -482,13 +486,16 @@ public class PatientDashboardController {
     public void handleExportMyAppointments() {
         if (currentUser == null) return;
         java.io.File dir = new java.io.File(System.getProperty("user.home"), "AppointmentExports");
-        if (!dir.exists()) dir.mkdirs();
+        if (!dir.exists() && !dir.mkdirs()) {
+            DialogHelper.showError("Export", "Could not create export folder: " + dir.getAbsolutePath());
+            return;
+        }
         String fileName = "my-appointments-" + LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + ".csv";
         java.io.File file = new java.io.File(dir, fileName);
         List<Appointment> mine = allAppointments.stream()
             .filter(a -> a.getPatient() != null && currentUser.getId() != null && currentUser.getId().equals(a.getPatient().getId()))
             .collect(Collectors.toList());
-        try (java.io.FileWriter w = new java.io.FileWriter(file)) {
+        try (BufferedWriter w = Files.newBufferedWriter(file.toPath(), StandardCharsets.UTF_8)) {
             w.write("Date,Time,EndTime,Type,Status,ID\n");
             for (Appointment a : mine) {
                 if (a.getTimeSlot() == null) continue;
@@ -501,7 +508,7 @@ public class PatientDashboardController {
             }
             javafx.stage.Window win = welcomeLabel != null && welcomeLabel.getScene() != null ? welcomeLabel.getScene().getWindow() : null;
             if (win != null) ToastNotification.show(win, NotificationType.SUCCESS, null, "Exported to " + file.getAbsolutePath());
-        } catch (Exception e) {
+        } catch (IOException e) {
             DialogHelper.showError("Export", "Could not export: " + (e.getMessage() != null ? e.getMessage() : "Unknown error"));
         }
     }

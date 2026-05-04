@@ -262,7 +262,7 @@ public class BookingService {
     public boolean modifyAppointment(String appointmentId, User requester, TimeSlot newSlot) {
         if (expirationService != null) expirationService.expirePastAppointments();
         Optional<Appointment> opt = appointmentRepository.findById(appointmentId);
-        if (!opt.isPresent()) return false;
+        if (opt.isEmpty()) return false;
         Appointment appointment = opt.get();
 
         boolean canModifyAny = requester instanceof Administrator || requester instanceof ReceptionistUser;
@@ -301,7 +301,7 @@ public class BookingService {
     public boolean cancelAppointment(String appointmentId, User requester) {
         if (expirationService != null) expirationService.expirePastAppointments();
         Optional<Appointment> opt = appointmentRepository.findById(appointmentId);
-        if (!opt.isPresent()) return false;
+        if (opt.isEmpty()) return false;
         Appointment appointment = opt.get();
 
         boolean canCancelAny = requester instanceof Administrator || requester instanceof ReceptionistUser;

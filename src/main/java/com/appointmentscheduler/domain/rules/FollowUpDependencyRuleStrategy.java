@@ -23,7 +23,7 @@ public class FollowUpDependencyRuleStrategy implements BookingRuleStrategy {
         FollowUpAppointment fu = (FollowUpAppointment) appointment;
         if (!fu.hasPriorAppointment()) return true;
         Optional<Appointment> prior = appointmentRepository.findById(fu.getPriorAppointmentId());
-        if (!prior.isPresent()) return false;
+        if (prior.isEmpty()) return false;
         Appointment p = prior.get();
         if (!p.getPatient().equals(appointment.getPatient())) return false;
         boolean priorCompleted = "COMPLETED".equals(p.getStatus()) || "CONFIRMED".equals(p.getStatus());
