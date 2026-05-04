@@ -6,6 +6,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Window;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
@@ -17,6 +19,7 @@ import java.util.function.Supplier;
  * Professional appointment rating dialog: 5 interactive stars, labels, optional comment.
  */
 public final class RatingDialog {
+    private static final Logger log = LoggerFactory.getLogger(RatingDialog.class);
 
     /**
      * Invokes the modal dialog wait; replaced in unit tests because {@link Dialog#showAndWait()} is
@@ -173,6 +176,7 @@ public final class RatingDialog {
                 pane.getStylesheets().add(url.toExternalForm());
             }
         } catch (Exception ignored) {
+            log.debug("Could not apply rating dialog stylesheet", ignored);
         }
     }
 

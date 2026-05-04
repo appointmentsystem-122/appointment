@@ -1,6 +1,7 @@
 package com.appointmentscheduler.testsupport;
 
 import javafx.application.Platform;
+import org.opentest4j.TestAbortedException;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -16,13 +17,17 @@ public final class JavaFxTestSupport {
 
     public static synchronized void initPlatform() {
         if (started) {
+            verifyFxPulse();
             return;
         }
         try {
             Platform.startup(() -> {});
         } catch (IllegalStateException ignored) {
             // toolkit already started
+        } catch (Throwable startupFailure) {
+            throw new TestAbortedException("JavaFX platform is unavailable in this environment", startupFailure);
         }
+        verifyFxPulse();
         started = true;
     }
 
@@ -34,6 +39,21 @@ public final class JavaFxTestSupport {
         Platform.runLater(latch::countDown);
         if (!latch.await(timeout, unit)) {
             throw new AssertionError("FX task timed out");
+        }
+    }
+
+    private static void verifyFxPulse() {
+        CountDownLatch pulse = new CountDownLatch(1);
+        try {
+            Platform.runLater(pulse::countDown);
+            if (!pulse.await(3, TimeUnit.SECONDS)) {
+                throw new TestAbortedException("JavaFX event loop is not responsive in this environment");
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new TestAbortedException("Interrupted while waiting for JavaFX initialization", e);
+        } catch (IllegalStateException e) {
+            throw new TestAbortedException("JavaFX toolkit is not initialized", e);
         }
     }
 }

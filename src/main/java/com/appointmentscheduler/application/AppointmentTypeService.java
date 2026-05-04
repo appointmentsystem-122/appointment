@@ -1,16 +1,20 @@
 package com.appointmentscheduler.application;
 
 import com.appointmentscheduler.domain.AppointmentType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.prefs.Preferences;
+import java.util.stream.Collectors;
 
 /**
  * Manages appointment types (name, duration, max participants). Persisted in Preferences.
  */
 public final class AppointmentTypeService {
 
+    private static final Logger log = LoggerFactory.getLogger(AppointmentTypeService.class);
     private static final String PREFS_KEY = "admin.appointmentTypes";
     private static final Preferences PREFS = Preferences.userNodeForPackage(AppointmentTypeService.class);
     private static final String SEP = "|";
@@ -30,16 +34,13 @@ public final class AppointmentTypeService {
                     int dur = Integer.parseInt(parts[1].trim());
                     int max = Integer.parseInt(parts[2].trim());
                     list.add(new AppointmentType(name, dur, max));
-                } catch (Exception ignored) { }
+                } catch (NumberFormatException ex) {
+                    log.debug("Skipping malformed appointment type record: {}", line, ex);
+                }
             }
         }
         if (list.isEmpty()) {
-            list.add(new AppointmentType("Standard", 30, 1));
-            list.add(new AppointmentType("New session", 60, 1));
-            list.add(new AppointmentType("Return visit", 15, 10));
-            list.add(new AppointmentType("Express", 30, 1));
-            list.add(new AppointmentType("Extended session", 90, 1));
-            list.add(new AppointmentType("Preparation", 45, 1));
+            list.addAll(defaultTypes());
         }
         return list;
     }
@@ -48,8 +49,7 @@ public final class AppointmentTypeService {
         if (types == null || types.isEmpty()) return;
         String value = types.stream()
                 .map(t -> t.getName() + SEP + t.getDurationMinutes() + SEP + t.getMaxParticipants())
-                .reduce((a, b) -> a + "," + b)
-                .orElse(DEF);
+                .collect(Collectors.joining(","));
         PREFS.put(PREFS_KEY, value);
     }
 
@@ -64,5 +64,16 @@ public final class AppointmentTypeService {
         List<AppointmentType> list = new ArrayList<>(getAll());
         list.removeIf(t -> t.getName().equalsIgnoreCase(name));
         saveAll(list);
+    }
+
+    private static List<AppointmentType> defaultTypes() {
+        List<AppointmentType> defaults = new ArrayList<>();
+        defaults.add(new AppointmentType("Standard", 30, 1));
+        defaults.add(new AppointmentType("New session", 60, 1));
+        defaults.add(new AppointmentType("Return visit", 15, 10));
+        defaults.add(new AppointmentType("Express", 30, 1));
+        defaults.add(new AppointmentType("Extended session", 90, 1));
+        defaults.add(new AppointmentType("Preparation", 45, 1));
+        return defaults;
     }
 }

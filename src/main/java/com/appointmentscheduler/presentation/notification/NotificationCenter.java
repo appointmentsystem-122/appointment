@@ -11,6 +11,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Central notification hub: in-memory store with observable list and unread count.
@@ -18,6 +20,7 @@ import java.util.stream.Collectors;
  */
 public final class NotificationCenter {
 
+    private static final Logger log = LoggerFactory.getLogger(NotificationCenter.class);
     private static final int MAX_ITEMS = 200;
     private static volatile NotificationCenter instance;
 
@@ -114,7 +117,12 @@ public final class NotificationCenter {
         int count = getUnreadCount();
         unreadCount.set(count);
         for (Runnable r : unreadCountListeners) {
-            try { r.run(); } catch (Exception ignored) { }
+            try {
+                r.run();
+            } catch (RuntimeException ex) {
+                // Listener failures must not break notification state propagation.
+                log.warn("Unread-count listener failed", ex);
+            }
         }
     }
 

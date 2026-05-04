@@ -96,7 +96,11 @@ public class MainApp extends Application {
         }
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            try { DatabaseConfig.shutdown(); } catch (Throwable ignored) { }
+            try {
+                DatabaseConfig.shutdown();
+            } catch (Throwable t) {
+                log.warn("Database shutdown hook failed", t);
+            }
         }));
         log.info("Starting {} v{}", AppConfig.getAppName(), AppConfig.getAppVersion());
 

@@ -4,6 +4,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
 import javafx.stage.Window;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
 
@@ -11,6 +13,7 @@ import java.util.Optional;
  * Utility class for displaying styled JavaFX Alerts.
  */
 public class DialogHelper {
+    private static final Logger log = LoggerFactory.getLogger(DialogHelper.class);
 
     static boolean isAutoDialogs() {
         return Boolean.getBoolean("app.test.autoDialogs");
@@ -129,7 +132,7 @@ public class DialogHelper {
                 pane.getStylesheets().add(minimal.toExternalForm());
             }
         } catch (Exception e) {
-            // ignore
+            log.debug("Could not apply dialog stylesheet", e);
         }
     }
 }
