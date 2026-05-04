@@ -23,6 +23,7 @@
         <bytebuddy.version>1.17.5</bytebuddy.version>
         <!-- Surefire + JaCoCo: JaCoCo prepare-agent overwrites this with the javaagent -->
         <argLine></argLine>
+        <junit.jupiter.execution.timeout.default>45 s</junit.jupiter.execution.timeout.default>
     </properties>
 
     <dependencies>
@@ -233,7 +234,7 @@
                 <configuration>
                     <!-- JaCoCo injects args into ${jacocoArgLine}. Byte Buddy: JDK 25 fallback if an older BB is on the classpath. -->
                     <!-- JPMS: tests reflect into JavaFX Cell/Alert internals (PresentationFxHarness, combo/list cells). -->
-                    <argLine>${jacocoArgLine} -XX:+EnableDynamicAgentLoading -Dnet.bytebuddy.experimental=true --add-opens javafx.controls/javafx.scene.control=com.appointmentscheduler --add-opens javafx.graphics/javafx.scene=com.appointmentscheduler --add-opens javafx.base/javafx.beans=com.appointmentscheduler --add-opens javafx.graphics/com.sun.javafx.stage=ALL-UNNAMED</argLine>
+                    <argLine>${jacocoArgLine} -XX:+EnableDynamicAgentLoading -Dnet.bytebuddy.experimental=true -Djava.awt.headless=true -Dglass.platform=Monocle -Dmonocle.platform=Headless -Dprism.order=sw -Dtestfx.headless=true --add-opens javafx.controls/javafx.scene.control=com.appointmentscheduler --add-opens javafx.graphics/javafx.scene=com.appointmentscheduler --add-opens javafx.base/javafx.beans=com.appointmentscheduler --add-opens javafx.graphics/com.sun.javafx.stage=ALL-UNNAMED</argLine>
                     <!-- Fork a separate JVM so JaCoCo's -javaagent actually attaches to the test process -->
                     <forkCount>1</forkCount>
                     <reuseForks>false</reuseForks>
@@ -242,6 +243,9 @@
                     <!-- Prevent CI from waiting forever on a stuck forked test JVM -->
                     <forkedProcessTimeoutInSeconds>900</forkedProcessTimeoutInSeconds>
                     <forkedProcessExitTimeoutInSeconds>60</forkedProcessExitTimeoutInSeconds>
+                    <systemPropertyVariables>
+                        <junit.jupiter.execution.timeout.default>${junit.jupiter.execution.timeout.default}</junit.jupiter.execution.timeout.default>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
 
@@ -275,6 +279,29 @@
                                 <exclude>**/*Ui*Test.java</exclude>
                                 <exclude>**/*MainApp*Test.java</exclude>
                                 <exclude>**/*Controller*Test.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>ci-stable-ui</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/*MassBranchSweepTest.java</exclude>
+                                <exclude>**/*DeepMethodSweepTest.java</exclude>
+                                <exclude>**/*BranchSweepTest.java</exclude>
+                                <exclude>**/*BranchLift*Test.java</exclude>
+                                <exclude>**/*CoverageBoost*Test.java</exclude>
+                                <exclude>**/*Below80*Test.java</exclude>
+                                <exclude>**/*BranchCoverage80*Test.java</exclude>
                             </excludes>
                         </configuration>
                     </plugin>

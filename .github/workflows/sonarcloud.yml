@@ -34,12 +34,12 @@ jobs:
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
-      - name: Build (tests skipped) and SonarCloud scan
+      - name: Build, test with JaCoCo, and SonarCloud scan
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          MAVEN_OPTS: -Djava.awt.headless=true
+          MAVEN_OPTS: -Djava.awt.headless=true -Dglass.platform=Monocle -Dmonocle.platform=Headless -Dprism.order=sw
         run: >
-          mvn -B -DskipTests verify
+          xvfb-run -a mvn -B -ntp clean verify -Pci-stable-ui
           sonar:sonar
           -Dsonar.token=${SONAR_TOKEN}

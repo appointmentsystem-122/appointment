@@ -8,9 +8,9 @@ import javafx.scene.input.MouseEvent;
 
 import com.appointmentscheduler.application.AppConfig;
 import com.appointmentscheduler.application.ApplicationContext;
+import com.appointmentscheduler.application.SessionTimeoutPolicy;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -22,6 +22,7 @@ public class SessionManager {
     private LocalDateTime lastActivity;
     private Timer timer;
     private boolean warningShown;
+    private final SessionTimeoutPolicy timeoutPolicy = new SessionTimeoutPolicy();
     
     // Singleton
     private static SessionManager instance;
@@ -82,13 +83,15 @@ public class SessionManager {
 
     private void checkTimeout() {
         var auth = ApplicationContext.getAuthService();
-        if (auth == null || auth.getCurrentUser() == null) return; // Not logged in / services not ready
-        
-        long minutesInactive = ChronoUnit.MINUTES.between(lastActivity, LocalDateTime.now());
-        long timeout = getTimeoutMinutes();
-        long warning = getWarningMinutes();
-
-        if (minutesInactive >= timeout) {
+        SessionTimeoutPolicy.Action action = timeoutPolicy.evaluate(
+                lastActivity,
+                LocalDateTime.now(),
+                warningShown,
+                getTimeoutMinutes(),
+                getWarningMinutes(),
+                auth != null && auth.getCurrentUser() != null
+        );
+        if (action == SessionTimeoutPolicy.Action.LOGOUT) {
             Platform.runLater(() -> {
                 var authSvc = ApplicationContext.getAuthService();
                 var user = authSvc != null ? authSvc.getCurrentUser() : null;
@@ -100,9 +103,10 @@ public class SessionManager {
                 DialogHelper.showError(I18n.get("session.expired"), I18n.get("session.expired.message"));
                 MainApp.loadScreen(ScreenConstants.FXML_LOGIN, ScreenConstants.titleLogin());
             });
-        } else if (minutesInactive >= warning && !warningShown) {
+        } else if (action == SessionTimeoutPolicy.Action.WARN) {
             warningShown = true;
-            Platform.runLater(() -> showSessionWarningDialog(timeout - warning));
+            long minutesLeft = Math.max(0, getTimeoutMinutes() - getWarningMinutes());
+            Platform.runLater(() -> showSessionWarningDialog(minutesLeft));
         }
     }
 
