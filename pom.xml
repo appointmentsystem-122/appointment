@@ -11,6 +11,7 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.organization>moamenishtaya</sonar.organization>
@@ -23,7 +24,7 @@
         <bytebuddy.version>1.17.5</bytebuddy.version>
         <!-- Surefire + JaCoCo: JaCoCo prepare-agent overwrites this with the javaagent -->
         <argLine></argLine>
-        <junit.jupiter.execution.timeout.default>45 s</junit.jupiter.execution.timeout.default>
+        <junit.jupiter.execution.timeout.default>30 s</junit.jupiter.execution.timeout.default>
     </properties>
 
     <dependencies>
@@ -154,8 +155,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
-                    <source>17</source>
-                    <target>17</target>
+                    <release>17</release>
                 </configuration>
             </plugin>
             
@@ -234,10 +234,10 @@
                 <configuration>
                     <!-- JaCoCo injects args into ${jacocoArgLine}. Byte Buddy: JDK 25 fallback if an older BB is on the classpath. -->
                     <!-- JPMS: tests reflect into JavaFX Cell/Alert internals (PresentationFxHarness, combo/list cells). -->
-                    <argLine>${jacocoArgLine} -XX:+EnableDynamicAgentLoading -Dnet.bytebuddy.experimental=true -Djava.awt.headless=true -Dglass.platform=Monocle -Dmonocle.platform=Headless -Dprism.order=sw -Dtestfx.headless=true --add-opens javafx.controls/javafx.scene.control=com.appointmentscheduler --add-opens javafx.graphics/javafx.scene=com.appointmentscheduler --add-opens javafx.base/javafx.beans=com.appointmentscheduler --add-opens javafx.graphics/com.sun.javafx.stage=ALL-UNNAMED</argLine>
+                    <argLine>${jacocoArgLine} -XX:+EnableDynamicAgentLoading -Dnet.bytebuddy.experimental=true -Djava.awt.headless=true -Dprism.order=sw --add-opens javafx.controls/javafx.scene.control=com.appointmentscheduler --add-opens javafx.graphics/javafx.scene=com.appointmentscheduler --add-opens javafx.base/javafx.beans=com.appointmentscheduler --add-opens javafx.graphics/com.sun.javafx.stage=ALL-UNNAMED</argLine>
                     <!-- Fork a separate JVM so JaCoCo's -javaagent actually attaches to the test process -->
                     <forkCount>1</forkCount>
-                    <reuseForks>false</reuseForks>
+                    <reuseForks>true</reuseForks>
                     <!-- Tests + Flyway: classpath mode so migration SQL from main/resources is visible to Flyway -->
                     <useModulePath>false</useModulePath>
                     <!-- Prevent CI from waiting forever on a stuck forked test JVM -->
@@ -245,6 +245,7 @@
                     <forkedProcessExitTimeoutInSeconds>60</forkedProcessExitTimeoutInSeconds>
                     <systemPropertyVariables>
                         <junit.jupiter.execution.timeout.default>${junit.jupiter.execution.timeout.default}</junit.jupiter.execution.timeout.default>
+                        <java.util.prefs.PreferencesFactory>com.appointmentscheduler.testsupport.InMemoryPreferencesFactory</java.util.prefs.PreferencesFactory>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
@@ -253,6 +254,7 @@
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.11.0.3922</version>
             </plugin>
         </plugins>
     </build>
@@ -271,7 +273,15 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
+                            <reuseForks>true</reuseForks>
                             <excludes>
+                                <exclude>**/*BranchBundleTest.java</exclude>
+                                <exclude>**/*BranchSweepTest.java</exclude>
+                                <exclude>**/*BranchBoostTest.java</exclude>
+                                <exclude>**/*LowBranchBoostTest.java</exclude>
+                                <exclude>**/*CoverageBoost*Test.java</exclude>
+                                <exclude>**/*Coverage80BatchTest.java</exclude>
+                                <exclude>**/*BranchCoverage80*Test.java</exclude>
                                 <exclude>**/com/appointmentscheduler/presentation/**</exclude>
                                 <exclude>**/com/generic/appointments/ui/**</exclude>
                                 <exclude>**/com/appointmentscheduler/testsupport/PresentationFxHarness*</exclude>
@@ -294,6 +304,7 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
+                            <reuseForks>false</reuseForks>
                             <excludes>
                                 <exclude>**/*MassBranchSweepTest.java</exclude>
                                 <exclude>**/*DeepMethodSweepTest.java</exclude>
@@ -303,6 +314,30 @@
                                 <exclude>**/*Below80*Test.java</exclude>
                                 <exclude>**/*BranchCoverage80*Test.java</exclude>
                             </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!--
+          CI-safe JavaFX smoke profile. Run under xvfb on Linux:
+          xvfb-run -a mvn -B -ntp test -Pci-javafx-smoke
+        -->
+        <profile>
+            <id>ci-javafx-smoke</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <includes>
+                                <include>**/BookingOptionComboHelperTest.java</include>
+                                <include>**/LoadingSpinnerOverlayTest.java</include>
+                                <include>**/NotificationCenterTest.java</include>
+                            </includes>
+                            <failIfNoSpecifiedTests>true</failIfNoSpecifiedTests>
                         </configuration>
                     </plugin>
                 </plugins>

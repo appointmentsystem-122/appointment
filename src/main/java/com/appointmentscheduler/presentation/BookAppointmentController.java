@@ -8,6 +8,7 @@ import com.appointmentscheduler.application.BookingAppointmentFactory;
 import com.appointmentscheduler.application.BookingCatalog;
 import com.appointmentscheduler.application.BookingOption;
 import com.appointmentscheduler.application.BookingFailureCodes;
+import com.appointmentscheduler.application.BookingFormValidator;
 import com.appointmentscheduler.application.BookingRequestFields;
 import com.appointmentscheduler.application.ScheduleService;
 import javafx.application.Platform;
@@ -165,20 +166,22 @@ public class BookAppointmentController {
     }
     
     private void validateBookingForm() {
-        boolean isDateEmpty = datePicker.getValue() == null;
-        boolean isTypeEmpty = typeCombo.getValue() == null;
-        boolean isSlotEmpty = timeSlotCombo.getValue() == null;
         boolean blockedOpen = currentUser != null && ApplicationContext.getBookingService() != null
                 && ApplicationContext.getBookingService().patientHasBlockingOpenAppointment(currentUser.getId());
+        BookingFormValidator.Result state = BookingFormValidator.evaluate(
+                datePicker.getValue() == null,
+                typeCombo.getValue() == null,
+                timeSlotCombo.getValue() == null,
+                blockedOpen);
 
-        if (isDateEmpty) datePicker.getStyleClass().add("error-input");
+        if (state.dateMissing()) datePicker.getStyleClass().add("error-input");
         else datePicker.getStyleClass().remove("error-input");
         
-        if (isTypeEmpty) typeCombo.getStyleClass().add("error-input");
+        if (state.typeMissing()) typeCombo.getStyleClass().add("error-input");
         else typeCombo.getStyleClass().remove("error-input");
 
         if (btnConfirmBooking != null) {
-            btnConfirmBooking.setDisable(isDateEmpty || isTypeEmpty || isSlotEmpty || blockedOpen);
+            btnConfirmBooking.setDisable(!state.canSubmit());
         }
     }
 

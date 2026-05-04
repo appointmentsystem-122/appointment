@@ -72,7 +72,8 @@ class ReportGeneratorTest {
         User p = new User("u", "NameX", "e@x.com", "x");
         LocalDateTime s = LocalDateTime.now().plusDays(1);
         InPersonAppointment a = new InPersonAppointment(p, new TimeSlot(s, s.plusHours(1)), "L");
-        boolean ok = ReportGenerator.exportAppointmentsToCSV(List.of(a), "?:\\invalid\\report.csv");
+        Path missingParent = Path.of("target", "missing-report-dir", "report.csv");
+        boolean ok = ReportGenerator.exportAppointmentsToCSV(List.of(a), missingParent.toString());
         assertThat(ok).isFalse();
     }
 }
