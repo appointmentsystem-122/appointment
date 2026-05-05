@@ -18,20 +18,12 @@ public final class AppConfig {
         throw new AssertionError("No instances");
     }
 
-    private static final Logger log;
+    private static final Logger log = LoggerFactory.getLogger(AppConfig.class);
     private static final Properties props = new Properties();
     private static final Preferences PREFS = Preferences.userNodeForPackage(AppConfig.class);
     private static boolean loaded;
 
     static {
-        Logger tempLog = null;
-        try {
-            tempLog = LoggerFactory.getLogger(AppConfig.class);
-        } catch (Throwable t) {
-            // Keep bootstrapping functional even if logging backend is unavailable.
-            System.err.println("AppConfig: logging backend unavailable during static init");
-        }
-        log = tempLog;
         loadClasspathProperties();
         loadLocalOverrideProperties();
     }
@@ -56,10 +48,10 @@ public final class AppConfig {
             if (in != null) {
                 props.load(in);
                 loaded = true;
-                if (log != null) log.debug(debugMsg);
+                log.debug(debugMsg);
             }
-        } catch (Throwable e) {
-            if (log != null) log.warn(warnMsgPattern, e.getMessage());
+        } catch (Exception e) {
+            log.warn(warnMsgPattern, e.getMessage());
         }
     }
 
