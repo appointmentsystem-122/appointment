@@ -39,12 +39,12 @@ jobs:
           MAVEN_OPTS: -Djava.awt.headless=true -Dprism.order=sw
         run: xvfb-run -a mvn -B -ntp test -Pci-javafx-smoke
 
-      - name: Build, stable tests with JaCoCo, and SonarCloud scan
+      - name: Build, selected GUI tests with JaCoCo, and SonarCloud scan
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           MAVEN_OPTS: -Djava.awt.headless=true -Dprism.order=sw
         run: >
-          mvn -B -ntp clean verify -Pci-no-ui-tests
+          xvfb-run -a mvn -B -ntp clean verify -Pci-selected-gui-coverage
           sonar:sonar
           -Dsonar.token=${SONAR_TOKEN}
