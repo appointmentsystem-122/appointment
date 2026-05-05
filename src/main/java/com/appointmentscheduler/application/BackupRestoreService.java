@@ -46,6 +46,31 @@ public class BackupRestoreService {
     }
 
     /**
+     * Validates the output path to ensure it can be used for file operations.
+     * @param outputPath the path to validate
+     * @throws IOException if the path is invalid
+     */
+    private void validatePath(String outputPath) throws IOException {
+        if (outputPath == null || outputPath.trim().isEmpty()) {
+            throw new IOException("Output path cannot be null or empty");
+        }
+        
+        try {
+            Path path = Path.of(outputPath);
+            Path parent = path.getParent();
+            
+            if (parent != null && !Files.exists(parent)) {
+                throw new IOException("Parent directory does not exist: " + parent);
+            }
+        } catch (Exception e) {
+            if (e instanceof IOException) {
+                throw (IOException) e;
+            }
+            throw new IOException("Invalid file path: " + outputPath, e);
+        }
+    }
+
+    /**
      * Exports a backup summary (counts and timestamp) to the given path.
      * Actual full backup would require serializing entities; here we write a manifest.
      */
