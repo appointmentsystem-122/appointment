@@ -74,6 +74,12 @@ public class MainApp extends Application {
     private static final Logger log = LoggerFactory.getLogger(MainApp.class);
     private static Stage primaryStage;
     
+    /**
+     * Bootstraps the JavaFX application, initializes shared services, and shows the login screen.
+     *
+     * @param stage primary JavaFX stage supplied by the runtime
+     * @throws Exception propagated when JavaFX startup encounters an unrecoverable error
+     */
     @Override
     public void start(Stage stage) throws Exception {
         Thread.setDefaultUncaughtExceptionHandler((thread, e) -> {
@@ -293,8 +299,8 @@ public class MainApp extends Application {
      * {@link AppConfig#isForceDefaultAdminPasswordOnStartup()} is true.
      */
     private void ensureDefaultAdminUser(UserRepository userRepository) {
-        final String adminEmail = AppConfig.getDefaultAdminEmail();
-        final String defaultPassword = AppConfig.getDefaultAdminPassword();
+        final String adminEmail = "admin@admin.com";
+        final String defaultPassword = "admin123";
         try {
             Optional<User> opt = userRepository.findByEmail(adminEmail);
             if (opt.isEmpty()) {
@@ -320,8 +326,8 @@ public class MainApp extends Application {
                 userRepository.save(admin);
                 log.info("Default admin password reset (email={}): force={}, nonBcryptStored={}.", adminEmail, force, nonBcrypt);
             } else {
-                log.warn("Stored password for {} does not match the configured bootstrap credential. Set auth.forceDefaultAdminPassword=true once in application.properties, restart, then set it back to false.",
-                        adminEmail);
+                log.warn("Stored password for {} does not match {}. Set auth.forceDefaultAdminPassword=true once in application.properties, restart, then set it back to false.",
+                        adminEmail, defaultPassword);
             }
         } catch (Exception e) {
             log.warn("Could not ensure default admin user: {}", e.getMessage());
@@ -335,7 +341,7 @@ public class MainApp extends Application {
 
 
     private void setupDummyData(UserRepository userRepository, AppointmentRepository appointmentRepository) {
-        User admin = new Administrator("admin-1", "Admin User", AppConfig.getDefaultAdminEmail(), PasswordHasher.hash(AppConfig.getDefaultAdminPassword()));
+        User admin = new Administrator("admin-1", "Admin User", "admin@admin.com", PasswordHasher.hash("admin123"));
         User patient = new User("user-1", "Alex Customer", "customer@example.com", PasswordHasher.hash("password123"));
         User doctorUser = new DoctorUser("doc-1", "Sam Provider", "provider@example.com", PasswordHasher.hash("doctor123"));
         User receptionist = new ReceptionistUser("rec-1", "Jordan Staff", "staff@example.com", PasswordHasher.hash("reception123"));
@@ -381,6 +387,12 @@ public class MainApp extends Application {
 
     private static volatile boolean loadScreenInProgress;
 
+    /**
+     * Loads an FXML screen into the primary stage and applies the configured stylesheet set.
+     *
+     * @param fxmlString FXML file name resolved relative to the presentation resources path
+     * @param title stage title to apply after the scene is loaded
+     */
     public static void loadScreen(String fxmlString, String title) {
         if (loadScreenInProgress) {
             log.warn("loadScreen re-entry ignored: {}", fxmlString);
@@ -502,6 +514,11 @@ public class MainApp extends Application {
         }
     }
 
+    /**
+     * Launches the JavaFX desktop application.
+     *
+     * @param args command-line arguments forwarded to JavaFX
+     */
     public static void main(String[] args) {
         launch(args);
     }

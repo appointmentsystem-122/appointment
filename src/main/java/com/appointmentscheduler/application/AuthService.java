@@ -20,10 +20,23 @@ public class AuthService {
     private final AuditLogService auditLogService;
     private User currentUser;
 
+    /**
+     * Creates an authentication service backed by the supplied user repository.
+     * A no-op login-attempt tracker and no audit logger are used by default.
+     *
+     * @param userRepository repository used to resolve users by email
+     */
     public AuthService(UserRepository userRepository) {
         this(userRepository, null, null);
     }
 
+    /**
+     * Creates an authentication service with explicit collaborators for lockout handling and audit logging.
+     *
+     * @param userRepository repository used to find and persist user accounts
+     * @param loginAttemptService strategy that records failed logins and lockout windows
+     * @param auditLogService audit logger used to record sign-in activity; may be {@code null}
+     */
     public AuthService(UserRepository userRepository, LoginAttemptService loginAttemptService,
                       AuditLogService auditLogService) {
         this.userRepository = userRepository;
@@ -88,6 +101,11 @@ public class AuthService {
         return email == null ? 0 : loginAttemptService.getRemainingLockMinutes(email.trim().toLowerCase());
     }
 
+    /**
+     * Returns the login-attempt policy currently used by the service.
+     *
+     * @return lockout and throttling service used for authentication attempts
+     */
     public LoginAttemptService getLoginAttemptService() {
         return loginAttemptService;
     }
@@ -126,6 +144,11 @@ public class AuthService {
     /**
      * Retrieves the UserRepository.
      * @return the UserRepository instance
+     */
+    /**
+     * Exposes the underlying user repository for screens that need lightweight account queries.
+     *
+     * @return repository used by the authentication service
      */
     public UserRepository getUserRepository() {
         return userRepository;

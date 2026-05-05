@@ -38,6 +38,12 @@ public abstract class Appointment {
     /**
      * Constructs a base appointment (new entity).
      */
+    /**
+     * Creates a new appointment for the supplied patient and time slot.
+     *
+     * @param patient patient who owns the appointment
+     * @param timeSlot scheduled slot for the appointment
+     */
     public Appointment(User patient, TimeSlot timeSlot) {
         if (patient == null) throw new IllegalArgumentException("Patient cannot be null");
         if (timeSlot == null) throw new IllegalArgumentException("TimeSlot cannot be null");
@@ -63,6 +69,13 @@ public abstract class Appointment {
     }
 
     /** For persistence: restore soft-delete state when loading from DB. */
+    /**
+     * Restores the soft-delete state when rehydrating an appointment from persistence.
+     *
+     * @param deleted whether the appointment has been soft deleted
+     * @param deletedAt timestamp at which the delete occurred
+     * @param deletedBy identifier of the user who performed the deletion
+     */
     public void setDeletedState(boolean deleted, LocalDateTime deletedAt, String deletedBy) {
         this.deleted = deleted;
         this.deletedAt = deletedAt;
@@ -134,6 +147,11 @@ public abstract class Appointment {
     }
 
     /** Mark as soft-deleted. */
+    /**
+     * Soft-deletes the appointment while recording who performed the action and when it happened.
+     *
+     * @param deletedByUserId identifier of the actor requesting the delete
+     */
     public void markDeleted(String deletedByUserId) {
         this.deleted = true;
         this.deletedAt = LocalDateTime.now();
@@ -221,6 +239,11 @@ public abstract class Appointment {
 
     /**
      * Sends an appointment reminder via the given observer only when the appointment start is in the future.
+     */
+    /**
+     * Sends a reminder through the provided observer only when the appointment starts in the future.
+     *
+     * @param observer observer implementation responsible for dispatching the reminder
      */
     public void sendReminder(Observer observer) {
         Objects.requireNonNull(observer, "observer");

@@ -20,6 +20,12 @@ public final class AppointmentTypeService {
     private static final String SEP = "|";
     private static final String DEF = "Standard|30|1,New session|60|1,Return visit|15|10,Express|30|1,Extended session|90|1,Preparation|45|1";
 
+    /**
+     * Loads all configured appointment types from the user preferences store.
+     * Malformed rows are ignored and the built-in defaults are restored when no valid entries remain.
+     *
+     * @return ordered list of configured appointment types
+     */
     public static List<AppointmentType> getAll() {
         String raw = PREFS.get(PREFS_KEY, DEF);
         if (raw == null || raw.isBlank()) raw = DEF;
@@ -45,6 +51,11 @@ public final class AppointmentTypeService {
         return list;
     }
 
+    /**
+     * Persists the supplied appointment-type collection to the preferences store.
+     *
+     * @param types appointment types to store; empty collections are ignored
+     */
     public static void saveAll(List<AppointmentType> types) {
         if (types == null || types.isEmpty()) return;
         String value = types.stream()
@@ -53,6 +64,11 @@ public final class AppointmentTypeService {
         PREFS.put(PREFS_KEY, value);
     }
 
+    /**
+     * Adds or replaces a single appointment type by case-insensitive name.
+     *
+     * @param type appointment type to add or replace
+     */
     public static void add(AppointmentType type) {
         List<AppointmentType> list = new ArrayList<>(getAll());
         list.removeIf(t -> t.getName().equalsIgnoreCase(type.getName()));
@@ -60,6 +76,11 @@ public final class AppointmentTypeService {
         saveAll(list);
     }
 
+    /**
+     * Removes all appointment-type entries whose names match the supplied value ignoring case.
+     *
+     * @param name appointment-type name to remove
+     */
     public static void remove(String name) {
         List<AppointmentType> list = new ArrayList<>(getAll());
         list.removeIf(t -> t.getName().equalsIgnoreCase(name));

@@ -51,6 +51,12 @@ public class TimeSlot {
      * @param other the other timeslot
      * @return true if there is an overlap, false otherwise
      */
+    /**
+     * Determines whether two slots intersect at any point in time.
+     *
+     * @param other slot to compare against; {@code null} returns {@code false}
+     * @return {@code true} when the intervals overlap, otherwise {@code false}
+     */
     public boolean overlapsWith(TimeSlot other) {
         if (other == null) return false;
         return this.startTime.isBefore(other.endTime) && other.startTime.isBefore(this.endTime);
@@ -70,6 +76,11 @@ public class TimeSlot {
     }
 
     @Override
+    /**
+     * Returns a compact human-readable representation of the slot boundaries.
+     *
+     * @return textual representation in the form {@code start to end}
+     */
     public String toString() {
         return startTime.toString() + " to " + endTime.toString();
     }

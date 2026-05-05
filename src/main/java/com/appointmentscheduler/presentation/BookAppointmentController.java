@@ -26,6 +26,10 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Controller for the appointment-booking screen.
+ * It coordinates date selection, slot retrieval, validation, and submission of new bookings.
+ */
 public class BookAppointmentController {
 
     @FXML
@@ -58,6 +62,9 @@ public class BookAppointmentController {
 
     private User currentUser;
 
+    /**
+     * Prepares combo boxes, listeners, and keyboard shortcuts once the booking view is loaded.
+     */
     @FXML
     public void initialize() {
         currentUser = ApplicationContext.getAuthService().getCurrentUser();
@@ -185,6 +192,9 @@ public class BookAppointmentController {
         }
     }
 
+    /**
+     * Refreshes the available time slots after the user explicitly changes the selected booking date.
+     */
     @FXML
     public void handleDateSelection() {
         onBookingDateChanged(datePicker.getValue());
@@ -223,6 +233,9 @@ public class BookAppointmentController {
         new Thread(loadSlotsTask).start();
     }
 
+    /**
+     * Validates the current form state and submits a booking request when all required fields are present.
+     */
     @FXML
     public void handleBook() {
         BookingOption opt = typeCombo.getValue();
@@ -273,6 +286,9 @@ public class BookAppointmentController {
         }
     }
 
+    /**
+     * Returns the current user to the appropriate dashboard without creating an appointment.
+     */
     @FXML
     public void handleBack() {
         if (currentUser != null && currentUser.isAdmin()) {
@@ -282,12 +298,18 @@ public class BookAppointmentController {
         }
     }
 
+    /**
+     * Performs a confirmed logout from the booking screen.
+     */
     @FXML
     public void handleLogout() {
         javafx.stage.Window owner = messageLabel != null && messageLabel.getScene() != null ? messageLabel.getScene().getWindow() : null;
         MainApp.performLogout(owner, currentUser);
     }
 
+    /**
+     * Alternate confirm action used by button bindings and automated UI flows.
+     */
     @FXML
     public void handleConfirmBooking() {
         handleBook();

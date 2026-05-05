@@ -13,6 +13,11 @@ import javafx.geometry.Insets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Controller for the login screen.
+ * It validates credentials, routes users to the appropriate dashboard, and exposes a compact
+ * self-registration dialog for new client accounts.
+ */
 public class LoginController {
 
     private static final Logger log = LoggerFactory.getLogger(LoginController.class);
@@ -24,6 +29,9 @@ public class LoginController {
     @FXML private Label loginSubtitleLabel;
     @FXML private VBox devCredentialsBox;
 
+    /**
+     * Initializes static labels, optional developer hints, and password-visibility helpers after FXML injection.
+     */
     @FXML
     public void initialize() {
         try {
@@ -44,6 +52,10 @@ public class LoginController {
     private static final java.util.regex.Pattern EMAIL_PATTERN =
         java.util.regex.Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
 
+    /**
+     * Validates the entered credentials and attempts authentication through {@link ApplicationContext}.
+     * Successful authentication routes administrators and patients to different dashboards.
+     */
     @FXML
     public void handleLogin() {
         String email = emailField != null ? emailField.getText() : null;

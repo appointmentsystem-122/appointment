@@ -17,6 +17,10 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Controller for the appointment-modification screen.
+ * It loads an existing appointment, offers valid replacement slots, and submits the change request.
+ */
 public class ModifyAppointmentController {
 
     @FXML
@@ -39,6 +43,9 @@ public class ModifyAppointmentController {
 
     public static String appointmentIdToModify;
 
+    /**
+     * Resolves the appointment that should be edited and prepares the date and slot controls.
+     */
     @FXML
     public void initialize() {
         currentUser = ApplicationContext.getAuthService().getCurrentUser();
@@ -146,11 +153,17 @@ public class ModifyAppointmentController {
         }
     }
 
+    /**
+     * Reloads replacement slots for the newly selected date.
+     */
     @FXML
     public void handleDateSelection() {
         onModifyDateChanged(datePicker.getValue());
     }
 
+    /**
+     * Attempts to update the selected appointment with the newly chosen slot.
+     */
     @FXML
     public void handleModify() {
         if (targetAppointment == null) {
@@ -180,6 +193,9 @@ public class ModifyAppointmentController {
         }
     }
 
+    /**
+     * Returns to the appropriate dashboard without saving a modification.
+     */
     @FXML
     public void handleBack() {
         if (currentUser != null && currentUser.isAdmin()) {
@@ -189,6 +205,9 @@ public class ModifyAppointmentController {
         }
     }
 
+    /**
+     * Performs a confirmed logout from the modification screen.
+     */
     @FXML
     public void handleLogout() {
         javafx.stage.Window owner = messageLabel != null && messageLabel.getScene() != null ? messageLabel.getScene().getWindow() : null;
