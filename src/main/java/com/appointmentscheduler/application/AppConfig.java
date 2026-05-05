@@ -21,6 +21,7 @@ public final class AppConfig {
     private static final Logger log = LoggerFactory.getLogger(AppConfig.class);
     private static final Properties props = new Properties();
     private static final Preferences PREFS = Preferences.userNodeForPackage(AppConfig.class);
+    private static final String KEY_SYSTEM_TYPE = "app.systemType";
     private static boolean loaded;
 
     static {
@@ -105,15 +106,15 @@ public final class AppConfig {
     public static String getDomainType() { return get("app.domainType", "generic"); }
     /** System / business type (e.g. General, Healthcare, Salon). Saved in Settings; overrides properties. */
     public static String getSystemType() {
-        String v = PREFS.get("app.systemType", get("app.systemType", "General"));
+        String v = PREFS.get(KEY_SYSTEM_TYPE, get(KEY_SYSTEM_TYPE, "General"));
         if ("Clinic".equals(v)) {
-            PREFS.put("app.systemType", "Healthcare");
+            PREFS.put(KEY_SYSTEM_TYPE, "Healthcare");
             return "Healthcare";
         }
         return v;
     }
     public static void setSystemType(String value) {
-        if (value != null && !value.isBlank()) PREFS.put("app.systemType", value);
+        if (value != null && !value.isBlank()) PREFS.put(KEY_SYSTEM_TYPE, value);
     }
     /** Options for system type dropdown in Admin Settings (domain-neutral labels). */
     public static String[] getSystemTypeOptions() {
