@@ -363,7 +363,7 @@
                         </configuration>
                     </plugin>
                 </plugins>
-            </build>fix
+            </build>
         </profile>
 
         <!--
