@@ -45,21 +45,23 @@ public final class AppointmentTypeConfig {
             String[] kv = part.split(SUB);
             if (kv.length >= 3) {
                 String typeName = kv[0].trim();
-                int durationMinutes = parsePositiveIntOrDefault(kv[1], 60);
-                int maxParticipants = parsePositiveIntOrDefault(kv[2], 1);
-                list.add(new Type(typeName, durationMinutes, maxParticipants));
+                Integer durationMinutes = parsePositiveInt(kv[1]);
+                Integer maxParticipants = parsePositiveInt(kv[2]);
+                if (durationMinutes != null && maxParticipants != null) {
+                    list.add(new Type(typeName, durationMinutes, maxParticipants));
+                }
             }
         }
         return list;
     }
 
-    private static int parsePositiveIntOrDefault(String rawValue, int defaultValue) {
-        if (rawValue == null) return defaultValue;
+    private static Integer parsePositiveInt(String rawValue) {
+        if (rawValue == null) return null;
         try {
             int parsed = Integer.parseInt(rawValue.trim());
-            return parsed > 0 ? parsed : defaultValue;
+            return parsed > 0 ? parsed : null;
         } catch (NumberFormatException ex) {
-            return defaultValue;
+            return null;
         }
     }
 
