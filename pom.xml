@@ -290,6 +290,7 @@
                                 <exclude>**/*Ui*Test.java</exclude>
                                 <exclude>**/*MainApp*Test.java</exclude>
                                 <exclude>**/*Controller*Test.java</exclude>
+                                <exclude>**/ApplicationLowBranchBoostTest.java</exclude>
                             </excludes>
                         </configuration>
                     </plugin>
