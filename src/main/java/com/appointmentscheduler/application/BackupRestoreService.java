@@ -10,6 +10,7 @@ import com.appointmentscheduler.persistence.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -57,11 +58,10 @@ public class BackupRestoreService {
             if (parent != null && !Files.exists(parent)) {
                 throw new IOException("Parent directory does not exist: " + parent);
             }
-        } catch (Exception e) {
-            if (e instanceof IOException) {
-                throw (IOException) e;
-            }
+        } catch (InvalidPathException e) {
             throw new IOException("Invalid file path: " + outputPath, e);
+        } catch (IOException e) {
+            throw e;
         }
     }
 
