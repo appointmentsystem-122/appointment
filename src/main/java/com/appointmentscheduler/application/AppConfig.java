@@ -22,6 +22,7 @@ public final class AppConfig {
     private static final Properties props = new Properties();
     private static final Preferences PREFS = Preferences.userNodeForPackage(AppConfig.class);
     private static final String KEY_SYSTEM_TYPE = "app.systemType";
+    private static final String SYSTEM_TYPE_HEALTHCARE = "Healthcare";
     private static boolean loaded;
 
     static {
@@ -108,8 +109,8 @@ public final class AppConfig {
     public static String getSystemType() {
         String v = PREFS.get(KEY_SYSTEM_TYPE, get(KEY_SYSTEM_TYPE, "General"));
         if ("Clinic".equals(v)) {
-            PREFS.put(KEY_SYSTEM_TYPE, "Healthcare");
-            return "Healthcare";
+            PREFS.put(KEY_SYSTEM_TYPE, SYSTEM_TYPE_HEALTHCARE);
+            return SYSTEM_TYPE_HEALTHCARE;
         }
         return v;
     }
@@ -118,7 +119,7 @@ public final class AppConfig {
     }
     /** Options for system type dropdown in Admin Settings (domain-neutral labels). */
     public static String[] getSystemTypeOptions() {
-        return new String[] { "General", "Healthcare", "Salon", "Consultancy", "Education", "Other" };
+        return new String[] { "General", SYSTEM_TYPE_HEALTHCARE, "Salon", "Consultancy", "Education", "Other" };
     }
     public static boolean isShowDevCredentials() { return getBoolean("app.showDevCredentials", false); }
     public static int getSessionTimeoutMinutes() { return getInt("session.timeoutMinutes", 15); }
