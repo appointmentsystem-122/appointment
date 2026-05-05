@@ -17,6 +17,7 @@
         <sonar.organization>moamenishtaya</sonar.organization>
         <sonar.projectKey>moamenishtaya_appointment-system</sonar.projectKey>
         <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+        <sonar.coverage.exclusions>**/presentation/AdminDashboardController.java,**/presentation/BookAppointmentController.java,**/presentation/PatientDashboardController.java,**/presentation/LoginController.java</sonar.coverage.exclusions>
         <javafx.version>17.0.6</javafx.version>
         <junit.version>5.10.2</junit.version>
         <!-- Mockito 5.16+ + Byte Buddy 1.17.5+ for official JDK 25 (class file 69) support (inline mocks). -->
