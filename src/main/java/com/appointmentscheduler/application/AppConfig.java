@@ -14,6 +14,10 @@ import java.util.prefs.Preferences;
  */
 public final class AppConfig {
 
+    private AppConfig() {
+        throw new AssertionError("No instances");
+    }
+
     private static final Logger log;
     private static final Properties props = new Properties();
     private static final Preferences PREFS = Preferences.userNodeForPackage(AppConfig.class);
