@@ -348,6 +348,16 @@
                                 <include>**/com/appointmentscheduler/presentation/AdminDashboardControllerSelectedCoverageTest.java</include>
 
                                 <include>**/com/appointmentscheduler/presentation/BookingExtrasUiTest.java</include>
+                                <include>**/com/appointmentscheduler/presentation/BookingDateMessagesTest.java</include>
+                                <include>**/com/appointmentscheduler/presentation/BookingOptionComboHelperTest.java</include>
+                                <include>**/com/appointmentscheduler/presentation/DialogHelperBranchTest.java</include>
+                                <include>**/com/appointmentscheduler/presentation/ErrorHandlerTest.java</include>
+                                <include>**/com/appointmentscheduler/presentation/I18nTest.java</include>
+                                <include>**/com/appointmentscheduler/presentation/LoadingSpinnerOverlayTest.java</include>
+                                <include>**/com/appointmentscheduler/presentation/ToastNotificationTest.java</include>
+                                <include>**/com/appointmentscheduler/presentation/PrintHelperCoverageTest.java</include>
+                                <include>**/com/appointmentscheduler/presentation/CsvUtilsTest.java</include>
+                                <include>**/com/appointmentscheduler/presentation/PatronBookingSummaryTest.java</include>
                             </includes>
                             <failIfNoSpecifiedTests>true</failIfNoSpecifiedTests>
                         </configuration>
