@@ -337,11 +337,19 @@
                             <forkedProcessTimeoutInSeconds>300</forkedProcessTimeoutInSeconds>
                             <includes>
                                 <include>**/com/appointmentscheduler/presentation/SelectedGuiCoverageSanityTest.java</include>
+                                <include>**/com/appointmentscheduler/presentation/SelectedSmallFilesCoverageTest.java</include>
+                                <include>**/com/appointmentscheduler/presentation/AdminDashboardControllerSelectedCoverageTest.java</include>
+
                                 <include>**/com/appointmentscheduler/presentation/BookingDateMessagesTest.java</include>
                                 <include>**/com/appointmentscheduler/presentation/BookingExtrasUiTest.java</include>
-                                <include>**/com/appointmentscheduler/presentation/notification/AppNotificationTest.java</include>
+
+                                <include>**/com/appointmentscheduler/presentation/AppNotificationLogicTest.java</include>
+                                <include>**/com/appointmentscheduler/presentation/AppNotificationStoreTest.java</include>
+                                <include>**/com/appointmentscheduler/presentation/notification/**/*Test.java</include>
+
                                 <include>**/com/appointmentscheduler/presentation/BookAppointmentControllerTargetedBranchesTest.java</include>
                                 <include>**/com/appointmentscheduler/presentation/BookAppointmentLoadSlotsTaskBranchTest.java</include>
+
                                 <include>**/com/appointmentscheduler/presentation/AdminDashboardControllerTargetedBranchesTest.java</include>
                                 <include>**/com/appointmentscheduler/presentation/AdminDashboardRefreshTaskBranchTest.java</include>
                             </includes>
