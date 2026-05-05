@@ -338,6 +338,14 @@
                             <reuseForks>false</reuseForks>
                             <forkedProcessTimeoutInSeconds>300</forkedProcessTimeoutInSeconds>
                             <includes>
+                                <include>**/com/appointmentscheduler/application/**/*Test.java</include>
+                                <include>**/com/appointmentscheduler/domain/**/*Test.java</include>
+                                <include>**/com/appointmentscheduler/persistence/**/*Test.java</include>
+                                <include>**/com/generic/appointments/model/**/*Test.java</include>
+                                <include>**/com/generic/appointments/repository/**/*Test.java</include>
+                                <include>**/com/generic/appointments/service/**/*Test.java</include>
+                                <include>**/com/generic/appointments/strategy/**/*Test.java</include>
+
                                 <include>**/com/appointmentscheduler/presentation/AppNotificationStoreTest.java</include>
                                 <include>**/com/appointmentscheduler/presentation/AppNotificationLogicTest.java</include>
 
@@ -356,7 +364,7 @@
                                 <include>**/com/appointmentscheduler/presentation/I18nTest.java</include>
                                 <include>**/com/appointmentscheduler/presentation/LoadingSpinnerOverlayTest.java</include>
                                 <include>**/com/appointmentscheduler/presentation/ToastNotificationTest.java</include>
-                                <!-- <include>**/com/appointmentscheduler/presentation/PrintHelperCoverageTest.java</include> -->
+                                <include>**/com/appointmentscheduler/presentation/PrintHelperCoverageTest.java</include>
                                 <include>**/com/appointmentscheduler/presentation/CsvUtilsTest.java</include>
                                 <include>**/com/appointmentscheduler/presentation/PatronBookingSummaryTest.java</include>
                             </includes>

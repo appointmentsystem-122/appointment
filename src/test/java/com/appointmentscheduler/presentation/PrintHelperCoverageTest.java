@@ -42,19 +42,23 @@ class PrintHelperCoverageTest {
     void printReceipt_autoDialogs_shortCircuitPath() {
         System.setProperty("app.test.autoDialogs", "true");
         IndividualAppointment appt = sampleAppointment();
-        assertThatCode(() -> PrintHelper.printAppointmentReceipt(appt, null)).doesNotThrowAnyException();
+        assertThatCode(() -> JavaFxTestSupport.runOnFxThread(
+                () -> PrintHelper.printAppointmentReceipt(appt, null)))
+                .doesNotThrowAnyException();
     }
 
     @Test
     void printReceipt_printerUnavailable_showsError() {
         IndividualAppointment appt = sampleAppointment();
-        try (MockedStatic<PrinterJob> pj = mockStatic(PrinterJob.class);
-             MockedStatic<DialogHelper> dh = mockStatic(DialogHelper.class)) {
-            pj.when(PrinterJob::createPrinterJob).thenReturn(null);
-            dh.when(() -> DialogHelper.showError(anyString(), anyString())).thenAnswer(i -> null);
-            PrintHelper.printAppointmentReceipt(appt, null);
-            dh.verify(() -> DialogHelper.showError(anyString(), anyString()));
-        }
+        JavaFxTestSupport.runOnFxThread(() -> {
+            try (MockedStatic<PrinterJob> pj = mockStatic(PrinterJob.class);
+                 MockedStatic<DialogHelper> dh = mockStatic(DialogHelper.class)) {
+                pj.when(PrinterJob::createPrinterJob).thenReturn(null);
+                dh.when(() -> DialogHelper.showError(anyString(), anyString())).thenAnswer(i -> null);
+                PrintHelper.printAppointmentReceipt(appt, null);
+                dh.verify(() -> DialogHelper.showError(anyString(), anyString()));
+            }
+        });
     }
 
     @Test
@@ -63,12 +67,14 @@ class PrintHelperCoverageTest {
         IndividualAppointment appt = sampleAppointment();
         PrinterJob job = mock(PrinterJob.class);
         when(job.showPrintDialog(null)).thenReturn(false);
-        try (MockedStatic<PrinterJob> pj = mockStatic(PrinterJob.class)) {
-            pj.when(PrinterJob::createPrinterJob).thenReturn(job);
-            PrintHelper.printAppointmentReceipt(appt, null);
-            verify(job, never()).printPage(any());
-            verify(job, never()).endJob();
-        }
+        JavaFxTestSupport.runOnFxThread(() -> {
+            try (MockedStatic<PrinterJob> pj = mockStatic(PrinterJob.class)) {
+                pj.when(PrinterJob::createPrinterJob).thenReturn(job);
+                PrintHelper.printAppointmentReceipt(appt, null);
+                verify(job, never()).printPage(any());
+                verify(job, never()).endJob();
+            }
+        });
     }
 
     @Test
@@ -78,12 +84,14 @@ class PrintHelperCoverageTest {
         PrinterJob job = mock(PrinterJob.class);
         when(job.showPrintDialog(null)).thenReturn(true);
         when(job.printPage(any())).thenReturn(false);
-        try (MockedStatic<PrinterJob> pj = mockStatic(PrinterJob.class)) {
-            pj.when(PrinterJob::createPrinterJob).thenReturn(job);
-            PrintHelper.printAppointmentReceipt(appt, null);
-            verify(job).printPage(any());
-            verify(job, never()).endJob();
-        }
+        JavaFxTestSupport.runOnFxThread(() -> {
+            try (MockedStatic<PrinterJob> pj = mockStatic(PrinterJob.class)) {
+                pj.when(PrinterJob::createPrinterJob).thenReturn(job);
+                PrintHelper.printAppointmentReceipt(appt, null);
+                verify(job).printPage(any());
+                verify(job, never()).endJob();
+            }
+        });
     }
 
     @Test
@@ -93,12 +101,14 @@ class PrintHelperCoverageTest {
         PrinterJob job = mock(PrinterJob.class);
         when(job.showPrintDialog(null)).thenReturn(true);
         when(job.printPage(any())).thenReturn(true);
-        try (MockedStatic<PrinterJob> pj = mockStatic(PrinterJob.class)) {
-            pj.when(PrinterJob::createPrinterJob).thenReturn(job);
-            PrintHelper.printAppointmentReceipt(appt, null);
-            verify(job).printPage(any());
-            verify(job).endJob();
-        }
+        JavaFxTestSupport.runOnFxThread(() -> {
+            try (MockedStatic<PrinterJob> pj = mockStatic(PrinterJob.class)) {
+                pj.when(PrinterJob::createPrinterJob).thenReturn(job);
+                PrintHelper.printAppointmentReceipt(appt, null);
+                verify(job).printPage(any());
+                verify(job).endJob();
+            }
+        });
     }
 
     private static IndividualAppointment sampleAppointment() {

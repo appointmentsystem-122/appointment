@@ -4,6 +4,8 @@ import javafx.application.Platform;
 import org.opentest4j.TestAbortedException;
 
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -39,6 +41,36 @@ public final class JavaFxTestSupport {
         Platform.runLater(latch::countDown);
         if (!latch.await(timeout, unit)) {
             throw new AssertionError("FX task timed out");
+        }
+    }
+
+    public static void runOnFxThread(Runnable action) {
+        initPlatform();
+        if (Platform.isFxApplicationThread()) {
+            action.run();
+            return;
+        }
+        FutureTask<Void> task = new FutureTask<>(() -> {
+            action.run();
+            return null;
+        });
+        Platform.runLater(task);
+        try {
+            task.get(5, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new AssertionError("Interrupted while waiting for FX task", e);
+        } catch (ExecutionException e) {
+            Throwable cause = e.getCause();
+            if (cause instanceof RuntimeException runtimeException) {
+                throw runtimeException;
+            }
+            if (cause instanceof Error error) {
+                throw error;
+            }
+            throw new AssertionError("FX task failed", cause);
+        } catch (java.util.concurrent.TimeoutException e) {
+            throw new AssertionError("FX task timed out", e);
         }
     }
 

@@ -79,7 +79,7 @@ class PresentationUtilityCoverageBoost2Test {
     @Test
     void bookingExtrasUi_labels_coverSwitchAndNullBranches() {
         assertThat(BookingExtrasUi.reminderChannelLabel(null)).isEmpty();
-        assertThat(BookingExtrasUi.reminderChannelLabel(BookingRequestFields.REMINDER_EMAIL)).contains("App");
+        assertThat(BookingExtrasUi.reminderChannelLabel(BookingRequestFields.REMINDER_EMAIL)).contains("Email");
         assertThat(BookingExtrasUi.reminderChannelLabel(BookingRequestFields.REMINDER_SMS)).contains("SMS");
         assertThat(BookingExtrasUi.reminderChannelLabel(BookingRequestFields.REMINDER_NONE)).contains("None");
         assertThat(BookingExtrasUi.reminderChannelLabel("UNKNOWN")).contains("App");
