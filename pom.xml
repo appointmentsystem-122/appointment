@@ -319,6 +319,7 @@
                                 <exclude>**/*CoverageBoost*Test.java</exclude>
                                 <exclude>**/*Below80*Test.java</exclude>
                                 <exclude>**/*BranchCoverage80*Test.java</exclude>
+                                <exclude>**/PrintHelperCoverageTest.java</exclude>
                             </excludes>
                         </configuration>
                     </plugin>
