@@ -204,6 +204,7 @@
                       from the JaCoCo *report* keeps the package branch ratio meaningful and lets the package reach
                       the project’s ≥80% branch target together with the rest of presentation.
                     -->
+                    <append>true</append>
                     <excludes>
                         <!-- Wildcards include inner classes ($1, $2, …) so branch totals match “top-level controller only” intent. -->
                         <exclude>**/presentation/PatientDashboardController*</exclude>
@@ -318,6 +319,33 @@
                                 <exclude>**/*Below80*Test.java</exclude>
                                 <exclude>**/*BranchCoverage80*Test.java</exclude>
                             </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>ci-selected-gui-coverage</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <reuseForks>false</reuseForks>
+                            <forkedProcessTimeoutInSeconds>300</forkedProcessTimeoutInSeconds>
+                            <includes>
+                                <include>**/com/appointmentscheduler/presentation/SelectedGuiCoverageSanityTest.java</include>
+                                <include>**/com/appointmentscheduler/presentation/BookingDateMessagesTest.java</include>
+                                <include>**/com/appointmentscheduler/presentation/BookingExtrasUiTest.java</include>
+                                <include>**/com/appointmentscheduler/presentation/notification/AppNotificationTest.java</include>
+                                <include>**/com/appointmentscheduler/presentation/BookAppointmentControllerTargetedBranchesTest.java</include>
+                                <include>**/com/appointmentscheduler/presentation/BookAppointmentLoadSlotsTaskBranchTest.java</include>
+                                <include>**/com/appointmentscheduler/presentation/AdminDashboardControllerTargetedBranchesTest.java</include>
+                                <include>**/com/appointmentscheduler/presentation/AdminDashboardRefreshTaskBranchTest.java</include>
+                            </includes>
+                            <failIfNoSpecifiedTests>true</failIfNoSpecifiedTests>
                         </configuration>
                     </plugin>
                 </plugins>
