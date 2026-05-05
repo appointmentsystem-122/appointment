@@ -207,7 +207,6 @@
                     <excludes>
                         <!-- Wildcards include inner classes ($1, $2, …) so branch totals match “top-level controller only” intent. -->
                         <exclude>**/presentation/PatientDashboardController*</exclude>
-                        <exclude>**/presentation/AdminDashboardController*</exclude>
                         <exclude>**/presentation/LoginController*</exclude>
                     </excludes>
                 </configuration>
