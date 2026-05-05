@@ -44,12 +44,23 @@ public final class AppointmentTypeConfig {
         for (String part : raw.split("\\" + SEP)) {
             String[] kv = part.split(SUB);
             if (kv.length >= 3) {
-                try {
-                    list.add(new Type(kv[0].trim(), Integer.parseInt(kv[1].trim()), Integer.parseInt(kv[2].trim())));
-                } catch (NumberFormatException ignored) { }
+                String typeName = kv[0].trim();
+                int durationMinutes = parsePositiveIntOrDefault(kv[1], 60);
+                int maxParticipants = parsePositiveIntOrDefault(kv[2], 1);
+                list.add(new Type(typeName, durationMinutes, maxParticipants));
             }
         }
         return list;
+    }
+
+    private static int parsePositiveIntOrDefault(String rawValue, int defaultValue) {
+        if (rawValue == null) return defaultValue;
+        try {
+            int parsed = Integer.parseInt(rawValue.trim());
+            return parsed > 0 ? parsed : defaultValue;
+        } catch (NumberFormatException ex) {
+            return defaultValue;
+        }
     }
 
     public static void save(List<Type> types) {

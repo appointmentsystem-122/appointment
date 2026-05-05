@@ -168,4 +168,16 @@ public final class AppConfig {
         return getBoolean("auth.forceDefaultAdminPassword", false);
     }
 
+    public static String getDefaultAdminEmail() {
+        return get("auth.defaultAdminEmail", "admin@admin.com");
+    }
+
+    /**
+     * Development bootstrap credential used only when the initial administrator account must be created or repaired.
+     * In production, override this via configuration or environment-backed property sources before first startup.
+     */
+    public static String getDefaultAdminPassword() {
+        return get("auth.defaultAdminPassword", "admin123");
+    }
+
 }

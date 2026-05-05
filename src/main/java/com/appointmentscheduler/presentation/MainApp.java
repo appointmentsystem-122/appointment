@@ -293,8 +293,8 @@ public class MainApp extends Application {
      * {@link AppConfig#isForceDefaultAdminPasswordOnStartup()} is true.
      */
     private void ensureDefaultAdminUser(UserRepository userRepository) {
-        final String adminEmail = "admin@admin.com";
-        final String defaultPassword = "admin123";
+        final String adminEmail = AppConfig.getDefaultAdminEmail();
+        final String defaultPassword = AppConfig.getDefaultAdminPassword();
         try {
             Optional<User> opt = userRepository.findByEmail(adminEmail);
             if (opt.isEmpty()) {
@@ -320,8 +320,8 @@ public class MainApp extends Application {
                 userRepository.save(admin);
                 log.info("Default admin password reset (email={}): force={}, nonBcryptStored={}.", adminEmail, force, nonBcrypt);
             } else {
-                log.warn("Stored password for {} does not match {}. Set auth.forceDefaultAdminPassword=true once in application.properties, restart, then set it back to false.",
-                        adminEmail, defaultPassword);
+                log.warn("Stored password for {} does not match the configured bootstrap credential. Set auth.forceDefaultAdminPassword=true once in application.properties, restart, then set it back to false.",
+                        adminEmail);
             }
         } catch (Exception e) {
             log.warn("Could not ensure default admin user: {}", e.getMessage());
@@ -335,7 +335,7 @@ public class MainApp extends Application {
 
 
     private void setupDummyData(UserRepository userRepository, AppointmentRepository appointmentRepository) {
-        User admin = new Administrator("admin-1", "Admin User", "admin@admin.com", PasswordHasher.hash("admin123"));
+        User admin = new Administrator("admin-1", "Admin User", AppConfig.getDefaultAdminEmail(), PasswordHasher.hash(AppConfig.getDefaultAdminPassword()));
         User patient = new User("user-1", "Alex Customer", "customer@example.com", PasswordHasher.hash("password123"));
         User doctorUser = new DoctorUser("doc-1", "Sam Provider", "provider@example.com", PasswordHasher.hash("doctor123"));
         User receptionist = new ReceptionistUser("rec-1", "Jordan Staff", "staff@example.com", PasswordHasher.hash("reception123"));
