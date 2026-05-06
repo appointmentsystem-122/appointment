@@ -75,45 +75,53 @@ public class BackupRestoreService {
      * Actual full backup would require serializing entities; here we write a manifest.
      */
     public void exportBackupManifest(String outputPath) throws IOException {
-        List<Appointment> appts = appointmentRepository.findAll();
-        List<User> users = userRepository.findAll();
-        List<Doctor> doctors = doctorRepository.findAll();
-        List<Room> rooms = roomRepository.findAll();
-        List<Clinic> clinics = clinicRepository.findAll();
+        try {
+            List<Appointment> appts = appointmentRepository.findAll();
+            List<User> users = userRepository.findAll();
+            List<Doctor> doctors = doctorRepository.findAll();
+            List<Room> rooms = roomRepository.findAll();
+            List<Clinic> clinics = clinicRepository.findAll();
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("# Backup Manifest - ").append(LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)).append("\n");
-        sb.append("appointments=").append(appts.size()).append("\n");
-        sb.append("users=").append(users.size()).append("\n");
-        sb.append("doctors=").append(doctors.size()).append("\n");
-        sb.append("rooms=").append(rooms.size()).append("\n");
-        sb.append("clinics=").append(clinics.size()).append("\n");
-        Files.writeString(Path.of(outputPath), sb.toString(), StandardCharsets.UTF_8);
+            StringBuilder sb = new StringBuilder();
+            sb.append("# Backup Manifest - ").append(LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)).append("\n");
+            sb.append("appointments=").append(appts.size()).append("\n");
+            sb.append("users=").append(users.size()).append("\n");
+            sb.append("doctors=").append(doctors.size()).append("\n");
+            sb.append("rooms=").append(rooms.size()).append("\n");
+            sb.append("clinics=").append(clinics.size()).append("\n");
+            Files.writeString(Path.of(outputPath), sb.toString(), StandardCharsets.UTF_8);
+        } catch (Exception e) {
+            throw new IOException("Failed to export backup manifest", e);
+        }
     }
 
     /**
      * Exports all appointments to CSV for backup/audit.
      */
     public void exportAppointmentsCsv(String outputPath) throws IOException {
-        List<Appointment> appts = appointmentRepository.findAll().stream()
-            .filter(java.util.Objects::nonNull)
-            .filter(a -> !a.isDeleted())
-            .collect(Collectors.toList());
-        try (PrintWriter w = new PrintWriter(Files.newBufferedWriter(Path.of(outputPath), StandardCharsets.UTF_8))) {
-            w.println("id,patientId,patientName,startTime,endTime,status,doctorId,roomId,clinicId");
-            for (Appointment a : appts) {
-                w.printf("%s,%s,%s,%s,%s,%s,%s,%s,%s%n",
-                    a.getId(),
-                    a.getPatient() != null ? a.getPatient().getId() : "",
-                    a.getPatient() != null ? a.getPatient().getName().replace(",", " ") : "",
-                    a.getTimeSlot() != null ? a.getTimeSlot().getStartTime() : "",
-                    a.getTimeSlot() != null ? a.getTimeSlot().getEndTime() : "",
-                    a.getStatus(),
-                    a.getDoctorId() != null ? a.getDoctorId() : "",
-                    a.getRoomId() != null ? a.getRoomId() : "",
-                    a.getClinicId() != null ? a.getClinicId() : ""
-                );
+        try {
+            List<Appointment> appts = appointmentRepository.findAll().stream()
+                .filter(java.util.Objects::nonNull)
+                .filter(a -> !a.isDeleted())
+                .collect(Collectors.toList());
+            try (PrintWriter w = new PrintWriter(Files.newBufferedWriter(Path.of(outputPath), StandardCharsets.UTF_8))) {
+                w.println("id,patientId,patientName,startTime,endTime,status,doctorId,roomId,clinicId");
+                for (Appointment a : appts) {
+                    w.printf("%s,%s,%s,%s,%s,%s,%s,%s,%s%n",
+                        a.getId(),
+                        a.getPatient() != null ? a.getPatient().getId() : "",
+                        a.getPatient() != null ? a.getPatient().getName().replace(",", " ") : "",
+                        a.getTimeSlot() != null ? a.getTimeSlot().getStartTime() : "",
+                        a.getTimeSlot() != null ? a.getTimeSlot().getEndTime() : "",
+                        a.getStatus(),
+                        a.getDoctorId() != null ? a.getDoctorId() : "",
+                        a.getRoomId() != null ? a.getRoomId() : "",
+                        a.getClinicId() != null ? a.getClinicId() : ""
+                    );
+                }
             }
+        } catch (Exception e) {
+            throw new IOException("Failed to export appointments CSV", e);
         }
     }
 }
