@@ -56,6 +56,13 @@ public class BackupRestoreService {
         }
         
         try {
+            // Reject obviously invalid "drive" patterns like "?:\..." that can silently succeed on Linux
+            // (where '?' and ':' may be legal filename characters) but are invalid on Windows.
+            String trimmed = outputPath.trim();
+            if (trimmed.startsWith("?:") || trimmed.startsWith("?:\\") || trimmed.startsWith("?:/")) {
+                throw new IOException("Invalid Windows drive designator in path: " + outputPath);
+            }
+
             Path path = Path.of(outputPath);
             Path parent = path.getParent();
             
@@ -76,6 +83,7 @@ public class BackupRestoreService {
      */
     public void exportBackupManifest(String outputPath) throws IOException {
         try {
+            validatePath(outputPath);
             List<Appointment> appts = appointmentRepository.findAll();
             List<User> users = userRepository.findAll();
             List<Doctor> doctors = doctorRepository.findAll();
@@ -100,6 +108,7 @@ public class BackupRestoreService {
      */
     public void exportAppointmentsCsv(String outputPath) throws IOException {
         try {
+            validatePath(outputPath);
             List<Appointment> appts = appointmentRepository.findAll().stream()
                 .filter(java.util.Objects::nonNull)
                 .filter(a -> !a.isDeleted())
