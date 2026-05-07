@@ -1,11 +1,12 @@
 package com.appointmentscheduler.application;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Properties;
 import java.util.prefs.Preferences;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Central application configuration loaded from {@code /application.properties}, then optionally
@@ -128,16 +129,25 @@ public final class AppConfig {
     public static int getBusinessHourEnd() { return getInt("business.hourEnd", 17); }
     public static int getBookingMaxDurationMinutes() { return getInt("booking.maxDurationMinutes", 120); }
     public static int getBookingCutoffHoursBefore() { return getInt("booking.cutoffHoursBefore", 2); }
+
+    private static String[] splitCommaSeparated(String raw) {
+        if (raw == null || raw.isBlank()) {
+            return new String[0];
+        }
+        return Arrays.stream(raw.split(","))
+                .map(String::trim)
+                .toArray(String[]::new);
+    }
     public static String[] getBookingServiceTypes() {
         String raw = get("booking.serviceTypes", "Remote,In person");
-        return raw.split("\\s*,\\s*");
+        return splitCommaSeparated(raw);
     }
     public static String getOnlineLocationLabel() { return get("booking.onlineLocationLabel", "Remote link (video or phone)"); }
     public static String getOnsiteLocationLabel() { return get("booking.onsiteLocationLabel", "Your premises or agreed address"); }
     /** Comma-separated service labels for booking (any business). */
     public static String[] getBookingAppointmentTypes() {
         String raw = get("booking.appointmentTypes", "Standard,New session,Return visit,Express,Extended session,Preparation");
-        return raw.split("\\s*,\\s*");
+        return splitCommaSeparated(raw);
     }
     /** 0-based index in appointment types that maps to consultation/assessment. Default 1 = second type. */
     public static int getBookingConsultationTypeIndex() { return getInt("booking.consultationTypeIndex", 1); }

@@ -1,17 +1,25 @@
 package com.appointmentscheduler.presentation;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.appointmentscheduler.application.AppConfig;
 import com.appointmentscheduler.application.ApplicationContext;
 import com.appointmentscheduler.application.PasswordHasher;
 import com.appointmentscheduler.domain.User;
-import com.appointmentscheduler.presentation.ScreenConstants;
+
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.geometry.Insets;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Controller for the login screen.
@@ -291,9 +299,25 @@ public class LoginController {
         int score = 0;
         if (password.length() >= 8) score++;
         if (password.length() >= 12) score++;
-        if (password.matches(".*[A-Z].*") && password.matches(".*[a-z].*")) score++;
-        if (password.matches(".*\\d.*")) score++;
-        if (password.matches(".*[^A-Za-z0-9].*")) score++;
+        boolean hasUppercase = false;
+        boolean hasLowercase = false;
+        boolean hasDigit = false;
+        boolean hasSpecialCharacter = false;
+        for (int i = 0; i < password.length(); i++) {
+            char ch = password.charAt(i);
+            if (Character.isUpperCase(ch)) {
+                hasUppercase = true;
+            } else if (Character.isLowerCase(ch)) {
+                hasLowercase = true;
+            } else if (Character.isDigit(ch)) {
+                hasDigit = true;
+            } else {
+                hasSpecialCharacter = true;
+            }
+        }
+        if (hasUppercase && hasLowercase) score++;
+        if (hasDigit) score++;
+        if (hasSpecialCharacter) score++;
 
         double normalized = Math.min(1.0, score / 4.0);
         bar.setProgress(normalized);
