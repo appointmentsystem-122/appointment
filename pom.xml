@@ -368,6 +368,20 @@
                                 <include>**/com/appointmentscheduler/presentation/PrintHelperCoverageTest.java</include>
                                 <include>**/com/appointmentscheduler/presentation/CsvUtilsTest.java</include>
                                 <include>**/com/appointmentscheduler/presentation/PatronBookingSummaryTest.java</include>
+
+                                <!-- SonarCloud new-code presentation targets from the file drill-down.
+                                     These tests are intentionally whitelisted because the CI profile
+                                     uses explicit includes; without these lines Sonar sees the old
+                                     0%-39% coverage for RatingDialog, SessionManager,
+                                     NotificationCenter, and MainApp even when the tests exist. -->
+                                <include>**/com/appointmentscheduler/presentation/RatingDialogTest.java</include>
+                                <include>**/com/appointmentscheduler/presentation/RatingDialogAutoTest.java</include>
+                                <include>**/com/appointmentscheduler/presentation/SessionManagerPresentationCoverageTest.java</include>
+                                <include>**/com/appointmentscheduler/presentation/PresentationMainAppCoverageTest.java</include>
+                                <include>**/com/appointmentscheduler/presentation/MainAppInternalsCoverageTest.java</include>
+                                <include>**/com/appointmentscheduler/presentation/MainAppJdbcInitializeBranchCoverageTest.java</include>
+                                <include>**/com/appointmentscheduler/presentation/notification/NotificationCenterTest.java</include>
+                                <include>**/com/appointmentscheduler/presentation/notification/NotificationCenterBranchTest.java</include>
                             </includes>
                             <failIfNoSpecifiedTests>true</failIfNoSpecifiedTests>
                         </configuration>
