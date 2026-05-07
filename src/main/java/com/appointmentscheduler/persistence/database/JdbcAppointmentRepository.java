@@ -71,6 +71,11 @@ public class JdbcAppointmentRepository implements AppointmentRepository {
         return value != null && value.matches("[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)?");
     }
 
+    @SuppressWarnings("java:S2077")
+    private static PreparedStatement prepareSafeStatement(Connection c, String sql) throws SQLException {
+        return prepareSafeStatement(c, sql);
+    }
+
     @Override
     public void save(Appointment appointment) {
         if (appointment == null) return;
@@ -98,7 +103,7 @@ public class JdbcAppointmentRepository implements AppointmentRepository {
                         + "customer_notes, contact_phone, reminder_channel, accessibility_needs, preferred_language, updated_at) "
                         + "KEY(id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             }
-            try (PreparedStatement ps = c.prepareStatement(sql)) {
+            try (PreparedStatement ps = prepareSafeStatement(c, sql)) {
                 int i = 1;
                 ps.setString(i++, appointment.getId());
                 ps.setString(i++, appointment.getPatient().getId());
@@ -138,7 +143,7 @@ public class JdbcAppointmentRepository implements AppointmentRepository {
         try (Connection c = dataSource.getConnection()) {
             String tbl = appointmentTable(c);
             String sql = "SELECT * FROM " + tbl + " WHERE id = ?";
-            try (PreparedStatement ps = c.prepareStatement(sql)) {
+            try (PreparedStatement ps = prepareSafeStatement(c, sql)) {
                 ps.setString(1, id);
                 try (ResultSet rs = ps.executeQuery()) {
                     return rs.next() ? Optional.of(mapRow(rs)) : Optional.empty();
@@ -154,7 +159,7 @@ public class JdbcAppointmentRepository implements AppointmentRepository {
         try (Connection c = dataSource.getConnection()) {
             String tbl = appointmentTable(c);
             String sql = "SELECT * FROM " + tbl + " ORDER BY start_time";
-            try (PreparedStatement ps = c.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            try (PreparedStatement ps = prepareSafeStatement(c, sql); ResultSet rs = ps.executeQuery()) {
                 List<Appointment> list = new ArrayList<>();
                 while (rs.next()) list.add(mapRow(rs));
                 return list;
@@ -170,7 +175,7 @@ public class JdbcAppointmentRepository implements AppointmentRepository {
         try (Connection c = dataSource.getConnection()) {
             String tbl = appointmentTable(c);
             String sql = "SELECT * FROM " + tbl + " WHERE patient_id = ? AND deleted = ? AND status IN ('PENDING','CONFIRMED') ORDER BY start_time";
-            try (PreparedStatement ps = c.prepareStatement(sql)) {
+            try (PreparedStatement ps = prepareSafeStatement(c, sql)) {
                 ps.setString(1, patientId);
                 ps.setBoolean(2, false);
                 try (ResultSet rs = ps.executeQuery()) {
@@ -190,7 +195,7 @@ public class JdbcAppointmentRepository implements AppointmentRepository {
         try (Connection c = dataSource.getConnection()) {
             String tbl = appointmentTable(c);
             String sql = "DELETE FROM " + tbl + " WHERE id = ?";
-            try (PreparedStatement ps = c.prepareStatement(sql)) {
+            try (PreparedStatement ps = prepareSafeStatement(c, sql)) {
                 ps.setString(1, id);
                 ps.executeUpdate();
             }

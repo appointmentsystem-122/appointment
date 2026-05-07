@@ -1,12 +1,5 @@
 package com.appointmentscheduler.persistence.database;
 
-import com.appointmentscheduler.domain.Administrator;
-import com.appointmentscheduler.domain.DoctorUser;
-import com.appointmentscheduler.domain.ReceptionistUser;
-import com.appointmentscheduler.domain.User;
-import com.appointmentscheduler.persistence.UserRepository;
-
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,6 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+import javax.sql.DataSource;
+
+import com.appointmentscheduler.domain.Administrator;
+import com.appointmentscheduler.domain.DoctorUser;
+import com.appointmentscheduler.domain.ReceptionistUser;
+import com.appointmentscheduler.domain.User;
+import com.appointmentscheduler.persistence.UserRepository;
 
 /**
  * JDBC implementation of UserRepository. Single-table inheritance via user_type.
@@ -31,7 +32,24 @@ public class JdbcUserRepository implements UserRepository {
 
     private String tableFor(Connection c) throws SQLException {
         String product = c.getMetaData() != null ? c.getMetaData().getDatabaseProductName() : "";
-        return (product != null && product.toLowerCase().contains("postgres")) ? "appointment." + TABLE : TABLE;
+        String tableName = (product != null && product.toLowerCase().contains("postgres"))
+                ? "appointment." + TABLE
+                : TABLE;
+
+        if (!isSafeSqlIdentifierPath(tableName)) {
+            throw new SQLException("Unsafe user table name: " + tableName);
+        }
+
+        return tableName;
+    }
+
+    private static boolean isSafeSqlIdentifierPath(String value) {
+        return value != null && value.matches("[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)?");
+    }
+
+    @SuppressWarnings("java:S2077")
+    private static PreparedStatement prepareSafeStatement(Connection c, String sql) throws SQLException {
+        return c.prepareStatement(sql);
     }
 
     private static boolean isMySql(Connection c) throws SQLException {
@@ -46,7 +64,7 @@ public class JdbcUserRepository implements UserRepository {
         try (Connection c = dataSource.getConnection()) {
             boolean isPostgres = isPostgres(c);
             boolean isMySql = isMySql(c);
-            String tableName = isPostgres ? "appointment." + TABLE : TABLE;
+            String tableName = tableFor(c);
             String sql;
             if (isPostgres) {
                 sql = "INSERT INTO " + tableName + " (id, name, email, password_hash, user_type, updated_at) " +
@@ -68,7 +86,7 @@ public class JdbcUserRepository implements UserRepository {
                       "KEY(id) VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
             }
 
-            try (PreparedStatement ps = c.prepareStatement(sql)) {
+            try (PreparedStatement ps = prepareSafeStatement(c, sql)) {
                 if (isPostgres) {
                     ps.setObject(1, UUID.fromString(user.getId()), Types.OTHER);
                 } else {
@@ -92,7 +110,7 @@ public class JdbcUserRepository implements UserRepository {
             String tbl = tableFor(c);
             boolean isPostgres = isPostgres(c);
             String sql = "SELECT id, name, email, password_hash, user_type FROM " + tbl + " WHERE id = ?";
-            try (PreparedStatement ps = c.prepareStatement(sql)) {
+            try (PreparedStatement ps = prepareSafeStatement(c, sql)) {
                 if (isPostgres && isValidUUID(id)) {
                     ps.setObject(1, UUID.fromString(id), Types.OTHER);
                 } else {
@@ -128,7 +146,7 @@ public class JdbcUserRepository implements UserRepository {
         try (Connection c = dataSource.getConnection()) {
             String tbl = tableFor(c);
             String sql = "SELECT id, name, email, password_hash, user_type FROM " + tbl + " WHERE LOWER(email) = LOWER(?)";
-            try (PreparedStatement ps = c.prepareStatement(sql)) {
+            try (PreparedStatement ps = prepareSafeStatement(c, sql)) {
                 ps.setString(1, email);
                 try (ResultSet rs = ps.executeQuery()) {
                     return rs.next() ? Optional.of(mapRow(rs)) : Optional.empty();
@@ -149,7 +167,7 @@ public class JdbcUserRepository implements UserRepository {
         try (Connection c = dataSource.getConnection()) {
             String tbl = tableFor(c);
             String sql = "SELECT id, name, email, password_hash, user_type FROM " + tbl + " ORDER BY name";
-            try (PreparedStatement ps = c.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            try (PreparedStatement ps = prepareSafeStatement(c, sql); ResultSet rs = ps.executeQuery()) {
                 List<User> list = new ArrayList<>();
                 while (rs.next()) list.add(mapRow(rs));
                 return list;

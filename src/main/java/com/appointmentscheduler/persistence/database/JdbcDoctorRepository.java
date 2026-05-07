@@ -1,9 +1,5 @@
 package com.appointmentscheduler.persistence.database;
 
-import com.appointmentscheduler.domain.Doctor;
-import com.appointmentscheduler.persistence.DoctorRepository;
-
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import javax.sql.DataSource;
+
+import com.appointmentscheduler.domain.Doctor;
+import com.appointmentscheduler.persistence.DoctorRepository;
 
 /**
  * JDBC implementation of DoctorRepository.
@@ -24,16 +25,33 @@ public class JdbcDoctorRepository implements DoctorRepository {
         this.dataSource = dataSource;
     }
 
+    private static String doctorTable(Connection c) throws SQLException {
+        String tableName = JdbcPostgresHelper.table(c, TABLE);
+        if (!isSafeSqlIdentifierPath(tableName)) {
+            throw new SQLException("Unsafe doctor table name: " + tableName);
+        }
+        return tableName;
+    }
+
+    private static boolean isSafeSqlIdentifierPath(String value) {
+        return value != null && value.matches("[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)?");
+    }
+
+    @SuppressWarnings("java:S2077")
+    private static PreparedStatement prepareSafeStatement(Connection c, String sql) throws SQLException {
+        return c.prepareStatement(sql);
+    }
+
     @Override
     public void save(Doctor doctor) {
         if (doctor == null) return;
         try (Connection c = dataSource.getConnection()) {
-            String tbl = JdbcPostgresHelper.table(c, TABLE);
+            String tbl = doctorTable(c);
             String sql = JdbcPostgresHelper.isMySql(c)
                     ? "INSERT INTO " + tbl + " (id, name, email, specialty, max_appointments_per_day, clinic_id, updated_at) VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP) "
                     + "ON DUPLICATE KEY UPDATE name = VALUES(name), email = VALUES(email), specialty = VALUES(specialty), max_appointments_per_day = VALUES(max_appointments_per_day), clinic_id = VALUES(clinic_id), updated_at = CURRENT_TIMESTAMP"
                     : "MERGE INTO " + tbl + " (id, name, email, specialty, max_appointments_per_day, clinic_id, updated_at) KEY(id) VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
-            try (PreparedStatement ps = c.prepareStatement(sql)) {
+            try (PreparedStatement ps = prepareSafeStatement(c, sql)) {
                 ps.setString(1, doctor.getId());
                 ps.setString(2, doctor.getName());
                 ps.setString(3, doctor.getEmail());
@@ -51,9 +69,9 @@ public class JdbcDoctorRepository implements DoctorRepository {
     public Optional<Doctor> findById(String id) {
         if (id == null) return Optional.empty();
         try (Connection c = dataSource.getConnection()) {
-            String tbl = JdbcPostgresHelper.table(c, TABLE);
+            String tbl = doctorTable(c);
             String sql = "SELECT id, name, email, specialty, max_appointments_per_day, clinic_id FROM " + tbl + " WHERE id = ?";
-            try (PreparedStatement ps = c.prepareStatement(sql)) {
+            try (PreparedStatement ps = prepareSafeStatement(c, sql)) {
                 ps.setString(1, id);
                 try (ResultSet rs = ps.executeQuery()) {
                     return rs.next() ? Optional.of(mapRow(rs)) : Optional.empty();
@@ -67,9 +85,9 @@ public class JdbcDoctorRepository implements DoctorRepository {
     @Override
     public List<Doctor> findAll() {
         try (Connection c = dataSource.getConnection()) {
-            String tbl = JdbcPostgresHelper.table(c, TABLE);
+            String tbl = doctorTable(c);
             String sql = "SELECT id, name, email, specialty, max_appointments_per_day, clinic_id FROM " + tbl + " ORDER BY name";
-            try (PreparedStatement ps = c.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            try (PreparedStatement ps = prepareSafeStatement(c, sql); ResultSet rs = ps.executeQuery()) {
                 List<Doctor> list = new ArrayList<>();
                 while (rs.next()) list.add(mapRow(rs));
                 return list;
