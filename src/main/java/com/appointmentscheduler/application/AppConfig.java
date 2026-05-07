@@ -1,7 +1,6 @@
 package com.appointmentscheduler.application;
 
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.Properties;
 import java.util.prefs.Preferences;
 
@@ -131,12 +130,10 @@ public final class AppConfig {
     public static int getBookingCutoffHoursBefore() { return getInt("booking.cutoffHoursBefore", 2); }
 
     private static String[] splitCommaSeparated(String raw) {
-        if (raw == null || raw.isBlank()) {
+        if (raw == null) {
             return new String[0];
         }
-        return Arrays.stream(raw.split(","))
-                .map(String::trim)
-                .toArray(String[]::new);
+        return raw.split(",");
     }
     public static String[] getBookingServiceTypes() {
         String raw = get("booking.serviceTypes", "Remote,In person");
