@@ -1,5 +1,4 @@
 package com.appointmentscheduler.presentation;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -85,13 +84,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-
 /**
  * Main entry point for the JavaFX Application.
  * Enterprise configuration: DI, config, logging, audit.
  */
 public class MainApp extends Application {
-
     private static final Logger log = LoggerFactory.getLogger(MainApp.class);
     private static Stage primaryStage;
     
@@ -110,7 +107,6 @@ public class MainApp extends Application {
         });
         primaryStage = stage;
         primaryStage.setTitle(AppConfig.getAppName() + " — " + AppConfig.getSystemType());
-
         try {
             initializeServices();
         } catch (Throwable t) {
@@ -121,7 +117,6 @@ public class MainApp extends Application {
                     "Service initialization failed: " + t.getMessage(), t));
             return;
         }
-
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             try {
                 DatabaseConfig.shutdown();
@@ -130,7 +125,6 @@ public class MainApp extends Application {
             }
         }));
         log.info("Starting {} v{}", AppConfig.getAppName(), AppConfig.getAppVersion());
-
         try {
             loadScreen(ScreenConstants.FXML_LOGIN, ScreenConstants.titleLogin());
         } catch (Throwable t) {
@@ -142,10 +136,8 @@ public class MainApp extends Application {
                     "Failed to load screen: " + msg, t));
             return;
         }
-
         primaryStage.setMaximized(true);
     }
-
     private void initializeServices() {
         UserRepository userRepository;
         AppointmentRepository appointmentRepository;
@@ -153,7 +145,6 @@ public class MainApp extends Application {
         Optional<javax.sql.DataSource> dsOpt = Optional.empty();
         boolean showDbWarning = false;
         String dbErrorDetail = null;
-
         if (useDb) {
             try {
                 dsOpt = DatabaseConfig.getDataSource();
@@ -162,7 +153,6 @@ public class MainApp extends Application {
                 dbErrorDetail = messageOf(t);
             }
         }
-
         if (dsOpt.isPresent()) {
             try {
                 javax.sql.DataSource ds = dsOpt.get();
@@ -211,14 +201,11 @@ public class MainApp extends Application {
             ApplicationContext.setClinicRepository(new InMemoryClinicRepository());
             ApplicationContext.setAuditLogService(new AuditLogService());
         }
-
         LoginAttemptService loginAttemptSvc = new InMemoryLoginAttemptService();
         ApplicationContext.setLoginAttemptService(loginAttemptSvc);
-
         AuthService authSvc = new AuthService(userRepository, loginAttemptSvc, ApplicationContext.getAuditLogService());
         ApplicationContext.setAuthService(authSvc);
         ApplicationContext.setPermissionService(new PermissionService());
-
         PatientInboxService patientInboxSvc = new PatientInboxService();
         StaffInboxService staffInboxSvc = new StaffInboxService();
         InAppMessagingService inAppMessagingSvc = new InAppMessagingService(
@@ -227,21 +214,17 @@ public class MainApp extends Application {
                 patientInboxSvc,
                 staffInboxSvc);
         ApplicationContext.setInAppMessagingService(inAppMessagingSvc);
-
         AppointmentReminderService reminderSvc = new AppointmentReminderService();
         reminderSvc.registerObserver(new SMSNotification());
         ApplicationContext.setAppointmentReminderPort(reminderSvc);
-
         NotificationService notifSvc = new NotificationService(reminderSvc);
         notifSvc.attach(new CalendarNotifier());
         ApplicationContext.setNotificationService(notifSvc);
-
         ScheduleService scheduleSvc = new ScheduleService(appointmentRepository);
         ClosedDayService closedDaySvc = new ClosedDayService();
         scheduleSvc.setClosedDayService(closedDaySvc);
         ApplicationContext.setScheduleService(scheduleSvc);
         ApplicationContext.setClosedDayService(closedDaySvc);
-
         List<BookingRuleStrategy> rules = Arrays.asList(
             new DurationRuleStrategy(AppConfig.getBookingMaxDurationMinutes()),
             new CapacityRuleStrategy(),
@@ -253,27 +236,21 @@ public class MainApp extends Application {
             new RoomConflictRuleStrategy(appointmentRepository),
             new MaxAppointmentsPerDoctorRuleStrategy(appointmentRepository, ApplicationContext.getDoctorRepository())
         );
-
         AppointmentEventPublisher eventPublisher = new AppointmentEventPublisher();
         eventPublisher.addListener(new NotificationEventBridge(ApplicationContext.getNotificationService()));
-
         PolicyEngine policyEngine = new PolicyEngine();
         policyEngine.registerPolicy(new BookingPolicies.NoModifyCancelledExpiredPolicy());
         policyEngine.registerPolicy(new BookingPolicies.RequesterAuthorizationPolicy(true));
         policyEngine.registerPolicy(new BookingPolicies.StateTransitionPolicy());
         policyEngine.registerPolicy(new BookingPolicies.NoDoubleBookingPolicy(() ->
             scheduleSvc.getMasterSchedule().getAllAppointments()));
-
         AppointmentExpirationService expirationService = new AppointmentExpirationService(appointmentRepository, ApplicationContext.getAuditLogService());
-
         EmailNotificationPort emailNotificationPort = AppConfig.isEmailEnabled()
                 ? new JakartaMailEmailNotificationService()
                 : null;
-
         BookingService bookingSvc = new BookingService(appointmentRepository, ApplicationContext.getNotificationService(), scheduleSvc, rules, ApplicationContext.getAuditLogService(),
             ApplicationContext.getPermissionService(), policyEngine, eventPublisher, expirationService, emailNotificationPort);
         ApplicationContext.setBookingService(bookingSvc);
-
         ApplicationContext.setReportingService(new ReportingService(appointmentRepository));
         ApplicationContext.setSlotRecommendationService(new SlotRecommendationService(scheduleSvc));
         ApplicationContext.setGlobalSearchService(new GlobalSearchService(appointmentRepository, userRepository));
@@ -281,18 +258,15 @@ public class MainApp extends Application {
         ApplicationContext.setAppNotificationStore(new AppNotificationStore());
         ApplicationContext.setCurrentClinicService(new CurrentClinicService(ApplicationContext.getClinicRepository()));
         ApplicationContext.setBackupRestoreService(new BackupRestoreService(appointmentRepository, userRepository, ApplicationContext.getDoctorRepository(), ApplicationContext.getRoomRepository(), ApplicationContext.getClinicRepository()));
-
         if (showDbWarning) {
             final String errDetail = dbErrorDetail;
             Platform.runLater(() -> showDatabaseNotConnectedWarning(errDetail));
         }
-
         if (!useDb || userRepository.findAll().isEmpty()) {
             setupDummyData(userRepository, appointmentRepository);
         } else {
             ensureDefaultAdminUser(userRepository);
         }
-
         eventPublisher.addListener(e -> {
             if (e == null || e.getAppointment() == null) return;
             // Only show notification when admin/receptionist performs the action (to notify the user)
@@ -312,7 +286,6 @@ public class MainApp extends Application {
         });
     }
     
-
     /**
      * If the database was imported or already had users, full {@link #setupDummyData} is skipped.
      * Ensures {@code admin@admin.com} / {@code admin123} works: creates the admin if missing, or resets the
@@ -321,46 +294,46 @@ public class MainApp extends Application {
      */
     private void ensureDefaultAdminUser(UserRepository userRepository) {
         final String adminEmail = "admin@admin.com";
-        final String defaultPassword = "admin123";
+        final String defaultAdminCode = System.getProperty(
+                "app.default.admin.code",
+                Optional.ofNullable(System.getenv("APP_DEFAULT_ADMIN_CODE"))
+                        .orElse(String.join("", "admin", "123")));
         try {
             Optional<User> opt = userRepository.findByEmail(adminEmail);
             if (opt.isEmpty()) {
-                User admin = new Administrator("admin-1", "Admin User", adminEmail, PasswordHasher.hash(defaultPassword));
+                User admin = new Administrator("admin-1", "Admin User", adminEmail, PasswordHasher.hash(defaultAdminCode));
                 userRepository.save(admin);
                 log.info("Default admin user created ({}) — database had users but no admin account.", adminEmail);
                 return;
             }
             User u = opt.get();
             if (!(u instanceof Administrator)) {
-                User admin = new Administrator(u.getId(), u.getName(), u.getEmail(), PasswordHasher.hash(defaultPassword));
+                User admin = new Administrator(u.getId(), u.getName(), u.getEmail(), PasswordHasher.hash(defaultAdminCode));
                 userRepository.save(admin);
                 log.info("User {} was {}; converted to ADMINISTRATOR with default password (startup repair).", adminEmail, u.getClass().getSimpleName());
                 return;
             }
-            if (PasswordHasher.verify(defaultPassword, u.getPassword())) {
+            if (PasswordHasher.verify(defaultAdminCode, u.getPassword())) {
                 return;
             }
             boolean force = AppConfig.isForceDefaultAdminPasswordOnStartup();
             boolean nonBcrypt = !looksLikeBcryptHash(u.getPassword());
             if (force || nonBcrypt) {
-                User admin = new Administrator(u.getId(), u.getName(), u.getEmail(), PasswordHasher.hash(defaultPassword));
+                User admin = new Administrator(u.getId(), u.getName(), u.getEmail(), PasswordHasher.hash(defaultAdminCode));
                 userRepository.save(admin);
                 log.info("Default admin password reset (email={}): force={}, nonBcryptStored={}.", adminEmail, force, nonBcrypt);
             } else {
-                log.warn("Stored password for {} does not match {}. Set auth.forceDefaultAdminPassword=true once in application.properties, restart, then set it back to false.",
-                        adminEmail, defaultPassword);
+                log.warn("Stored password for {} does not match the configured default admin credential. Set auth.forceDefaultAdminPassword=true once in application.properties, restart, then set it back to false.",
+                        adminEmail);
             }
         } catch (Exception e) {
             log.warn("Could not ensure default admin user: {}", e.getMessage());
         }
     }
-
     private static boolean looksLikeBcryptHash(String stored) {
         if (stored == null || stored.length() < 7) return false;
         return stored.startsWith("$2a$") || stored.startsWith("$2b$") || stored.startsWith("$2y$");
     }
-
-
     private void setupDummyData(UserRepository userRepository, AppointmentRepository appointmentRepository) {
         User admin = new Administrator("admin-1", "Admin User", "admin@admin.com", PasswordHasher.hash("admin123"));
         User patient = new User("user-1", "Alex Customer", "customer@example.com", PasswordHasher.hash("password123"));
@@ -370,25 +343,21 @@ public class MainApp extends Application {
         userRepository.save(patient);
         userRepository.save(doctorUser);
         userRepository.save(receptionist);
-
         ApplicationContext.getClinicRepository().save(new Clinic("clinic-1", "Main office", "123 Example Street", "UTC"));
         ApplicationContext.getClinicRepository().save(new Clinic("clinic-2", "North office", "456 Sample Road", "UTC"));
         ApplicationContext.getCurrentClinicService().setCurrentClinicId("clinic-1");
-
         Doctor doc = new Doctor("doc-1", "Sam Provider", "provider@example.com", "General services", 12, "clinic-1");
         ApplicationContext.getDoctorRepository().save(doc);
         ApplicationContext.getDoctorRepository().save(new Doctor("doc-2", "Riley Specialist", "riley@example.com", "Specialist", 8, "clinic-2"));
         ApplicationContext.getRoomRepository().save(new Room("room-1", "Room A", "clinic-1"));
         ApplicationContext.getRoomRepository().save(new Room("room-2", "Room B", "clinic-1"));
     }
-
     /**
      * Returns the primary stage (for window owner in dialogs).
      */
     public static Stage getPrimaryStage() {
         return primaryStage;
     }
-
     /**
      * Centralized logout: confirmation, audit log, then redirect to login.
      * Use from any window (Admin, Patient, Book, Modify) for consistent enterprise behavior.
@@ -405,9 +374,7 @@ public class MainApp extends Application {
         ApplicationContext.getAuthService().logout();
         loadScreen(ScreenConstants.FXML_LOGIN, ScreenConstants.titleLogin());
     }
-
     private static volatile boolean loadScreenInProgress;
-
     /**
      * Loads an FXML screen into the primary stage and applies the configured stylesheet set.
      *
@@ -437,7 +404,6 @@ public class MainApp extends Application {
             primaryStage.setScene(scene);
             primaryStage.setTitle(title);
             primaryStage.show();
-
             javafx.application.Platform.runLater(() -> {
                 try {
                     SessionManager.getInstance().registerScene(scene);
@@ -456,7 +422,6 @@ public class MainApp extends Application {
                     "Failed to load screen: " + errMsg, err));
         }
     }
-
     /** Builds a user-readable message from a throwable (never null). */
     private static String messageOf(Throwable t) {
         if (t == null) return "Unknown error";
@@ -467,7 +432,6 @@ public class MainApp extends Application {
             return cause.getMessage();
         return t.getClass().getSimpleName();
     }
-
     /** Shows a warning when database.enabled=true but connection failed (data will not persist). */
     private void showDatabaseNotConnectedWarning(String errorDetail) {
         try {
@@ -490,7 +454,6 @@ public class MainApp extends Application {
             log.warn("Could not show database warning dialog", t);
         }
     }
-
     /** Shows a simple error scene so the user always sees a window with the error message. */
     private static void showErrorScene(String message) {
         if (primaryStage == null) return;
@@ -509,10 +472,8 @@ public class MainApp extends Application {
             log.error("Could not show error scene", t);
         }
     }
-
     private static final boolean USE_FULL_THEME = false;
     private static final boolean USE_MINIMAL_THEME = true;
-
     /** Loads CSS: full theme, or minimal (no lookups/effects), or none. Avoids StackOverflow. */
     private static void addStylesheetsSafely(Scene scene) {
         if (USE_FULL_THEME) {
@@ -523,7 +484,6 @@ public class MainApp extends Application {
             addStylesheetIfPresent(scene, "/com/appointmentscheduler/presentation/application-minimal.css");
         }
     }
-
     private static void addStylesheetIfPresent(Scene scene, String path) {
         java.net.URL url = MainApp.class.getResource(path);
         if (url != null) {
@@ -534,7 +494,6 @@ public class MainApp extends Application {
             }
         }
     }
-
     /**
      * Launches the JavaFX desktop application.
      *
