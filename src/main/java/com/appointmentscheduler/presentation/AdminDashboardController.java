@@ -1483,6 +1483,14 @@ public class AdminDashboardController {
         }
     }
     
+    private static File createSecureAutoDialogFile(String prefix, String suffix) throws IOException {
+        File directory = new File(System.getProperty("user.home"), "AppointmentSchedulerAutoExports");
+        if (!directory.exists() && !directory.mkdirs()) {
+            throw new IOException("Could not create export directory: " + directory.getAbsolutePath());
+        }
+        return File.createTempFile(prefix, suffix, directory);
+    }
+
     @FXML
     public void handleExport() {
         FileChooser fileChooser = new FileChooser();
@@ -1493,7 +1501,7 @@ public class AdminDashboardController {
         File file;
         if (DialogHelper.isAutoDialogs()) {
             try {
-                file = File.createTempFile("appointmentscheduler-admin-export-", ".csv");
+                file = createSecureAutoDialogFile("appointmentscheduler-admin-export-", ".csv");
             } catch (IOException ignored) {
                 file = null;
             }
@@ -1565,7 +1573,7 @@ public class AdminDashboardController {
         File f;
         if (DialogHelper.isAutoDialogs()) {
             try {
-                f = File.createTempFile("appointmentscheduler-admin-audit-", ".csv");
+                f = createSecureAutoDialogFile("appointmentscheduler-admin-audit-", ".csv");
             } catch (IOException ignored) {
                 f = null;
             }
@@ -1619,7 +1627,7 @@ public class AdminDashboardController {
         File f;
         if (DialogHelper.isAutoDialogs()) {
             try {
-                f = File.createTempFile("appointmentscheduler-admin-backup-", ".txt");
+                f = createSecureAutoDialogFile("appointmentscheduler-admin-backup-", ".txt");
             } catch (IOException ignored) {
                 f = null;
             }
@@ -1659,7 +1667,7 @@ public class AdminDashboardController {
         File f;
         if (DialogHelper.isAutoDialogs()) {
             try {
-                f = File.createTempFile("appointmentscheduler-admin-appointments-", ".csv");
+                f = createSecureAutoDialogFile("appointmentscheduler-admin-appointments-", ".csv");
             } catch (IOException ignored) {
                 f = null;
             }
@@ -1704,7 +1712,7 @@ public class AdminDashboardController {
         File f;
         if (DialogHelper.isAutoDialogs()) {
             try {
-                f = File.createTempFile("appointmentscheduler-admin-users-", ".csv");
+                f = createSecureAutoDialogFile("appointmentscheduler-admin-users-", ".csv");
             } catch (IOException ignored) {
                 f = null;
             }
@@ -1733,7 +1741,7 @@ public class AdminDashboardController {
         File f;
         if (DialogHelper.isAutoDialogs()) {
             try {
-                f = File.createTempFile("appointmentscheduler-admin-cancellations-", ".csv");
+                f = createSecureAutoDialogFile("appointmentscheduler-admin-cancellations-", ".csv");
             } catch (IOException ignored) {
                 f = null;
             }
