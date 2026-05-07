@@ -323,7 +323,7 @@ public class MainApp extends Application {
                 userRepository.save(admin);
                 log.info("Default admin password reset (email={}): force={}, nonBcryptStored={}.", adminEmail, force, nonBcrypt);
             } else {
-                log.warn("Stored password for {} does not match the configured default admin credential. Set auth.forceDefaultAdminPassword=true once in application.properties, restart, then set it back to false.",
+                log.warn("Stored credential for {} does not match the configured default admin credential. Enable the default-admin reset flag once in application.properties, restart, then disable it again.",
                         adminEmail);
             }
         } catch (Exception e) {
