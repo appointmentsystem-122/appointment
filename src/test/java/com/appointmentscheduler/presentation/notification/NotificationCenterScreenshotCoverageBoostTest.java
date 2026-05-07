@@ -1,18 +1,19 @@
 package com.appointmentscheduler.presentation.notification;
 
+import com.appointmentscheduler.testsupport.JavaFxTestSupport;
+import javafx.collections.ObservableList;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.ResourceLock;
+
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 
-import com.appointmentscheduler.testsupport.JavaFxTestSupport;
-
-import javafx.collections.ObservableList;
-
-/** Additional focused tests for NotificationCenter from the SonarCloud screenshot. */
+/** Focused regression tests for the SonarCloud new-code lines in NotificationCenter. */
+@ResourceLock("NotificationCenterSingleton")
 class NotificationCenterScreenshotCoverageBoostTest {
 
     @BeforeAll
@@ -35,7 +36,7 @@ class NotificationCenterScreenshotCoverageBoostTest {
 
         center.notify(NotificationType.INFO, "basic", "body");
         center.notify(NotificationType.WARNING, NotificationPriority.HIGH, "priority", "body");
-        center.notify(NotificationType.ERROR, NotificationPriority.HIGH, "entity", "body", "appointment", "a-1");
+        center.notify(NotificationType.ERROR, NotificationPriority.URGENT, "entity", "body", "appointment", "a-1");
         JavaFxTestSupport.drainFxQueue(5, TimeUnit.SECONDS);
 
         assertThat(center.getUnreadCount()).isEqualTo(3);
