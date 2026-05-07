@@ -1,15 +1,31 @@
 package com.appointmentscheduler.persistence.database;
 
-import com.appointmentscheduler.domain.*;
-import com.appointmentscheduler.persistence.AppointmentRepository;
-import com.appointmentscheduler.persistence.UserRepository;
-
-import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import javax.sql.DataSource;
+
+import com.appointmentscheduler.domain.Appointment;
+import com.appointmentscheduler.domain.AssessmentAppointment;
+import com.appointmentscheduler.domain.FollowUpAppointment;
+import com.appointmentscheduler.domain.GroupAppointment;
+import com.appointmentscheduler.domain.InPersonAppointment;
+import com.appointmentscheduler.domain.IndividualAppointment;
+import com.appointmentscheduler.domain.RecurrencePattern;
+import com.appointmentscheduler.domain.RecurringAppointment;
+import com.appointmentscheduler.domain.TimeSlot;
+import com.appointmentscheduler.domain.UrgentAppointment;
+import com.appointmentscheduler.domain.User;
+import com.appointmentscheduler.domain.VirtualAppointment;
+import com.appointmentscheduler.persistence.AppointmentRepository;
+import com.appointmentscheduler.persistence.UserRepository;
 
 /**
  * JDBC implementation of AppointmentRepository. Single-table inheritance;
@@ -43,11 +59,23 @@ public class JdbcAppointmentRepository implements AppointmentRepository {
         this.userRepository = userRepository;
     }
 
+    private static String appointmentTable(Connection c) throws SQLException {
+        String tableName = JdbcPostgresHelper.table(c, TABLE);
+        if (!isSafeSqlIdentifierPath(tableName)) {
+            throw new SQLException("Unsafe appointment table name: " + tableName);
+        }
+        return tableName;
+    }
+
+    private static boolean isSafeSqlIdentifierPath(String value) {
+        return value != null && value.matches("[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)?");
+    }
+
     @Override
     public void save(Appointment appointment) {
         if (appointment == null) return;
         try (Connection c = dataSource.getConnection()) {
-            String tbl = JdbcPostgresHelper.table(c, TABLE);
+            String tbl = appointmentTable(c);
             String sql;
             if (JdbcPostgresHelper.isMySql(c)) {
                 sql = "INSERT INTO " + tbl + " (id, patient_id, doctor_id, room_id, clinic_id, start_time, end_time, "
@@ -108,7 +136,7 @@ public class JdbcAppointmentRepository implements AppointmentRepository {
     public Optional<Appointment> findById(String id) {
         if (id == null) return Optional.empty();
         try (Connection c = dataSource.getConnection()) {
-            String tbl = JdbcPostgresHelper.table(c, TABLE);
+            String tbl = appointmentTable(c);
             String sql = "SELECT * FROM " + tbl + " WHERE id = ?";
             try (PreparedStatement ps = c.prepareStatement(sql)) {
                 ps.setString(1, id);
@@ -124,7 +152,7 @@ public class JdbcAppointmentRepository implements AppointmentRepository {
     @Override
     public List<Appointment> findAll() {
         try (Connection c = dataSource.getConnection()) {
-            String tbl = JdbcPostgresHelper.table(c, TABLE);
+            String tbl = appointmentTable(c);
             String sql = "SELECT * FROM " + tbl + " ORDER BY start_time";
             try (PreparedStatement ps = c.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
                 List<Appointment> list = new ArrayList<>();
@@ -140,7 +168,7 @@ public class JdbcAppointmentRepository implements AppointmentRepository {
     public List<Appointment> findBlockingBookingsForPatient(String patientId) {
         if (patientId == null) return List.of();
         try (Connection c = dataSource.getConnection()) {
-            String tbl = JdbcPostgresHelper.table(c, TABLE);
+            String tbl = appointmentTable(c);
             String sql = "SELECT * FROM " + tbl + " WHERE patient_id = ? AND deleted = ? AND status IN ('PENDING','CONFIRMED') ORDER BY start_time";
             try (PreparedStatement ps = c.prepareStatement(sql)) {
                 ps.setString(1, patientId);
@@ -160,7 +188,7 @@ public class JdbcAppointmentRepository implements AppointmentRepository {
     public void deleteById(String id) {
         if (id == null) return;
         try (Connection c = dataSource.getConnection()) {
-            String tbl = JdbcPostgresHelper.table(c, TABLE);
+            String tbl = appointmentTable(c);
             String sql = "DELETE FROM " + tbl + " WHERE id = ?";
             try (PreparedStatement ps = c.prepareStatement(sql)) {
                 ps.setString(1, id);
