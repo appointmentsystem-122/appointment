@@ -100,6 +100,31 @@ class AppointmentEmailContentExhaustiveTest {
         assertThat(note).contains("Note:").contains("Bring ID");
     }
 
+    @Test
+    void buildBodies_rejectNullAppointment() {
+        assertThatThrownBy(() -> AppointmentEmailContent.buildBookingConfirmationBody(null, "Co"))
+                .isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> AppointmentEmailContent.buildModifiedBody(null, "Co"))
+                .isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> AppointmentEmailContent.buildCancelledBody(null, "Co"))
+                .isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> AppointmentEmailContent.buildReminderBody(null, "Bring ID", "Co"))
+                .isInstanceOf(NullPointerException.class);
+    }
+
+    @Test
+    void modifiedCancelledAndReminderBodies_trimProvidedBrand() {
+        InPersonAppointment appt = new InPersonAppointment(user(), slot(), "L");
+
+        String modified = AppointmentEmailContent.buildModifiedBody(appt, "  Brand Co  ");
+        String cancelled = AppointmentEmailContent.buildCancelledBody(appt, "  Brand Co  ");
+        String reminder = AppointmentEmailContent.buildReminderBody(appt, "Bring ID", "  Brand Co  ");
+
+        assertThat(modified).contains("Brand Co").doesNotContain("  Brand Co  ");
+        assertThat(cancelled).contains("Brand Co").doesNotContain("  Brand Co  ");
+        assertThat(reminder).contains("Brand Co").doesNotContain("  Brand Co  ");
+    }
+
     /** Overrides getPatient() to exercise {@code patient == null} branches in builders. */
     private static final class NullPatientAppointment extends InPersonAppointment {
         NullPatientAppointment(User patient, TimeSlot timeSlot, String location) {

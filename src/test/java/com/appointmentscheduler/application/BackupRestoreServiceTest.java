@@ -6,13 +6,16 @@ import com.appointmentscheduler.domain.TimeSlot;
 import com.appointmentscheduler.domain.User;
 import com.appointmentscheduler.persistence.*;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -104,5 +107,64 @@ class BackupRestoreServiceTest {
         } finally {
             Files.deleteIfExists(c);
         }
+    }
+
+    @Test
+    void exportBackupManifest_wrapsBlankOutputPath() {
+        BackupRestoreService svc = new BackupRestoreService(
+                new InMemoryAppointmentRepository(),
+                new InMemoryUserRepository(),
+                new InMemoryDoctorRepository(),
+                new InMemoryRoomRepository(),
+                new InMemoryClinicRepository());
+
+        assertThatThrownBy(() -> svc.exportBackupManifest(" "))
+                .isInstanceOf(java.io.IOException.class)
+                .hasMessageContaining("Failed to export backup manifest")
+                .hasRootCauseMessage("Output path cannot be null or empty");
+    }
+
+    @Test
+    void exportAppointmentsCsv_wrapsInvalidWindowsDriveDesignator() {
+        BackupRestoreService svc = new BackupRestoreService(
+                new InMemoryAppointmentRepository(),
+                new InMemoryUserRepository(),
+                new InMemoryDoctorRepository(),
+                new InMemoryRoomRepository(),
+                new InMemoryClinicRepository());
+
+        assertThatThrownBy(() -> svc.exportAppointmentsCsv("?:\\backup.csv"))
+                .isInstanceOf(java.io.IOException.class)
+                .hasMessageContaining("Failed to export appointments CSV")
+                .hasRootCauseMessage("Invalid Windows drive designator in path: ?:\\backup.csv");
+    }
+
+    @Test
+    void exportAppointmentsCsv_writesPatientNameWithoutCommas_andOptionalIds(@TempDir Path tempDir) throws Exception {
+        InMemoryAppointmentRepository ar = new InMemoryAppointmentRepository();
+        BackupRestoreService svc = new BackupRestoreService(
+                ar,
+                new InMemoryUserRepository(),
+                new InMemoryDoctorRepository(),
+                new InMemoryRoomRepository(),
+                new InMemoryClinicRepository());
+        User u = new User("u2", "Last, First", "comma@example.com", "x");
+        LocalDateTime s = LocalDateTime.now().plusDays(3);
+        InPersonAppointment a = new InPersonAppointment(u, new TimeSlot(s, s.plusMinutes(45)), "L");
+        a.setDoctorId("doc-1");
+        a.setRoomId("room-1");
+        a.setClinicId("clinic-1");
+        ar.save(a);
+
+        Path c = tempDir.resolve("appointments.csv");
+        svc.exportAppointmentsCsv(c.toString());
+        List<String> lines = Files.readAllLines(c);
+
+        assertThat(lines).hasSize(2);
+        assertThat(lines.get(1))
+                .contains("Last  First")
+                .contains("doc-1")
+                .contains("room-1")
+                .contains("clinic-1");
     }
 }

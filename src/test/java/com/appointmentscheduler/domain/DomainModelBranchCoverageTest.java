@@ -183,6 +183,44 @@ class DomainModelBranchCoverageTest {
     }
 
     @Test
+    void appointment_constructorsRejectNullPatientAndSlot() {
+        User p = new User("u", "N", "e@x.com", "pw");
+        TimeSlot slot = new TimeSlot(LocalDateTime.now(), LocalDateTime.now().plusHours(1));
+
+        assertThatThrownBy(() -> new VirtualAppointment(null, slot, "link"))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Patient");
+        assertThatThrownBy(() -> new VirtualAppointment(p, null, "link"))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("TimeSlot");
+        assertThatThrownBy(() -> new VirtualAppointment("id", null, slot, "link"))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Patient");
+        assertThatThrownBy(() -> new VirtualAppointment("id", p, null, "link"))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("TimeSlot");
+    }
+
+    @Test
+    void concreteAppointmentFieldsRoundTrip() {
+        User p = new User("u", "N", "e@x.com", "pw");
+        TimeSlot slot = new TimeSlot(LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(1).plusHours(1));
+
+        GroupAppointment group = new GroupAppointment("group-id", p, slot, 4);
+        group.setMaxCapacity(8);
+        assertThat(group.getMaxCapacity()).isEqualTo(8);
+
+        VirtualAppointment virtual = new VirtualAppointment("virtual-id", p, slot, "https://old.example.test");
+        virtual.setMeetingLink("https://new.example.test");
+        assertThat(virtual.getMeetingLink()).isEqualTo("https://new.example.test");
+
+        InPersonAppointment inPerson = new InPersonAppointment("in-person-id", p, slot, null);
+        assertThat(inPerson.getLocation()).isEmpty();
+        inPerson.setLocation("Room 12");
+        assertThat(inPerson.getLocation()).isEqualTo("Room 12");
+    }
+
+    @Test
     void appointment_setParticipantCount_rejectsLow() {
         User p = new User("u", "N", "e@x.com", "pw");
         TimeSlot slot = new TimeSlot(LocalDateTime.now(), LocalDateTime.now().plusHours(1));

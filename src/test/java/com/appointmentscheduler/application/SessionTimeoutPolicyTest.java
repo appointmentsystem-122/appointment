@@ -25,6 +25,34 @@ class SessionTimeoutPolicyTest {
     }
 
     @Test
+    void evaluate_returnsNone_whenLastActivityMissing() {
+        SessionTimeoutPolicy.Action action = policy.evaluate(
+                null,
+                LocalDateTime.now(),
+                false,
+                30,
+                25,
+                true
+        );
+
+        assertThat(action).isEqualTo(SessionTimeoutPolicy.Action.NONE);
+    }
+
+    @Test
+    void evaluate_returnsNone_whenNowMissing() {
+        SessionTimeoutPolicy.Action action = policy.evaluate(
+                LocalDateTime.now().minusMinutes(10),
+                null,
+                false,
+                30,
+                25,
+                true
+        );
+
+        assertThat(action).isEqualTo(SessionTimeoutPolicy.Action.NONE);
+    }
+
+    @Test
     void evaluate_returnsWarn_whenBetweenWarningAndTimeout_andWarningNotShown() {
         LocalDateTime now = LocalDateTime.now();
         SessionTimeoutPolicy.Action action = policy.evaluate(
@@ -37,6 +65,21 @@ class SessionTimeoutPolicyTest {
         );
 
         assertThat(action).isEqualTo(SessionTimeoutPolicy.Action.WARN);
+    }
+
+    @Test
+    void evaluate_returnsNone_whenWarningThresholdDisabled() {
+        LocalDateTime now = LocalDateTime.now();
+        SessionTimeoutPolicy.Action action = policy.evaluate(
+                now.minusMinutes(26),
+                now,
+                false,
+                30,
+                0,
+                true
+        );
+
+        assertThat(action).isEqualTo(SessionTimeoutPolicy.Action.NONE);
     }
 
     @Test
