@@ -1,13 +1,5 @@
 package com.appointmentscheduler.persistence.database;
 
-import com.appointmentscheduler.application.AppConfig;
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
-import org.flywaydb.core.Flyway;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -17,15 +9,25 @@ import java.sql.Statement;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
+
+import javax.sql.DataSource;
+
+import org.flywaydb.core.Flyway;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.appointmentscheduler.application.AppConfig;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
 /**
  * Enterprise database configuration: HikariCP connection pool and Flyway migrations.
  * Single responsibility: provide a configured DataSource and run migrations.
  */
 public final class DatabaseConfig {
-
     private static final Logger log = LoggerFactory.getLogger(DatabaseConfig.class);
-    private static volatile HikariDataSource dataSource;
+    private static final AtomicReference<HikariDataSource> dataSource = new AtomicReference<>();
 
     /**
      * Returns a shared DataSource when database is enabled; otherwise empty.
@@ -34,10 +36,10 @@ public final class DatabaseConfig {
         if (!AppConfig.isDatabaseEnabled()) {
             return Optional.empty();
         }
-        if (dataSource == null) {
+        if (dataSource.get() == null) {
             initializePoolIfAbsent();
         }
-        return Optional.of(dataSource);
+        return Optional.of(dataSource.get());
     }
 
     /**
@@ -47,17 +49,20 @@ public final class DatabaseConfig {
      */
     static void initializePoolIfAbsent() {
         synchronized (DatabaseConfig.class) {
-            if (dataSource == null) {
-                dataSource = createPool();
+            if (dataSource.get() == null) {
+                HikariDataSource ds = createPool();
+                dataSource.set(ds);
+
                 String url = AppConfig.getDatabaseUrl();
                 boolean isPostgres = url != null && url.toLowerCase().contains("postgresql");
                 boolean isMySql = url != null && url.toLowerCase().contains("mysql");
+
                 if (isMySql) {
-                    ensureMySqlSchema(dataSource);
+                    ensureMySqlSchema(ds);
                 } else if (isPostgres) {
-                    ensurePostgresSchema(dataSource);
+                    ensurePostgresSchema(ds);
                 } else {
-                    runMigrations(dataSource);
+                    runMigrations(ds);
                 }
             }
         }
@@ -67,9 +72,10 @@ public final class DatabaseConfig {
      * Shuts down the connection pool. Call on application exit.
      */
     public static void shutdown() {
-        if (dataSource != null && !dataSource.isClosed()) {
-            dataSource.close();
-            dataSource = null;
+        HikariDataSource ds = dataSource.get();
+        if (ds != null && !ds.isClosed()) {
+            ds.close();
+            dataSource.set(null);
             log.info("Database connection pool closed");
         }
     }
@@ -88,6 +94,7 @@ public final class DatabaseConfig {
         config.addDataSourceProperty("cachePrepStmts", "true");
         config.addDataSourceProperty("prepStmtCacheSize", "256");
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+
         HikariDataSource ds = new HikariDataSource(config);
         log.info("Database connection pool initialized: {}", config.getJdbcUrl());
         return ds;
@@ -256,11 +263,13 @@ public final class DatabaseConfig {
                 .dataSource(ds)
                 .locations("classpath:com/appointmentscheduler/persistence/database/migration")
                 .baselineOnMigrate(true);
+
         if (isPostgres) {
             // PostgreSQL schema was created manually (pgAdmin). Treat as already at version 1.
             config.baselineVersion("1");
             log.info("PostgreSQL detected: baselining Flyway (schema created externally)");
         }
+
         Flyway flyway = config.load();
         int count = flyway.migrate().migrationsExecuted;
         log.info("Flyway migrations executed: {}", count);

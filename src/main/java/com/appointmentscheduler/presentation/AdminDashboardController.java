@@ -1,55 +1,7 @@
 package com.appointmentscheduler.presentation;
 
-import com.appointmentscheduler.domain.Administrator;
-import com.appointmentscheduler.domain.Appointment;
-import com.appointmentscheduler.domain.AuditEntry;
-import com.appointmentscheduler.domain.Clinic;
-import com.appointmentscheduler.domain.User;
-import com.appointmentscheduler.domain.UrgentAppointment;
-import com.appointmentscheduler.application.ApplicationContext;
-import com.appointmentscheduler.application.InAppMessagingService;
-import com.appointmentscheduler.application.DispatchSummary;
-import com.appointmentscheduler.application.StaffContactMessage;
-import com.appointmentscheduler.application.ClosedDayBroadcast;
-import com.appointmentscheduler.application.ExecutiveKpis;
-import com.appointmentscheduler.presentation.notification.NotificationCenter;
-import com.appointmentscheduler.presentation.notification.NotificationCenterView;
-import com.appointmentscheduler.presentation.notification.NotificationType;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.concurrent.Task;
-import javafx.application.Platform;
-import javafx.fxml.FXML;
-import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.Pagination;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.Tooltip;
-import javafx.scene.paint.Color;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.Priority;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.scene.shape.SVGPath;
-import javafx.stage.FileChooser;
-
-import java.io.File;
 import java.io.BufferedWriter;
-import java.util.ArrayList;
-import java.util.Optional;
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -57,11 +9,60 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.Optional;
 import java.util.prefs.Preferences;
+import java.util.stream.Collectors;
+
+import com.appointmentscheduler.application.ApplicationContext;
+import com.appointmentscheduler.application.ClosedDayBroadcast;
+import com.appointmentscheduler.application.DispatchSummary;
+import com.appointmentscheduler.application.ExecutiveKpis;
+import com.appointmentscheduler.application.InAppMessagingService;
+import com.appointmentscheduler.application.StaffContactMessage;
+import com.appointmentscheduler.domain.Administrator;
+import com.appointmentscheduler.domain.Appointment;
+import com.appointmentscheduler.domain.AuditEntry;
+import com.appointmentscheduler.domain.Clinic;
+import com.appointmentscheduler.domain.UrgentAppointment;
+import com.appointmentscheduler.domain.User;
+import com.appointmentscheduler.presentation.notification.NotificationCenter;
+import com.appointmentscheduler.presentation.notification.NotificationCenterView;
+import com.appointmentscheduler.presentation.notification.NotificationType;
+
+import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.concurrent.Task;
+import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.Pagination;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.SVGPath;
+import javafx.stage.FileChooser;
 
 public class AdminDashboardController {
 
@@ -1002,7 +1003,7 @@ public class AdminDashboardController {
                             .count();
                     if (todayApptsLabel != null) todayApptsLabel.setText(String.valueOf(todayCount));
                     if (weekApptsLabel != null) {
-                        LocalDate startOfWeek = today.minusDays(today.getDayOfWeek().getValue() - 1);
+                        LocalDate startOfWeek = today.minusDays(today.getDayOfWeek().getValue() - 1L);
                         LocalDate endOfWeek = startOfWeek.plusDays(6);
                         long weekCount = allAppts.stream()
                                 .filter(a -> !a.getTimeSlot().getStartTime().toLocalDate().isBefore(startOfWeek)

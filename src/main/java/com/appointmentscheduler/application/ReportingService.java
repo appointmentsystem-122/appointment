@@ -1,8 +1,5 @@
 package com.appointmentscheduler.application;
 
-import com.appointmentscheduler.domain.Appointment;
-import com.appointmentscheduler.persistence.AppointmentRepository;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Comparator;
@@ -10,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
+import com.appointmentscheduler.domain.Appointment;
+import com.appointmentscheduler.persistence.AppointmentRepository;
 
 /**
  * Backend reporting engine.
@@ -116,7 +116,7 @@ public class ReportingService {
 
     public long getThisWeekAppointmentsCount(String clinicId) {
         LocalDate now = LocalDate.now();
-        LocalDate startOfWeek = now.minusDays(now.getDayOfWeek().getValue() - 1);
+        LocalDate startOfWeek = now.minusDays(now.getDayOfWeek().getValue() - 1L);
         LocalDate endOfWeek = startOfWeek.plusDays(6);
         return getAppointmentsInRange(startOfWeek, endOfWeek, clinicId).size();
     }
@@ -126,7 +126,7 @@ public class ReportingService {
      */
     public long getLastWeekAppointmentsCount(String clinicId) {
         LocalDate now = LocalDate.now();
-        LocalDate startOfThisWeek = now.minusDays(now.getDayOfWeek().getValue() - 1);
+        LocalDate startOfThisWeek = now.minusDays(now.getDayOfWeek().getValue() - 1L);
         LocalDate startOfLastWeek = startOfThisWeek.minusWeeks(1);
         LocalDate endOfLastWeek = startOfLastWeek.plusDays(6);
         return getAppointmentsInRange(startOfLastWeek, endOfLastWeek, clinicId).size();
