@@ -73,7 +73,7 @@ public class JdbcAppointmentRepository implements AppointmentRepository {
 
     @SuppressWarnings("java:S2077")
     private static PreparedStatement prepareSafeStatement(Connection c, String sql) throws SQLException {
-        return prepareSafeStatement(c, sql);
+        return c.prepareStatement(sql);
     }
 
     @Override
