@@ -133,7 +133,40 @@ public final class AppConfig {
         if (raw == null) {
             return new String[0];
         }
-        return raw.split(",");
+
+        String[] parts = raw.split(",", -1);
+
+        for (int i = 0; i < parts.length; i++) {
+            String part = parts[i];
+
+            if (i < parts.length - 1) {
+                part = trimTrailingWhitespace(part);
+            }
+
+            if (i > 0) {
+                part = trimLeadingWhitespace(part);
+            }
+
+            parts[i] = part;
+        }
+
+        return parts;
+    }
+
+    private static String trimLeadingWhitespace(String value) {
+        int start = 0;
+        while (start < value.length() && Character.isWhitespace(value.charAt(start))) {
+            start++;
+        }
+        return value.substring(start);
+    }
+
+    private static String trimTrailingWhitespace(String value) {
+        int end = value.length();
+        while (end > 0 && Character.isWhitespace(value.charAt(end - 1))) {
+            end--;
+        }
+        return value.substring(0, end);
     }
     public static String[] getBookingServiceTypes() {
         String raw = get("booking.serviceTypes", "Remote,In person");
