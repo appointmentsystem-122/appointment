@@ -1,21 +1,20 @@
 package com.appointmentscheduler.presentation;
 
+import java.time.LocalDateTime;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import com.appointmentscheduler.application.AppConfig;
+import com.appointmentscheduler.application.ApplicationContext;
+import com.appointmentscheduler.application.SessionTimeoutPolicy;
+
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
-import com.appointmentscheduler.application.AppConfig;
-import com.appointmentscheduler.application.ApplicationContext;
-import com.appointmentscheduler.application.SessionTimeoutPolicy;
-
-import java.time.LocalDateTime;
-import java.util.Timer;
-import java.util.TimerTask;
-
 public class SessionManager {
-
     private static long getTimeoutMinutes() { return AppConfig.getSessionTimeoutMinutes(); }
     private static long getWarningMinutes() { return AppConfig.getSessionWarningMinutes(); }
 
@@ -43,6 +42,7 @@ public class SessionManager {
         warningShown = false;
         
         if (timer != null) timer.cancel();
+
         // In automated UI coverage mode we drive session flows explicitly in tests.
         // Avoid background timer noise that can race with test setup/teardown.
         if (DialogHelper.isAutoDialogs()) {
@@ -56,7 +56,7 @@ public class SessionManager {
             public void run() {
                 checkTimeout();
             }
-        }, 1000 * 60, 1000 * 30); // Check every 30 seconds after 1 min initial delay
+        }, 1000L * 60, 1000L * 30); // Check every 30 seconds after 1 min initial delay
     }
 
     public void registerScene(Scene scene) {
@@ -75,6 +75,7 @@ public class SessionManager {
 
     private void updateActivity(Event e) {
         lastActivity = LocalDateTime.now();
+
         // If they became active after warning but before timeout, reset it
         if (warningShown) {
             warningShown = false;
@@ -91,15 +92,20 @@ public class SessionManager {
                 getWarningMinutes(),
                 auth != null && auth.getCurrentUser() != null
         );
+
         if (action == SessionTimeoutPolicy.Action.LOGOUT) {
             Platform.runLater(() -> {
                 var authSvc = ApplicationContext.getAuthService();
                 var user = authSvc != null ? authSvc.getCurrentUser() : null;
+
                 if (user != null && ApplicationContext.getAuditLogService() != null) {
                     ApplicationContext.getAuditLogService().log(user, "LOGOUT", "Session expired (inactivity)");
                 }
+
                 unregister();
+
                 if (authSvc != null) authSvc.logout();
+
                 DialogHelper.showError(I18n.get("session.expired"), I18n.get("session.expired.message"));
                 MainApp.loadScreen(ScreenConstants.FXML_LOGIN, ScreenConstants.titleLogin());
             });
@@ -123,23 +129,38 @@ public class SessionManager {
         alert.setTitle(AppConfig.getAppName());
         alert.setHeaderText(I18n.get("session.warning"));
         alert.setContentText(I18n.get("session.warning.message", minutesLeft));
-        javafx.scene.control.ButtonType stay = new javafx.scene.control.ButtonType(I18n.get("session.stay"), javafx.scene.control.ButtonBar.ButtonData.OK_DONE);
-        javafx.scene.control.ButtonType logout = new javafx.scene.control.ButtonType(I18n.get("session.logout"), javafx.scene.control.ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        javafx.scene.control.ButtonType stay = new javafx.scene.control.ButtonType(
+                I18n.get("session.stay"),
+                javafx.scene.control.ButtonBar.ButtonData.OK_DONE
+        );
+        javafx.scene.control.ButtonType logout = new javafx.scene.control.ButtonType(
+                I18n.get("session.logout"),
+                javafx.scene.control.ButtonBar.ButtonData.CANCEL_CLOSE
+        );
+
         alert.getButtonTypes().setAll(stay, logout);
+
         java.util.Optional<javafx.scene.control.ButtonType> result =
                 DialogHelper.isAutoDialogs() ? java.util.Optional.of(stay) : alert.showAndWait();
+
         boolean choseStay = result.isPresent()
                 && result.get().getButtonData() == javafx.scene.control.ButtonBar.ButtonData.OK_DONE;
+
         if (choseStay) {
             extendSession();
         } else {
             var authSvc = ApplicationContext.getAuthService();
             var user = authSvc != null ? authSvc.getCurrentUser() : null;
+
             if (user != null && ApplicationContext.getAuditLogService() != null) {
                 ApplicationContext.getAuditLogService().log(user, "LOGOUT", "User chose to log out from session warning");
             }
+
             unregister();
+
             if (authSvc != null) authSvc.logout();
+
             MainApp.loadScreen(ScreenConstants.FXML_LOGIN, ScreenConstants.titleLogin());
         }
     }

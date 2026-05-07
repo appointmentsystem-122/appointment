@@ -27,7 +27,7 @@ import com.zaxxer.hikari.HikariDataSource;
  */
 public final class DatabaseConfig {
     private static final Logger log = LoggerFactory.getLogger(DatabaseConfig.class);
-    private static final AtomicReference<HikariDataSource> dataSource = new AtomicReference<>();
+    private static AtomicReference<HikariDataSource> dataSource = new AtomicReference<>();
 
     /**
      * Returns a shared DataSource when database is enabled; otherwise empty.
@@ -36,10 +36,10 @@ public final class DatabaseConfig {
         if (!AppConfig.isDatabaseEnabled()) {
             return Optional.empty();
         }
-        if (dataSource.get() == null) {
+        if (dataSourceRef().get() == null) {
             initializePoolIfAbsent();
         }
-        return Optional.of(dataSource.get());
+        return Optional.of(dataSourceRef().get());
     }
 
     /**
@@ -49,9 +49,10 @@ public final class DatabaseConfig {
      */
     static void initializePoolIfAbsent() {
         synchronized (DatabaseConfig.class) {
-            if (dataSource.get() == null) {
+            AtomicReference<HikariDataSource> ref = dataSourceRef();
+            if (ref.get() == null) {
                 HikariDataSource ds = createPool();
-                dataSource.set(ds);
+                ref.set(ds);
 
                 String url = AppConfig.getDatabaseUrl();
                 boolean isPostgres = url != null && url.toLowerCase().contains("postgresql");
@@ -68,14 +69,21 @@ public final class DatabaseConfig {
         }
     }
 
+    private static AtomicReference<HikariDataSource> dataSourceRef() {
+        if (dataSource == null) {
+            dataSource = new AtomicReference<>();
+        }
+        return dataSource;
+    }
+
     /**
      * Shuts down the connection pool. Call on application exit.
      */
     public static void shutdown() {
-        HikariDataSource ds = dataSource.get();
+        HikariDataSource ds = dataSourceRef().get();
         if (ds != null && !ds.isClosed()) {
             ds.close();
-            dataSource.set(null);
+            dataSourceRef().set(null);
             log.info("Database connection pool closed");
         }
     }
