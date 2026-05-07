@@ -1,4 +1,7 @@
-@startuml Appointment Scheduling System
+@startuml AppointmentSchedulingSystem
+
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
 
 package domain {
     class User {
@@ -8,14 +11,17 @@ package domain {
         - password: String
         + isAdmin(): boolean
     }
-    class Administrator extends User {
+
+    class Administrator {
         + isAdmin(): boolean
     }
+
     class TimeSlot {
         - startTime: LocalDateTime
         - endTime: LocalDateTime
         + overlapsWith(TimeSlot): boolean
     }
+
     abstract class Appointment {
         - id: String
         - status: String
@@ -23,45 +29,72 @@ package domain {
         - patient: User
         - timeSlot: TimeSlot
     }
-    class InPersonAppointment extends Appointment {
+
+    class InPersonAppointment {
         - location: String
     }
-    class VirtualAppointment extends Appointment {
+
+    class VirtualAppointment {
         - meetingLink: String
     }
-    class FollowUpAppointment extends Appointment {}
-    class AssessmentAppointment extends Appointment {}
-    class GroupAppointment extends Appointment {
+
+    class FollowUpAppointment
+    class AssessmentAppointment
+    class GroupAppointment {
         - maxCapacity: int
     }
-    class IndividualAppointment extends Appointment {}
-    class UrgentAppointment extends Appointment {}
+    class IndividualAppointment
+    class UrgentAppointment
+
     class Schedule {
         - appointments: List<Appointment>
         + getOverlappingAppointments(TimeSlot): List<Appointment>
     }
+
     class NotificationMessage {
         - subject: String
         - content: String
         - timestamp: LocalDateTime
     }
+
+    Administrator --|> User
+    InPersonAppointment --|> Appointment
+    VirtualAppointment --|> Appointment
+    FollowUpAppointment --|> Appointment
+    AssessmentAppointment --|> Appointment
+    GroupAppointment --|> Appointment
+    IndividualAppointment --|> Appointment
+    UrgentAppointment --|> Appointment
+
+    Appointment --> User
+    Appointment --> TimeSlot
+    Schedule "1" o-- "*" Appointment
 }
 
-package domain.rules {
+package "domain.rules" {
     interface BookingRuleStrategy {
         + isValid(Appointment): boolean
     }
-    class DurationRuleStrategy implements BookingRuleStrategy
-    class CapacityRuleStrategy implements BookingRuleStrategy
-    class AppointmentTypeRuleStrategy implements BookingRuleStrategy
+
+    class DurationRuleStrategy
+    class CapacityRuleStrategy
+    class AppointmentTypeRuleStrategy
+
+    DurationRuleStrategy ..|> BookingRuleStrategy
+    CapacityRuleStrategy ..|> BookingRuleStrategy
+    AppointmentTypeRuleStrategy ..|> BookingRuleStrategy
 }
 
-package domain.notifiers {
+package "domain.notifiers" {
     interface Observer {
         + notify(User, String)
     }
-    class EmailNotifier implements Observer
-    class CalendarNotifier implements Observer
+
+    class EmailNotifier
+    class CalendarNotifier
+
+    EmailNotifier ..|> Observer
+    CalendarNotifier ..|> Observer
 }
 
 package persistence {
@@ -69,37 +102,48 @@ package persistence {
         + save(User)
         + findByEmail(String): Optional<User>
     }
+
     interface AppointmentRepository {
         + save(Appointment)
         + findById(String): Optional<Appointment>
         + deleteById(String)
     }
-    class InMemoryUserRepository implements UserRepository
-    class InMemoryAppointmentRepository implements AppointmentRepository
+
+    class InMemoryUserRepository
+    class InMemoryAppointmentRepository
+
+    InMemoryUserRepository ..|> UserRepository
+    InMemoryAppointmentRepository ..|> AppointmentRepository
 }
 
 package application {
     class AuthService {
         + login(String, String): boolean
     }
+
     class BookingService {
         + bookAppointment(Appointment): boolean
         + cancelAppointment(String, User): boolean
         + modifyAppointment(String, User, TimeSlot): boolean
     }
+
     class ScheduleService {
         + getAvailableSlots(LocalDate): List<TimeSlot>
     }
+
     class NotificationService {
         + attach(Observer)
         + notifyAllObservers(User, String)
     }
-    
+
+    AuthService --> UserRepository
     BookingService --> AppointmentRepository
     BookingService --> ScheduleService
     BookingService --> NotificationService
     BookingService --> BookingRuleStrategy
-    AuthService --> UserRepository
+    ScheduleService --> AppointmentRepository
+    NotificationService --> Observer
+    NotificationService --> NotificationMessage
 }
 
 package presentation {
@@ -109,10 +153,17 @@ package presentation {
     class AdminDashboardController
     class BookAppointmentController
     class ModifyAppointmentController
+
+    MainApp --> AuthService
+    MainApp --> BookingService
+    MainApp --> ScheduleService
+    MainApp --> NotificationService
+
+    LoginController --> AuthService
+    PatientDashboardController --> BookingService
+    AdminDashboardController --> BookingService
+    BookAppointmentController --> BookingService
+    ModifyAppointmentController --> BookingService
 }
 
-MainApp --> AuthService
-MainApp --> BookingService
-MainApp --> ScheduleService
-MainApp --> NotificationService
 @enduml
