@@ -15,20 +15,29 @@ public final class AppointmentTypeConfig {
     private static final String SUB = ":";
     private static final Preferences PREFS = Preferences.userNodeForPackage(AppointmentTypeConfig.class);
 
-    public static final class Type {
-        private final String name;
-        private final int durationMinutes;
-        private final int maxParticipants;
+    private AppointmentTypeConfig() {
+        // Utility class
+    }
 
-        public Type(String name, int durationMinutes, int maxParticipants) {
-            this.name = name != null ? name : "General";
-            this.durationMinutes = durationMinutes <= 0 ? 60 : durationMinutes;
-            this.maxParticipants = maxParticipants <= 0 ? 1 : maxParticipants;
+    public record Type(String name, int durationMinutes, int maxParticipants) {
+
+        public Type {
+            name = name != null ? name : "General";
+            durationMinutes = durationMinutes <= 0 ? 60 : durationMinutes;
+            maxParticipants = maxParticipants <= 0 ? 1 : maxParticipants;
         }
 
-        public String getName() { return name; }
-        public int getDurationMinutes() { return durationMinutes; }
-        public int getMaxParticipants() { return maxParticipants; }
+        public String getName() {
+            return name;
+        }
+
+        public int getDurationMinutes() {
+            return durationMinutes;
+        }
+
+        public int getMaxParticipants() {
+            return maxParticipants;
+        }
     }
 
     public static List<Type> getAll() {
@@ -40,6 +49,7 @@ public final class AppointmentTypeConfig {
             }
             return def;
         }
+
         List<Type> list = new ArrayList<>();
         for (String part : raw.split("\\" + SEP)) {
             String[] kv = part.split(SUB);
@@ -47,6 +57,7 @@ public final class AppointmentTypeConfig {
                 String typeName = kv[0].trim();
                 Integer durationMinutes = parsePositiveInt(kv[1]);
                 Integer maxParticipants = parsePositiveInt(kv[2]);
+
                 if (durationMinutes != null && maxParticipants != null) {
                     list.add(new Type(typeName, durationMinutes, maxParticipants));
                 }
@@ -57,6 +68,7 @@ public final class AppointmentTypeConfig {
 
     private static Integer parsePositiveInt(String rawValue) {
         if (rawValue == null) return null;
+
         try {
             int parsed = Integer.parseInt(rawValue.trim());
             return parsed > 0 ? parsed : null;
@@ -67,9 +79,11 @@ public final class AppointmentTypeConfig {
 
     public static void save(List<Type> types) {
         if (types == null || types.isEmpty()) return;
+
         String value = types.stream()
                 .map(t -> t.getName() + SUB + t.getDurationMinutes() + SUB + t.getMaxParticipants())
                 .reduce((a, b) -> a + SEP + b).orElse("");
+
         PREFS.put(PREFS_KEY, value);
     }
 
