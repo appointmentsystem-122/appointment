@@ -210,6 +210,7 @@ class BookAppointmentControllerTargetedBranchesTest {
         @SuppressWarnings("unchecked")
         ComboBox<TimeSlot> slots = (ComboBox<TimeSlot>) getField(c, "timeSlotCombo");
         assertThat(slots.getItems()).isNotEmpty();
+        assertThat(msg.getStyleClass()).isNotEmpty();
         assertThat(msg.getStyleClass()).doesNotContain("error-label");
     }
 

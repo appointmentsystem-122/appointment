@@ -1,19 +1,16 @@
 package com.appointmentscheduler.application;
 
+import java.lang.reflect.Field;
+import java.util.Properties;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.Properties;
-
 import org.junit.jupiter.api.parallel.ResourceLock;
-import java.lang.reflect.Field;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 @ResourceLock("AppConfigProps")
 class AppConfigTest {
-
     @BeforeEach
     @AfterEach
     void syncAppConfigWithClasspath() {
@@ -40,7 +37,7 @@ class AppConfigTest {
         assertThat(AppConfig.getOnsiteLocationLabel()).isNotBlank();
         assertThat(AppConfig.getBookingAppointmentTypes()).isNotEmpty();
         assertThat(AppConfig.getBookingConsultationTypeIndex()).isNotNegative();
-        assertThat(AppConfig.getBookingFollowUpTypeIndex()).isNotNull();
+        assertThat(AppConfig.getBookingFollowUpTypeIndex()).isNotNegative();
         assertThat(AppConfig.getDatabaseUrl()).isNotBlank();
         assertThat(AppConfig.getDatabaseUsername()).isNotNull();
     }

@@ -1,5 +1,13 @@
 package com.appointmentscheduler.presentation.notification;
 
+import java.util.Comparator;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -7,34 +15,22 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.stream.Collectors;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * Central notification hub: in-memory store with observable list and unread count.
  * Thread-safe; use from any thread; UI updates run on JavaFX thread.
  */
 public final class NotificationCenter {
-
     private static final Logger log = LoggerFactory.getLogger(NotificationCenter.class);
     private static final int MAX_ITEMS = 200;
-    private static volatile NotificationCenter instance;
+    private static NotificationCenter instance;
 
     private final ObservableList<AppNotification> allNotifications = FXCollections.observableArrayList();
     private final CopyOnWriteArrayList<Runnable> unreadCountListeners = new CopyOnWriteArrayList<>();
     private final IntegerProperty unreadCount = new SimpleIntegerProperty(0);
 
-    public static NotificationCenter getInstance() {
+    public static synchronized NotificationCenter getInstance() {
         if (instance == null) {
-            synchronized (NotificationCenter.class) {
-                if (instance == null) {
-                    instance = new NotificationCenter();
-                }
-            }
+            instance = new NotificationCenter();
         }
         return instance;
     }
