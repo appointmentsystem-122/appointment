@@ -9,7 +9,6 @@ import java.sql.Statement;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
 
 import javax.sql.DataSource;
 
@@ -27,7 +26,7 @@ import com.zaxxer.hikari.HikariDataSource;
  */
 public final class DatabaseConfig {
     private static final Logger log = LoggerFactory.getLogger(DatabaseConfig.class);
-    private static AtomicReference<HikariDataSource> dataSource = new AtomicReference<>();
+    private static HikariDataSource dataSource;
 
     /**
      * Returns a shared DataSource when database is enabled; otherwise empty.
@@ -36,54 +35,40 @@ public final class DatabaseConfig {
         if (!AppConfig.isDatabaseEnabled()) {
             return Optional.empty();
         }
-        if (dataSourceRef().get() == null) {
-            initializePoolIfAbsent();
-        }
-        return Optional.of(dataSourceRef().get());
+        initializePoolIfAbsent();
+        return Optional.of(dataSource);
     }
 
     /**
-     * Lazy pool creation with double-checked locking semantics (inner guard lives here).
+     * Lazy pool creation with synchronized access.
      * Package-private so tests can invoke a second time to cover the {@code dataSource != null} path
      * inside the synchronized block without cross-thread flakiness.
      */
-    static void initializePoolIfAbsent() {
-        synchronized (DatabaseConfig.class) {
-            AtomicReference<HikariDataSource> ref = dataSourceRef();
-            if (ref.get() == null) {
-                HikariDataSource ds = createPool();
-                ref.set(ds);
+    static synchronized void initializePoolIfAbsent() {
+        if (dataSource == null) {
+            dataSource = createPool();
 
-                String url = AppConfig.getDatabaseUrl();
-                boolean isPostgres = url != null && url.toLowerCase().contains("postgresql");
-                boolean isMySql = url != null && url.toLowerCase().contains("mysql");
+            String url = AppConfig.getDatabaseUrl();
+            boolean isPostgres = url != null && url.toLowerCase().contains("postgresql");
+            boolean isMySql = url != null && url.toLowerCase().contains("mysql");
 
-                if (isMySql) {
-                    ensureMySqlSchema(ds);
-                } else if (isPostgres) {
-                    ensurePostgresSchema(ds);
-                } else {
-                    runMigrations(ds);
-                }
+            if (isMySql) {
+                ensureMySqlSchema(dataSource);
+            } else if (isPostgres) {
+                ensurePostgresSchema(dataSource);
+            } else {
+                runMigrations(dataSource);
             }
         }
-    }
-
-    private static AtomicReference<HikariDataSource> dataSourceRef() {
-        if (dataSource == null) {
-            dataSource = new AtomicReference<>();
-        }
-        return dataSource;
     }
 
     /**
      * Shuts down the connection pool. Call on application exit.
      */
-    public static void shutdown() {
-        HikariDataSource ds = dataSourceRef().get();
-        if (ds != null && !ds.isClosed()) {
-            ds.close();
-            dataSourceRef().set(null);
+    public static synchronized void shutdown() {
+        if (dataSource != null && !dataSource.isClosed()) {
+            dataSource.close();
+            dataSource = null;
             log.info("Database connection pool closed");
         }
     }
