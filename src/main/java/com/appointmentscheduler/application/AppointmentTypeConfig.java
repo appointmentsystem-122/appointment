@@ -16,7 +16,6 @@ public final class AppointmentTypeConfig {
     private static final Preferences PREFS = Preferences.userNodeForPackage(AppointmentTypeConfig.class);
 
     private AppointmentTypeConfig() {
-        // Utility class
     }
 
     public record Type(String name, int durationMinutes, int maxParticipants) {
@@ -49,7 +48,6 @@ public final class AppointmentTypeConfig {
             }
             return def;
         }
-
         List<Type> list = new ArrayList<>();
         for (String part : raw.split("\\" + SEP)) {
             String[] kv = part.split(SUB);
@@ -57,7 +55,6 @@ public final class AppointmentTypeConfig {
                 String typeName = kv[0].trim();
                 Integer durationMinutes = parsePositiveInt(kv[1]);
                 Integer maxParticipants = parsePositiveInt(kv[2]);
-
                 if (durationMinutes != null && maxParticipants != null) {
                     list.add(new Type(typeName, durationMinutes, maxParticipants));
                 }
@@ -68,7 +65,6 @@ public final class AppointmentTypeConfig {
 
     private static Integer parsePositiveInt(String rawValue) {
         if (rawValue == null) return null;
-
         try {
             int parsed = Integer.parseInt(rawValue.trim());
             return parsed > 0 ? parsed : null;
@@ -79,11 +75,9 @@ public final class AppointmentTypeConfig {
 
     public static void save(List<Type> types) {
         if (types == null || types.isEmpty()) return;
-
         String value = types.stream()
                 .map(t -> t.getName() + SUB + t.getDurationMinutes() + SUB + t.getMaxParticipants())
                 .reduce((a, b) -> a + SEP + b).orElse("");
-
         PREFS.put(PREFS_KEY, value);
     }
 
