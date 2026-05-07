@@ -26,7 +26,6 @@ import com.appointmentscheduler.persistence.UserRepository;
  * Uses simple JSON-like structure; in production would use proper JSON library.
  */
 public class BackupRestoreService {
-
     private final AppointmentRepository appointmentRepository;
     private final UserRepository userRepository;
     private final DoctorRepository doctorRepository;
@@ -47,6 +46,7 @@ public class BackupRestoreService {
 
     /**
      * Validates the output path to ensure it can be used for file operations.
+     *
      * @param outputPath the path to validate
      * @throws IOException if the path is invalid
      */
@@ -54,7 +54,7 @@ public class BackupRestoreService {
         if (outputPath == null || outputPath.trim().isEmpty()) {
             throw new IOException("Output path cannot be null or empty");
         }
-        
+
         try {
             // Reject obviously invalid "drive" patterns like "?:\..." that can silently succeed on Linux
             // (where '?' and ':' may be legal filename characters) but are invalid on Windows.
@@ -65,14 +65,13 @@ public class BackupRestoreService {
 
             Path path = Path.of(outputPath);
             Path parent = path.getParent();
-            
+
             if (parent != null && !Files.exists(parent)) {
                 throw new IOException("Parent directory does not exist: " + parent);
             }
+        } catch (IOException e) {
+            throw e;
         } catch (Exception e) {
-            if (e instanceof IOException) {
-                throw (IOException) e;
-            }
             throw new IOException("Invalid file path: " + outputPath, e);
         }
     }
@@ -97,6 +96,7 @@ public class BackupRestoreService {
             sb.append("doctors=").append(doctors.size()).append("\n");
             sb.append("rooms=").append(rooms.size()).append("\n");
             sb.append("clinics=").append(clinics.size()).append("\n");
+
             Files.writeString(Path.of(outputPath), sb.toString(), StandardCharsets.UTF_8);
         } catch (Exception e) {
             throw new IOException("Failed to export backup manifest", e);
@@ -110,22 +110,23 @@ public class BackupRestoreService {
         try {
             validatePath(outputPath);
             List<Appointment> appts = appointmentRepository.findAll().stream()
-                .filter(java.util.Objects::nonNull)
-                .filter(a -> !a.isDeleted())
-                .collect(Collectors.toList());
+                    .filter(java.util.Objects::nonNull)
+                    .filter(a -> !a.isDeleted())
+                    .collect(Collectors.toList());
+
             try (PrintWriter w = new PrintWriter(Files.newBufferedWriter(Path.of(outputPath), StandardCharsets.UTF_8))) {
                 w.println("id,patientId,patientName,startTime,endTime,status,doctorId,roomId,clinicId");
                 for (Appointment a : appts) {
                     w.printf("%s,%s,%s,%s,%s,%s,%s,%s,%s%n",
-                        a.getId(),
-                        a.getPatient() != null ? a.getPatient().getId() : "",
-                        a.getPatient() != null ? a.getPatient().getName().replace(",", " ") : "",
-                        a.getTimeSlot() != null ? a.getTimeSlot().getStartTime() : "",
-                        a.getTimeSlot() != null ? a.getTimeSlot().getEndTime() : "",
-                        a.getStatus(),
-                        a.getDoctorId() != null ? a.getDoctorId() : "",
-                        a.getRoomId() != null ? a.getRoomId() : "",
-                        a.getClinicId() != null ? a.getClinicId() : ""
+                            a.getId(),
+                            a.getPatient() != null ? a.getPatient().getId() : "",
+                            a.getPatient() != null ? a.getPatient().getName().replace(",", " ") : "",
+                            a.getTimeSlot() != null ? a.getTimeSlot().getStartTime() : "",
+                            a.getTimeSlot() != null ? a.getTimeSlot().getEndTime() : "",
+                            a.getStatus(),
+                            a.getDoctorId() != null ? a.getDoctorId() : "",
+                            a.getRoomId() != null ? a.getRoomId() : "",
+                            a.getClinicId() != null ? a.getClinicId() : ""
                     );
                 }
             }

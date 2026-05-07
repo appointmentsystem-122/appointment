@@ -1,13 +1,14 @@
 package com.appointmentscheduler.application;
 
-import com.appointmentscheduler.domain.AppointmentType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.appointmentscheduler.domain.AppointmentType;
 
 /**
  * Manages appointment types (name, duration, max participants). Persisted in Preferences.
@@ -19,6 +20,10 @@ public final class AppointmentTypeService {
     private static final Preferences PREFS = Preferences.userNodeForPackage(AppointmentTypeService.class);
     private static final String SEP = "|";
     private static final String DEF = "Standard|30|1,New session|60|1,Return visit|15|10,Express|30|1,Extended session|90|1,Preparation|45|1";
+
+    private AppointmentTypeService() {
+        // Utility class
+    }
 
     /**
      * Loads all configured appointment types from the user preferences store.
